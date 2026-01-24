@@ -6,9 +6,12 @@ import {
   Scripts,
   ScrollRestoration,
 } from "react-router";
+import { useEffect } from "react";
 
 import type { Route } from "./+types/root";
 import "./app.css";
+import { useThemeStore } from "../stores/use-theme-store";
+import { useLanguageStore } from "../stores/use-language-store";
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -24,13 +27,37 @@ export const links: Route.LinksFunction = () => [
 ];
 
 export function Layout({ children }: { children: React.ReactNode }) {
+  const { theme } = useThemeStore();
+  const { language } = useLanguageStore();
+
+  // This effect will ensure the correct class is applied on the client side
+  // It also ensures that if a user changes the system theme preference, it's reflected
+  
+
   return (
-    <html lang="en">
+    <html lang={language} className={theme}>
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <Meta />
         <Links />
+        {/* Script to prevent FOUC (Flash of Unstyled Content) */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              try {
+                const theme = localStorage.getItem('huini-site-theme') ? JSON.parse(localStorage.getItem('huini-site-theme')).state.theme : null;
+                if (theme) {
+                  document.documentElement.classList.add(theme);
+                } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                  document.documentElement.classList.add('dark');
+                }
+              } catch (e) {
+                console.error("Failed to apply theme from localStorage", e);
+              }
+            `,
+          }}
+        />
       </head>
       <body>
         {children}
@@ -73,3 +100,4 @@ export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
     </main>
   );
 }
+

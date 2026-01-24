@@ -1,15 +1,82 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Quicksand:wght@300;400;500;600;700&display=swap');
+
+@layer base {
+  :root {
+    --background: 0 0% 98%; /* #FAFAFA */
+    --foreground: 240 5% 5%;  /* #09090B */
+
+    --muted: 210 40% 96.1%; /* Default shadcn/ui muted, adjusted for new background */
+    --muted-foreground: 215.4 16.3% 46.9%; /* Default shadcn/ui muted-foreground */
+
+    --popover: 0 0% 98%; /* #FAFAFA */
+    --popover-foreground: 240 5% 5%; /* #09090B */
+
+    --border: 214.3 31.8% 91.4%; /* Default shadcn/ui border */
+    --input: 214.3 31.8% 91.4%; /* Default shadcn/ui input */
+
+    --card: 0 0% 98%; /* #FAFAFA */
+    --card-foreground: 240 5% 5%; /* #09090B */
+
+    --primary: 240 5% 10%; /* #18181B */
+    --primary-foreground: 0 0% 98%; /* Contrast for primary */
+
+    --secondary: 228 8% 26%; /* #3F3F46 */
+    --secondary-foreground: 0 0% 98%; /* Contrast for secondary */
+
+    --accent: 219 92% 53%; /* #2563EB (CTA Blue) */
+    --accent-foreground: 0 0% 98%; /* Contrast for accent */
+
+    --destructive: 0 100% 50%; /* Default shadcn/ui destructive */
+    --destructive-foreground: 210 40% 98%; /* Default shadcn/ui destructive-foreground */
+
+    --ring: 215 20.2% 65.1%; /* Default shadcn/ui ring */
+
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 240 5% 5%; /* #09090B */
+    --foreground: 0 0% 98%; /* #FAFAFA */
+
+    --muted: 228 8% 26%; /* Secondary color for dark muted */
+    --muted-foreground: 217.9 10.6% 64.5%; /* Default shadcn/ui muted-foreground */
+
+    --popover: 240 5% 5%; /* #09090B */
+    --popover-foreground: 0 0% 98%; /* #FAFAFA */
+
+    --border: 228 8% 26%; /* Secondary color for dark border */
+    --input: 228 8% 26%; /* Secondary color for dark input */
+
+    --card: 240 5% 5%; /* #09090B */
+    --card-foreground: 0 0% 98%; /* #FAFAFA */
+
+    --primary: 0 0% 98%; /* #FAFAFA (Light for primary in dark mode) */
+    --primary-foreground: 240 5% 10%; /* Contrast for primary in dark mode */
+
+    --secondary: 240 5% 10%; /* Primary color for secondary in dark mode */
+    --secondary-foreground: 0 0% 98%; /* Contrast for secondary in dark mode */
+
+    --accent: 219 92% 53%; /* #2563EB (CTA Blue) */
+    --accent-foreground: 0 0% 98%; /* Contrast for accent */
+
+    --destructive: 0 62.8% 30.6%; /* Default shadcn/ui destructive */
+    --destructive-foreground: 210 40% 98%; /* Default shadcn/ui destructive-foreground */
+
+    --ring: 216 34.1% 73.1%; /* Default shadcn/ui ring */
+  }
+}
 
 @theme {
-  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif,
-    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --font-sans: "Quicksand", sans-serif;
+  --font-serif: "Caveat", cursive;
 }
 
 html,
 body {
-  @apply bg-white dark:bg-gray-950;
-
-  @media (prefers-color-scheme: dark) {
-    color-scheme: dark;
-  }
+  @apply font-sans;
+  color-scheme: light dark;
 }
