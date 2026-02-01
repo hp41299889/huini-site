@@ -1,0 +1,29 @@
+{
+  "navbar": {
+    "site_title": "Huini Site",
+    "home": "Home",
+    "demos": "Demos",
+    "about": "About/Contact",
+    "toggle_theme": "Toggle theme",
+    "toggle_language": "Toggle language"
+  },
+  "demos_list": {
+    "all_demos": "All Demos List",
+    "click_to_view": "Click to view this type of Web System Demo.",
+    "cms_title": "Content Management System (CMS)",
+    "ecommerce_onepage_title": "One-page E-commerce Site",
+    "content_promotion_title": "Content Promotion Site",
+    "erp_title": "Enterprise Resource Planning (ERP)",
+    "corporate_website_title": "Corporate Official Website",
+    "ecommerce_platform_title": "E-commerce Platform",
+    "dashboard_title": "Dashboard/Analytics Platform",
+    "social_media_feed_title": "Social Media Feed/Profile",
+    "project_management_title": "Project Management Tool",
+    "booking_system_title": "Booking/Reservation System",
+    "lms_title": "Learning Management System (LMS)",
+    "blog_title": "Blog/Article Platform",
+    "forum_title": "Forum/Community Site",
+    "portfolio_title": "Portfolio/Personal Website",
+    "todo_list_title": "To-Do List/Task Manager"
+  }
+}

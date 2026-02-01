@@ -1,0 +1,266 @@
+import React, { useState } from "react";
+import { Button } from "~/components/ui/button";
+import { Input } from "~/components/ui/input";
+import { Textarea } from "~/components/ui/textarea";
+import { motion } from "framer-motion";
+import { ArrowRightIcon, CheckCircle2Icon } from "lucide-react";
+
+const sectionVariants = {
+  hidden: { opacity: 0, y: 50 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } },
+};
+
+const imageVariants = {
+  hidden: { opacity: 0, scale: 0.8 },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    transition: { duration: 1, ease: "easeOut" },
+  },
+};
+
+export default function ContentPromotionDemo() {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    message: "",
+  });
+  const [formSubmitted, setFormSubmitted] = useState(false);
+
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    console.log("Form Submitted:", formData);
+    // Simulate API call
+    setTimeout(() => {
+      setFormSubmitted(true);
+      setFormData({ name: "", email: "", message: "" });
+    }, 1000);
+  };
+
+  return (
+    <div className="bg-background text-foreground">
+      {/* Hero Section */}
+      <motion.section
+        className="relative h-[60vh] md:h-[75vh] flex items-center justify-center text-center bg-gradient-to-r from-primary to-blue-600 text-white overflow-hidden p-4"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1 }}
+      >
+        <img
+          src="https://images.unsplash.com/photo-1517036611336-f044d081f9b3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w1NzM4OTAyMnwwfDF8cmFuZG9tfHx8fHx8fHx8MTcwMTg4NTcwMHw&ixlib=rb-4.0.3&q=80&w=1200"
+          alt="Hero Background"
+          className="absolute inset-0 w-full h-full object-cover opacity-30"
+        />
+        <div className="relative z-10 max-w-3xl">
+          <motion.h1
+            className="text-4xl md:text-6xl font-extrabold leading-tight mb-4 drop-shadow-lg"
+            initial={{ y: -50, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ delay: 0.5, duration: 0.8 }}
+          >
+            創新解決方案，引領未來
+          </motion.h1>
+          <motion.p
+            className="text-lg md:text-xl mb-8 drop-shadow-md"
+            initial={{ y: 50, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ delay: 0.7, duration: 0.8 }}
+          >
+            我們致力於為您提供卓越的服務與無與倫比的體驗。
+          </motion.p>
+          <motion.div
+            initial={{ scale: 0.8, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ delay: 1, duration: 0.5 }}
+          >
+            <Button
+              size="lg"
+              className="bg-white text-primary hover:bg-gray-100 shadow-lg transition-all"
+            >
+              了解更多 <ArrowRightIcon className="ml-2 h-5 w-5" />
+            </Button>
+          </motion.div>
+        </div>
+      </motion.section>
+
+      {/* Features Section */}
+      <motion.section
+        className="py-16 md:py-24 bg-card"
+        variants={sectionVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.3 }}
+      >
+        <div className="container mx-auto px-4 text-center">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">
+            我們能為您做什麼？
+          </h2>
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-12">
+            從策略規劃到實施，我們提供全方位的專業服務，助您的業務騰飛。
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <motion.div variants={sectionVariants}>
+              <h3 className="text-xl font-semibold mb-2">數位轉型</h3>
+              <p className="text-muted-foreground">
+                協助企業擁抱最新技術，提升營運效率。
+              </p>
+            </motion.div>
+            <motion.div variants={sectionVariants}>
+              <h3 className="text-xl font-semibold mb-2">市場拓展</h3>
+              <p className="text-muted-foreground">
+                透過精準策略，將您的產品推向更廣闊的市場。
+              </p>
+            </motion.div>
+            <motion.div variants={sectionVariants}>
+              <h3 className="text-xl font-semibold mb-2">品牌建設</h3>
+              <p className="text-muted-foreground">
+                塑造獨特品牌形象，增強市場競爭力。
+              </p>
+            </motion.div>
+          </div>
+        </div>
+      </motion.section>
+
+      {/* About Section with Image */}
+      <motion.section
+        className="py-16 md:py-24 bg-background"
+        variants={sectionVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.3 }}
+      >
+        <div className="container mx-auto px-4 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+          <motion.div variants={imageVariants}>
+            <img
+              src="https://images.unsplash.com/photo-1520607162513-772960444269?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w1NzM4OTAyMnwwfDF8cmFuZG9tfHx8fHx8fHx8MTcwMTg4NTcwMHw&ixlib=rb-4.0.3&q=80&w=800"
+              alt="Team Collaboration"
+              className="w-full h-auto rounded-lg shadow-xl"
+            />
+          </motion.div>
+          <motion.div variants={sectionVariants}>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">關於我們</h2>
+            <p className="text-lg text-muted-foreground mb-4">
+              我們是一群充滿熱情與經驗的專業團隊，致力於為客戶提供創新且高效的解決方案。
+            </p>
+            <p className="text-muted-foreground">
+              秉持著客戶至上的理念，我們不斷追求卓越，協助企業在數位時代中取得成功。
+            </p>
+            <Button className="mt-8">
+              了解團隊 <ArrowRightIcon className="ml-2 h-5 w-5" />
+            </Button>
+          </motion.div>
+        </div>
+      </motion.section>
+
+      {/* Contact Form Section */}
+      <motion.section
+        className="py-16 md:py-24 bg-card"
+        variants={sectionVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.3 }}
+      >
+        <div className="container mx-auto px-4 max-w-2xl">
+          <h2 className="text-3xl md:text-4xl font-bold text-center mb-4">
+            聯絡我們
+          </h2>
+          <p className="text-lg text-muted-foreground text-center mb-12">
+            有任何疑問或合作意向？請填寫以下表格，我們將盡快與您聯繫。
+          </p>
+          <motion.form
+            onSubmit={handleSubmit}
+            className="space-y-6 bg-background p-8 rounded-lg shadow-lg"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2, duration: 0.6 }}
+          >
+            {formSubmitted ? (
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                className="text-center py-10"
+              >
+                <CheckCircle2Icon className="h-20 w-20 text-green-500 mx-auto mb-4" />
+                <h3 className="text-2xl font-bold text-green-600">
+                  訊息已送出！
+                </h3>
+                <p className="text-muted-foreground">
+                  感謝您的訊息，我們會盡快回覆。
+                </p>
+                <Button
+                  onClick={() => setFormSubmitted(false)}
+                  className="mt-6"
+                >
+                  送出另一則訊息
+                </Button>
+              </motion.div>
+            ) : (
+              <>
+                <div>
+                  <label
+                    htmlFor="name"
+                    className="block text-sm font-medium mb-2"
+                  >
+                    您的姓名
+                  </label>
+                  <Input
+                    type="text"
+                    id="name"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleChange}
+                    required
+                    className="w-full"
+                  />
+                </div>
+                <div>
+                  <label
+                    htmlFor="email"
+                    className="block text-sm font-medium mb-2"
+                  >
+                    您的電子郵件
+                  </label>
+                  <Input
+                    type="email"
+                    id="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    required
+                    className="w-full"
+                  />
+                </div>
+                <div>
+                  <label
+                    htmlFor="message"
+                    className="block text-sm font-medium mb-2"
+                  >
+                    您的訊息
+                  </label>
+                  <Textarea
+                    id="message"
+                    name="message"
+                    value={formData.message}
+                    onChange={handleChange}
+                    required
+                    rows={5}
+                    className="w-full"
+                  />
+                </div>
+                <Button type="submit" className="w-full">
+                  送出訊息
+                </Button>
+              </>
+            )}
+          </motion.form>
+        </div>
+      </motion.section>
+    </div>
+  );
+}

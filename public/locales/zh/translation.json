@@ -1,0 +1,29 @@
+{
+  "navbar": {
+    "site_title": "慧霓網站",
+    "home": "首頁",
+    "demos": "演示",
+    "about": "關於/聯繫",
+    "toggle_theme": "切換主題",
+    "toggle_language": "切換語言"
+  },
+  "demos_list": {
+    "all_demos": "所有 Demo 列表",
+    "click_to_view": "點擊查看此類型的 Web 系統 Demo。",
+    "cms_title": "內容管理系統 (CMS)",
+    "ecommerce_onepage_title": "一頁式購物網站",
+    "content_promotion_title": "內容宣傳網站",
+    "erp_title": "企業資源計劃 (ERP)",
+    "corporate_website_title": "企業官方網站",
+    "ecommerce_platform_title": "購物平台",
+    "dashboard_title": "數據儀表板/分析平台",
+    "social_media_feed_title": "社交媒體動態/個人檔案",
+    "project_management_title": "專案管理工具",
+    "booking_system_title": "預訂/預約系統",
+    "lms_title": "教育平台/學習管理系統 (LMS)",
+    "blog_title": "部落格/文章平台",
+    "forum_title": "論壇/社群網站",
+    "portfolio_title": "個人作品集/網站",
+    "todo_list_title": "待辦事項/任務管理器"
+  }
+}

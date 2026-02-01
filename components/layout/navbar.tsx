@@ -1,72 +1,143 @@
-import { Link } from 'react-router'; // Using react-router-dom based on previous error context
-import { useThemeStore } from '../../stores/use-theme-store';
-import { useLanguageStore } from '../../stores/use-language-store';
-import { Sun, Moon, Languages, ChevronDown } from 'lucide-react'; // Placeholder icons from lucide-react
-import { cn } from '../../lib/utils';
+import { Link } from "react-router";
+import { useThemeStore } from "~/stores/use-theme-store";
+import { useLanguageStore } from "~/stores/use-language-store";
+import { Sun, Moon, Languages, ChevronDown } from "lucide-react";
+import { cn } from "~/lib/utils";
+import { Button } from "~/components/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "~/components/ui/dropdown-menu";
+import { useTranslation } from "react-i18next"; // Import useTranslation
 
 export function Navbar() {
   const { theme, toggleTheme } = useThemeStore();
   const { language, setLanguage } = useLanguageStore();
+  const { t } = useTranslation(); // Initialize useTranslation
 
   const handleLanguageToggle = () => {
-    setLanguage(language === 'zh' ? 'en' : 'zh');
+    // This will now also trigger i18n.changeLanguage via the zustand store
+    setLanguage(language === "zh" ? "en" : "zh");
   };
 
   const demoCategories = [
-    { name: 'SaaS Dashboard', path: '/demos/saas' },
-    { name: 'CMS Editor', path: '/demos/cms' },
-    { name: 'Landing Page', path: '/demos/landing' },
-    { name: 'Resource Management', path: '/demos/resource' },
-    { name: 'ERP System', path: '/demos/erp' },
-    { name: 'Official Website', path: '/demos/official' },
-    { name: 'Custom Solution', path: '/demos/custom' },
+    { name: t("demos_list.cms_title"), path: "cms" },
+    {
+      name: t("demos_list.ecommerce_onepage_title"),
+      path: "ecommerce-onepage",
+    },
+    {
+      name: t("demos_list.content_promotion_title"),
+      path: "content-promotion",
+    },
+    { name: t("demos_list.erp_title"), path: "erp" },
+    {
+      name: t("demos_list.corporate_website_title"),
+      path: "corporate-website",
+    },
+    {
+      name: t("demos_list.ecommerce_platform_title"),
+      path: "ecommerce-platform",
+    },
+    { name: t("demos_list.dashboard_title"), path: "dashboard" },
+    {
+      name: t("demos_list.social_media_feed_title"),
+      path: "social-media-feed",
+    },
+    {
+      name: t("demos_list.project_management_title"),
+      path: "project-management",
+    },
+    { name: t("demos_list.booking_system_title"), path: "booking-system" },
+    { name: t("demos_list.lms_title"), path: "lms" },
+    { name: t("demos_list.blog_title"), path: "blog" },
+    { name: t("demos_list.forum_title"), path: "forum" },
+    { name: t("demos_list.portfolio_title"), path: "portfolio" },
+    { name: t("demos_list.todo_list_title"), path: "todo-list" },
   ];
 
   return (
-    <nav className={cn("bg-background text-foreground border-b border-border p-4 flex justify-between items-center font-sans")}>
+    <nav
+      className={cn(
+        "bg-background text-foreground border-b border-border p-4 flex justify-between items-center font-sans",
+      )}
+    >
       <div className="flex items-center space-x-6">
-        <Link to="/" className="text-xl font-bold text-primary hover:text-accent transition-colors duration-200">
-          Huini Site
+        <Link
+          to="/"
+          className="text-xl font-bold text-primary hover:text-accent transition-colors duration-200"
+        >
+          {t("navbar.site_title")} {/* Use translation */}
         </Link>
         <div className="hidden md:flex items-center space-x-6">
-          <Link to="/" className="text-foreground hover:text-accent transition-colors duration-200">
-            Home
+          <Link
+            to="/"
+            className="text-foreground hover:text-accent transition-colors duration-200"
+          >
+            {t("navbar.home")} {/* Use translation */}
           </Link>
 
-          {/* Demos Dropdown */}
-          <div className="relative group">
-            <button className="flex items-center text-foreground hover:text-accent transition-colors duration-200 focus:outline-none">
-              Demos <ChevronDown size={16} className="ml-1 transition-transform group-hover:rotate-180" />
-            </button>
-            <div className="absolute left-0 mt-2 w-48 bg-card border border-border rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-10">
-              <ul className="py-1">
-                {demoCategories.map((category) => (
-                  <li key={category.path}>
-                    <Link
-                      to={category.path}
-                      className="block px-4 py-2 text-sm text-foreground hover:bg-muted hover:text-accent-foreground"
-                    >
-                      {category.name}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
+          {/* Demos Dropdown with shadcn/ui */}
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button
+                variant="ghost"
+                className="flex items-center text-foreground hover:text-accent"
+              >
+                {t("navbar.demos")}{" "}
+                <ChevronDown
+                  size={16}
+                  className="ml-1 transition-transform rotate-0 data-[state=open]:rotate-180"
+                />{" "}
+                {/* Use translation */}
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent className="w-48">
+              {demoCategories.map((category) => (
+                <DropdownMenuItem key={category.path} asChild>
+                  <Link to={`/showcases/${category.path}`}>
+                    {" "}
+                    {/* Updated path */}
+                    {category.name}
+                  </Link>
+                </DropdownMenuItem>
+              ))}
+            </DropdownMenuContent>
+          </DropdownMenu>
 
-          <Link to="/about" className="text-foreground hover:text-accent transition-colors duration-200">
-            About/Contact
+          <Link
+            to="/about"
+            className="text-foreground hover:text-accent transition-colors duration-200"
+          >
+            {t("navbar.about")} {/* Use translation */}
           </Link>
         </div>
       </div>
       <div className="flex items-center space-x-4">
-        <button onClick={toggleTheme} className="p-2 rounded-md hover:bg-muted transition-colors duration-200">
-          {theme === 'dark' ? <Sun size={20} className="text-foreground" /> : <Moon size={20} className="text-foreground" />}
-        </button>
-        <button onClick={handleLanguageToggle} className="p-2 rounded-md hover:bg-muted transition-colors duration-200">
+        <Button
+          variant="ghost"
+          size="icon"
+          onClick={toggleTheme}
+          aria-label={t("navbar.toggle_theme")}
+        >
+          {" "}
+          {/* Use translation for aria-label */}
+          {theme === "dark" ? (
+            <Sun size={20} className="text-foreground" />
+          ) : (
+            <Moon size={20} className="text-foreground" />
+          )}
+        </Button>
+        <Button
+          variant="ghost"
+          onClick={handleLanguageToggle}
+          className="flex items-center"
+        >
           <Languages size={20} className="text-foreground" />
           <span className="ml-1 uppercase text-foreground">{language}</span>
-        </button>
+        </Button>
         {/* TODO: Implement MobileMenu for small screens */}
       </div>
     </nav>

@@ -7,11 +7,13 @@ import {
   ScrollRestoration,
 } from "react-router";
 import { useEffect } from "react";
+import { I18nextProvider } from 'react-i18next'; // Import I18nextProvider
 
 import type { Route } from "./+types/root";
 import "./app.css";
-import { useThemeStore } from "../stores/use-theme-store";
-import { useLanguageStore } from "../stores/use-language-store";
+import { useThemeStore } from "~/stores/use-theme-store";
+import { useLanguageStore } from "~/stores/use-language-store";
+import i18n from "~/lib/i18n"; // Import i18n instance
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -30,41 +32,29 @@ export function Layout({ children }: { children: React.ReactNode }) {
   const { theme } = useThemeStore();
   const { language } = useLanguageStore();
 
-  // This effect will ensure the correct class is applied on the client side
-  // It also ensures that if a user changes the system theme preference, it's reflected
-  
+  // Sync i18n language with zustand store
+  useEffect(() => {
+    if (i18n.language !== language) {
+      i18n.changeLanguage(language);
+    }
+  }, [language]);
 
   return (
-    <html lang={language} className={theme}>
-      <head>
-        <meta charSet="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <Meta />
-        <Links />
-        {/* Script to prevent FOUC (Flash of Unstyled Content) */}
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              try {
-                const theme = localStorage.getItem('huini-site-theme') ? JSON.parse(localStorage.getItem('huini-site-theme')).state.theme : null;
-                if (theme) {
-                  document.documentElement.classList.add(theme);
-                } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-                  document.documentElement.classList.add('dark');
-                }
-              } catch (e) {
-                console.error("Failed to apply theme from localStorage", e);
-              }
-            `,
-          }}
-        />
-      </head>
-      <body>
-        {children}
-        <ScrollRestoration />
-        <Scripts />
-      </body>
-    </html>
+    <I18nextProvider i18n={i18n}> {/* Wrap with I18nextProvider */}
+      <html lang={language} className={theme}>
+        <head>
+          <meta charSet="utf-8" />
+          <meta name="viewport" content="width=device-width, initial-scale=1" />
+          <Meta />
+          <Links />
+        </head>
+        <body>
+          {children}
+          <ScrollRestoration />
+          <Scripts />
+        </body>
+      </html>
+    </I18nextProvider>
   );
 }
 

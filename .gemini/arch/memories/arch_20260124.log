@@ -1,5 +1,0 @@
-[Arch Session Update]
-User provided final correction on naming convention in design document.
-Ensured all multi-word example filenames in component structure are strictly kebab-case.
-Removed redundant comments.
-Design finalized. Ready for Dev phase.
