@@ -3,27 +3,356 @@
     "site_title": "Huini Site",
     "home": "Home",
     "demos": "Demos",
-    "about": "About/Contact",
-    "toggle_theme": "Toggle theme",
-    "toggle_language": "Toggle language"
+    "about": "About Us",
+    "toggle_theme": "Toggle Theme",
+    "toggle_language": "Toggle Language"
+  },
+  "home": {
+    "hero_title": "Build with Intelligence",
+    "hero_desc": "Showcasing cutting-edge UI/UX, animations, and AI integration for modern web applications.",
+    "explore_demos": "Explore All Demos",
+    "about_me_text": "As a full-stack developer, I focus on building elegant and high-performance web solutions. My passion lies in creating intuitive user experiences through smooth animations and intelligent AI-driven features.",
+    "quick_access_title": "Explore My Demos",
+    "demo_saas_desc": "Data analysis and interactive charts with AI insights.",
+    "demo_cms_desc": "WYSIWYG content management with AI draft support.",
+    "demo_land_desc": "High-conversion e-commerce pages with personalized recommendations."
+  },
+  "about": {
+    "title": "About Huini",
+    "subtitle": "Dedicated to creating the ultimate digital experience, providing innovative technical solutions for businesses and individuals.",
+    "vision_title": "Our Vision",
+    "vision_desc": "In the rapidly evolving digital age, Huini is committed to being the bridge between technology and aesthetics. We believe that great products should not only be powerful but also possess the ultimate user experience and visual beauty.",
+    "mission_title": "Our Mission",
+    "mission_desc": "Through continuous technological innovation and a commitment to quality, we help clients stay one step ahead on the path of digital transformation. We provide one-stop services from strategic planning, UI/UX design to full-stack development.",
+    "contact_title": "Contact Us",
+    "social_desc": "Follow us on social media for the latest tech shares."
   },
   "demos_list": {
-    "all_demos": "All Demos List",
-    "click_to_view": "Click to view this type of Web System Demo.",
+    "all_demos": "All Demos",
+    "click_to_view": "Click to view web system demos of this category.",
     "cms_title": "Content Management System (CMS)",
-    "ecommerce_onepage_title": "One-page E-commerce Site",
+    "ecommerce_onepage_title": "One-Page E-commerce",
     "content_promotion_title": "Content Promotion Site",
     "erp_title": "Enterprise Resource Planning (ERP)",
-    "corporate_website_title": "Corporate Official Website",
+    "corporate_website_title": "Corporate Website",
     "ecommerce_platform_title": "E-commerce Platform",
-    "dashboard_title": "Dashboard/Analytics Platform",
+    "dashboard_title": "Data Dashboard/Analytics Platform",
     "social_media_feed_title": "Social Media Feed/Profile",
     "project_management_title": "Project Management Tool",
     "booking_system_title": "Booking/Reservation System",
     "lms_title": "Learning Management System (LMS)",
     "blog_title": "Blog/Article Platform",
     "forum_title": "Forum/Community Site",
-    "portfolio_title": "Portfolio/Personal Website",
+    "portfolio_title": "Personal Portfolio/Website",
     "todo_list_title": "To-Do List/Task Manager"
+  },
+  "demos_categories": {
+    "business_applications": "Business Applications",
+    "content_marketing": "Content & Marketing",
+    "ecommerce": "E-commerce",
+    "other": "Other"
+  },
+  "ai": {
+    "assistant": "AI Assistant",
+    "advisor": "AI Advisor",
+    "tutor": "AI Tutor",
+    "helper": "AI Helper",
+    "generate": "AI Generate",
+    "analyze": "AI Analyze",
+    "suggest": "AI Suggest",
+    "placeholder": "How can I help you?",
+    "tools_box": "Exclusive Tools",
+    "quick_ask": "Quick Question",
+    "powered_by": "Powered by Huini AI"
+  },
+  "common": {
+    "search": "Search...",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "view": "View",
+    "add": "Add",
+    "status": "Status",
+    "date": "Date",
+    "action": "Action",
+    "loading": "Loading...",
+    "no_data": "No Data",
+    "back": "Back",
+    "next": "Next",
+    "prev": "Prev",
+    "confirm": "Confirm",
+    "export": "Export Data",
+    "all": "All",
+    "details": "Details",
+    "submit": "Submit",
+    "category": "Category",
+    "name": "Name",
+    "id": "ID",
+    "amount": "Amount",
+    "total": "Total",
+    "continue": "Continue",
+    "author": "Author"
+  },
+  "erp": {
+    "title": "Enterprise Resource Planning (ERP)",
+    "subtitle": "Unified management of enterprise resources and processes",
+    "tabs": {
+      "dashboard": "Overview",
+      "inventory": "Inventory",
+      "hr": "HR",
+      "finance": "Finance"
+    },
+    "stats": {
+      "revenue": "Total Revenue",
+      "orders": "Pending Orders",
+      "inventory_turnover": "Inventory Turnover",
+      "employees": "Employee Count"
+    },
+    "production": {
+      "title": "Recent Production",
+      "desc": "Track factory production progress",
+      "eta": "Estimated"
+    },
+    "supply_chain": {
+      "title": "Supply Chain Alert",
+      "desc": "Material and logistics tracking",
+      "logistics_delay": "Logistics Delay",
+      "logistics_delay_desc": "Container from Shenzhen delayed by 3 days",
+      "raw_material_shortage": "Raw Material Shortage",
+      "raw_material_shortage_desc": "Cobalt levels below safety line",
+      "contract_expiring": "Contract Expiring",
+      "contract_expiring_desc": "ABC Electronics contract expires next week"
+    },
+    "inventory": {
+      "title": "Inventory List",
+      "desc": "Real-time material and product status",
+      "warehouse_scheduling": "Warehouse Scheduling",
+      "stock": "Current Stock",
+      "min_stock": "Min Stock",
+      "purchase": "Purchase"
+    },
+    "hr": {
+      "title": "Employee Overview",
+      "desc": "Team and attendance management",
+      "view_all": "View All Employees",
+      "today_attendance": "Today's Attendance",
+      "attendance_rate": "Attendance Rate",
+      "normal": "Normal",
+      "leave": "On Leave",
+      "missing_clock": "No Clock-in"
+    },
+    "finance": {
+      "title": "Finance Overview",
+      "desc": "Financial trends over the last 3 months",
+      "revenue": "Revenue",
+      "expense": "Expense",
+      "pending_bills": "Pending Bills",
+      "pending_bills_desc": "Accounts payable and invoice management",
+      "due_date": "Due Date",
+      "enter_system": "Enter Finance System"
+    }
+  },
+  "booking": {
+    "title": "Booking Service",
+    "steps": {
+      "service": "Service",
+      "staff": "Staff",
+      "time": "Time",
+      "confirm": "Confirm"
+    },
+    "form": {
+      "name": "Your Name",
+      "email": "Email",
+      "placeholder_name": "Enter your name",
+      "placeholder_email": "name@example.com"
+    },
+    "success_title": "Booking Successful!",
+    "success_desc": "Confirmation sent to your email.",
+    "details": {
+      "service": "Service",
+      "staff": "Staff",
+      "time": "Time"
+    }
+  },
+  "project": {
+    "title": "Project Kanban",
+    "subtitle": "Track tasks and team collaboration",
+    "add_task": "Add Task",
+    "edit_task": "Edit Task",
+    "task_title": "Task Title",
+    "description": "Description",
+    "priority_label": "Priority",
+    "due_date": "Due Date",
+    "progress": "Progress",
+    "columns": {
+      "todo": "Todo",
+      "in_progress": "In Progress",
+      "done": "Done"
+    },
+    "priority": {
+      "high": "High",
+      "medium": "Medium",
+      "low": "Low"
+    }
+  },
+  "ecommerce": {
+    "cart": "Cart",
+    "checkout": "Checkout",
+    "total": "Total",
+    "add_to_cart": "Add to Cart",
+    "buy_now": "Buy Now",
+    "free_shipping": "Free Shipping",
+    "warranty": "2-Year Warranty",
+    "out_of_stock": "Out of Stock",
+    "product_list": "Product List",
+    "product_details": "Product Details",
+    "search_placeholder": "Search products...",
+    "category_filter": "Category",
+    "price_range": "Price Range",
+    "apply": "Apply",
+    "hot_tags": "Hot Tags",
+    "quick_add": "Quick Add",
+    "checkout_info": "Checkout Info",
+    "first_name": "First Name",
+    "last_name": "Last Name",
+    "address": "Shipping Address",
+    "payment_method": "Payment Method",
+    "cash_on_delivery": "Cash on Delivery",
+    "credit_card": "Credit Card",
+    "complete_order": "Complete Order"
+  },
+  "lms": {
+    "dashboard_welcome": "Welcome back",
+    "sidebar": {
+      "dashboard": "Dashboard",
+      "my_courses": "My Courses",
+      "achievements": "Achievements",
+      "settings": "Settings",
+      "logout": "Log Out"
+    },
+    "stats": {
+      "learning_time": "Total Learning Time",
+      "completed_courses": "Completed Courses",
+      "certificates": "Certificates"
+    },
+    "continue_learning": "Continue Learning",
+    "course_chapters": "Course Chapters",
+    "download_materials": "Download Materials",
+    "daily_goal": "Daily Goal",
+    "courses": {
+      "c1": {
+        "title": "React Frontend Mastery",
+        "desc": "Master modern frontend development with React.",
+        "l1": "Environment and Basics",
+        "l2": "Component Thinking",
+        "l3": "State and Hooks",
+        "l4": "React Quiz 1"
+      },
+      "c2": {
+        "title": "Node.js Backend Basics",
+        "desc": "Build scalable backend services with Node.js.",
+        "l1": "Node.js Basics",
+        "l2": "Express Framework",
+        "l3": "Database Integration"
+      }
+    }
+  },
+  "cms": {
+    "sidebar": {
+      "content_management": "Content",
+      "media_library": "Media Library",
+      "analytics": "Analytics",
+      "users": "Users",
+      "settings": "Settings"
+    },
+    "storage_space": "Storage Space",
+    "content_library": "Content Library",
+    "filter": "Filter",
+    "article_title": "Article Title",
+    "category": "Category",
+    "status": "Status",
+    "views": "Views",
+    "preview": "Preview Mode",
+    "edit_article": "Edit Article",
+    "new_article": "New Article",
+    "upload_cover": "Upload Cover Image",
+    "save_changes": "Save Changes",
+    "mock": {
+      "a1": { "title": "Website Redesign: UX Strategies" },
+      "a2": { "title": "SEO Optimization Guide" },
+      "a3": { "title": "Choosing Cloud Providers" },
+      "a4": { "title": "2026 Frontend Trends" }
+    }
+  },
+  "blog": {
+    "featured_article": "Featured",
+    "latest_articles": "Latest Articles",
+    "read_more": "Read Article",
+    "popular_tags": "Popular Tags",
+    "newsletter_title": "Newsletter",
+    "newsletter_desc": "Get the latest tech trends and design inspiration weekly.",
+    "subscribe": "Subscribe Now",
+    "recommended_authors": "Recommended Authors",
+    "reading_time": "min read"
+  },
+  "social": {
+    "sidebar": {
+      "home": "Home",
+      "explore": "Explore",
+      "notifications": "Notifications",
+      "messages": "Messages",
+      "bookmarks": "Bookmarks",
+      "profile": "Profile",
+      "settings": "Settings",
+      "post": "Post"
+    },
+    "feed_title": "For You",
+    "whats_happening": "What's happening?",
+    "post_button": "Post",
+    "trending": "Trending",
+    "who_to_follow": "Who to follow",
+    "follow": "Follow",
+    "posts": {
+      "p1": "Beautiful day walking around Taipei 101! Have a great weekend everyone ☀️ #Taipei #WeekendVibes",
+      "p2": "Just finished this new design draft using glassmorphism. What do you think? 🎨✨"
+    }
+  },
+  "dashboard": {
+    "center_title": "Data Center",
+    "center_desc": "Real-time monitoring of core business metrics and system status.",
+    "download_report": "Download Report",
+    "vs_last_period": "vs Last Period",
+    "growth_trend": "Growth Trend",
+    "resource_allocation": "Resource Allocation",
+    "realtime_transactions": "Real-time Transactions",
+    "system_health": "System Health",
+    "smart_suggestions": "Smart Suggestions"
+  },
+  "forum": {
+    "sidebar_title": "Huini Community",
+    "all_discussions": "All Discussions",
+    "tech_talk": "Tech Talk",
+    "career_life": "Career & Life",
+    "announcements": "Announcements",
+    "start_discussion": "Start Discussion",
+    "active_contributors": "Active Contributors",
+    "replies": "replies",
+    "share": "Share",
+    "support": "Support",
+    "all_replies": "All Replies",
+    "post_reply": "Post Reply"
+  },
+  "portfolio": {
+    "accepting_projects": "Available for new projects",
+    "featured_work": "Featured Work",
+    "view_project_details": "View Project Details",
+    "experience": "Experience",
+    "skills": "Professional Skills",
+    "download_resume": "Download CV",
+    "cta_title": "Ready to energize your next project?",
+    "cta_desc": "Whether looking for a partner or just want to learn more, I'm happy to chat.",
+    "contact_now": "Contact Now",
+    "book_meeting": "Book a Meeting"
   }
 }

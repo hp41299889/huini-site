@@ -10,6 +10,7 @@ export default [
   layout("layout.tsx", [
     // Root layout
     index("home/home.tsx"), // Home page
+    route("about", "about.tsx"), // About page
     ...prefix("demos", [
       layout("./demos/layout.tsx", [
         route("cms", "./demos/cms.tsx"),
@@ -26,7 +27,6 @@ export default [
         route("blog", "./demos/blog.tsx"),
         route("forum", "./demos/forum.tsx"),
         route("portfolio", "./demos/portfolio.tsx"),
-        route("todo-list", "./demos/todo-list.tsx"),
       ]),
     ]),
   ]),

@@ -15,6 +15,8 @@ import {
   ArrowRightIcon,
 } from "lucide-react";
 import { motion } from "framer-motion";
+import { AiAssistant } from "~/components/ai-assistant";
+import { useTranslation } from "react-i18next";
 
 const sectionVariants = {
   hidden: { opacity: 0, y: 50 },
@@ -31,6 +33,8 @@ const teamMemberVariants = {
 };
 
 export default function CorporateWebsiteDemo() {
+  const { t } = useTranslation();
+  
   const services = [
     {
       icon: <Lightbulb className="h-8 w-8 text-primary" />,
@@ -54,19 +58,19 @@ export default function CorporateWebsiteDemo() {
       name: "陳偉倫",
       title: "執行長",
       avatar:
-        "https://images.unsplash.com/photo-1507003211169-e695d7ea6d1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w1NzM4OTAyMnwwfDF8cmFuZG9tfHx8fHx8fHx8MTcwMTg4NTcwMHw&ixlib=rb-4.0.3&q=80&w=200",
+        "https://images.unsplash.com/photo-1507003211169-e695d7ea6d1?auto=format&fit=crop&q=80&w=200",
     },
     {
       name: "林佳琪",
       title: "技術總監",
       avatar:
-        "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w1NzM4OTAyMnwwfDF8cmFuZG9tfHx8fHx8fHx8MTcwMTg4NTcwMHw&ixlib=rb-4.0.3&q=80&w=200",
+        "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&q=80&w=200",
     },
     {
       name: "黃俊傑",
       title: "市場行銷經理",
       avatar:
-        "https://images.unsplash.com/photo-1544005313-94ddf0286df2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w1NzM4OTAyMnwwfDF8cmFuZG9tfHx8fHx8fHx8MTcwMTg4NTcwMHw&ixlib=rb-4.0.3&q=80&w=200",
+        "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&q=80&w=200",
     },
   ];
 
@@ -92,10 +96,10 @@ export default function CorporateWebsiteDemo() {
   ];
 
   return (
-    <div className="bg-background text-foreground">
+    <div className="bg-background text-foreground relative">
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-r from-blue-600 to-indigo-700 text-white py-20 md:py-32 text-center">
-        <div className="container mx-auto px-4">
+      <section className="relative bg-gradient-to-r from-blue-600 to-indigo-700 text-white py-20 md:py-32 text-center overflow-hidden">
+        <div className="container mx-auto px-4 relative z-10">
           <h1 className="text-4xl md:text-6xl font-extrabold mb-4 animate-fade-in">
             領先業界的數位解決方案提供商
           </h1>
@@ -104,7 +108,7 @@ export default function CorporateWebsiteDemo() {
           </p>
           <Button
             size="lg"
-            className="bg-white text-blue-600 hover:bg-gray-100 animate-fade-in-up delay-200"
+            className="bg-background text-blue-600 hover:bg-gray-100 animate-fade-in-up delay-200"
           >
             了解我們的服務
           </Button>
@@ -120,12 +124,12 @@ export default function CorporateWebsiteDemo() {
         viewport={{ once: true, amount: 0.3 }}
       >
         <div className="container mx-auto px-4 text-center max-w-4xl">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">關於我們</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">{t("navbar.about")}</h2>
           <p className="text-lg text-muted-foreground mb-8">
             我們致力於為全球客戶提供創新的數位解決方案。憑藉多年的行業經驗和對技術的熱情，
             我們幫助企業應對挑戰，抓住機遇，實現可持續發展。
           </p>
-          <Button variant="outline">深入了解</Button>
+          <Button variant="outline">{t("common.details")}</Button>
         </div>
       </motion.section>
 
@@ -143,7 +147,7 @@ export default function CorporateWebsiteDemo() {
             {services.map((service, index) => (
               <motion.div
                 key={index}
-                className="p-6 rounded-lg shadow-md bg-background hover:shadow-lg transition-shadow duration-300"
+                className="p-6 rounded-lg shadow-md bg-background hover:shadow-lg transition-shadow duration-300 border"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.5 }}
@@ -172,7 +176,7 @@ export default function CorporateWebsiteDemo() {
             {teamMembers.map((member, index) => (
               <motion.div
                 key={index}
-                className="p-6 rounded-lg bg-card shadow-md flex flex-col items-center"
+                className="p-6 rounded-lg bg-card shadow-md flex flex-col items-center border"
                 variants={teamMemberVariants}
                 initial="hidden"
                 whileInView="visible"
@@ -208,7 +212,7 @@ export default function CorporateWebsiteDemo() {
             {news.map((item, index) => (
               <motion.div
                 key={item.id}
-                className="bg-background p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300"
+                className="bg-background p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 border"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.5 }}
@@ -220,7 +224,7 @@ export default function CorporateWebsiteDemo() {
                 </p>
                 <p className="text-muted-foreground">{item.summary}</p>
                 <Button variant="link" className="mt-4 p-0">
-                  閱讀更多 <ArrowRightIcon className="ml-2 h-4 w-4" />
+                  {t("blog.read_more")} <ArrowRightIcon className="ml-2 h-4 w-4" />
                 </Button>
               </motion.div>
             ))}
@@ -234,11 +238,13 @@ export default function CorporateWebsiteDemo() {
           <h2 className="text-3xl md:text-4xl font-bold mb-6">
             準備好改變您的業務了嗎？
           </h2>
-          <Button size="lg" className="bg-white text-primary hover:bg-gray-100">
-            立即聯絡我們 <MessageSquare className="ml-2 h-5 w-5" />
+          <Button size="lg" className="bg-background text-primary hover:bg-gray-100">
+            {t("about.contact_title")} <MessageSquare className="ml-2 h-5 w-5" />
           </Button>
         </div>
       </section>
+      
+      <AiAssistant context="corporate" />
     </div>
   );
 }

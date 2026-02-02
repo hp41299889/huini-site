@@ -10,14 +10,32 @@ import {
   CardTitle,
 } from "~/components/ui/card";
 import {
-  HeartIcon,
-  MessageCircleIcon,
-  Share2Icon,
-  MoreHorizontalIcon,
-  ThumbsUp,
+  Heart,
+  MessageCircle,
+  Share2,
+  MoreHorizontal,
+  Home,
+  Search,
+  Bell,
+  Mail,
+  User,
+  Hash,
+  Bookmark,
+  Image as ImageIcon,
+  Smile,
+  Calendar,
+  Send,
+  Zap,
+  TrendingUp,
+  Settings
 } from "lucide-react";
 import { Input } from "~/components/ui/input";
 import { Separator } from "~/components/ui/separator";
+import { Badge } from "~/components/ui/badge";
+import { cn } from "~/lib/utils";
+import { motion, AnimatePresence } from "framer-motion";
+import { AiAssistant } from "~/components/ai-assistant";
+import { useTranslation } from "react-i18next";
 
 interface Post {
   id: string;
@@ -25,228 +43,267 @@ interface Post {
     name: string;
     avatar: string;
     handle: string;
+    verified?: boolean;
   };
   content: string;
   imageUrl?: string;
   likes: number;
-  comments: Comment[];
+  comments: number;
+  retweets: number;
   timestamp: string;
   likedByCurrentUser: boolean;
 }
 
-interface Comment {
-  id: string;
-  author: {
-    name: string;
-    handle: string;
-  };
-  text: string;
-  timestamp: string;
-}
-
-const initialPosts: Post[] = [
-  {
-    id: "p1",
-    author: {
-      name: "小明",
-      avatar:
-        "https://images.unsplash.com/photo-1535713875002-d1d0cfdfee26?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w1NzM4OTAyMnwwfDF8cmFuZG9tfHx8fHx8fHx8MTcwMTg4NTcwMHw&ixlib=rb-4.0.3&q=80&w=200",
-      handle: "@xiaoming",
-    },
-    content: "今天天氣真好，適合出去走走！",
-    imageUrl:
-      "https://images.unsplash.com/photo-1507525428034-b723cf961c3e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w1NzM4OTAyMnwwfDF8cmFuZG9tfHx8fHx8fHx8MTcwMjAwNjgwMHw&ixlib=rb-4.0.3&q=80&w=600",
-    likes: 15,
-    comments: [
-      {
-        id: "c1",
-        author: { name: "小紅", handle: "@xiaohong" },
-        text: "是啊，風景很美！",
-        timestamp: "1小時前",
-      },
-      {
-        id: "c2",
-        author: { name: "小剛", handle: "@xiaogang" },
-        text: "下次一起去！",
-        timestamp: "30分鐘前",
-      },
-    ],
-    timestamp: "2小時前",
-    likedByCurrentUser: false,
-  },
-  {
-    id: "p2",
-    author: {
-      name: "小美",
-      avatar:
-        "https://images.unsplash.com/photo-1494790108377-be9c29b29329?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w1NzM4OTAyMnwwfDF8cmFuZG9tfHx8fHx8fHx8MTcwMjAwNjc1MHw&ixlib=rb-4.0.3&q=80&w=200",
-      handle: "@xiaomei",
-    },
-    content: "分享我最近做的甜點，味道超棒！",
-    imageUrl:
-      "https://images.unsplash.com/photo-1587391963470-3c22b64d7c0f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w1NzM4OTAyMnwwfDF8cmFuZG9tfHx8fHx8fHx8MTcwMjAwNjg1MHw&ixlib=rb-4.0.3&q=80&w=600",
-    likes: 30,
-    comments: [],
-    timestamp: "5小時前",
-    likedByCurrentUser: true,
-  },
-];
-
 export default function SocialMediaFeedDemo() {
-  const [posts, setPosts] = useState<Post[]>(initialPosts);
-  const [newCommentText, setNewCommentText] = useState<{
-    [key: string]: string;
-  }>({});
+  const { t } = useTranslation();
+  const [posts, setPosts] = useState<Post[]>([
+    {
+      id: "p1",
+      author: {
+        name: "王小明",
+        avatar: "https://images.unsplash.com/photo-1535713875002-d1d0cfdfee26?auto=format&fit=crop&q=80&w=200",
+        handle: "@xiaoming",
+        verified: true
+      },
+      content: t("social.posts.p1", "今天在台北101附近散步，天氣真的太棒了！大家週末愉快 ☀️ #Taipei #WeekendVibes"),
+      imageUrl: "https://images.unsplash.com/photo-1507525428034-b723cf961c3e?auto=format&fit=crop&q=80&w=600",
+      likes: 124,
+      comments: 12,
+      retweets: 5,
+      timestamp: t("common.date", "2小時前"),
+      likedByCurrentUser: false,
+    },
+    {
+      id: "p2",
+      author: {
+        name: "Jessica Wang",
+        avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29329?auto=format&fit=crop&q=80&w=200",
+        handle: "@jess_design",
+      },
+      content: t("social.posts.p2", "剛完成這個新的設計草案，使用了最新的玻璃擬態風格。你們覺得如何？🎨✨"),
+      imageUrl: "https://images.unsplash.com/photo-1558655146-d09347e92766?auto=format&fit=crop&q=80&w=600",
+      likes: 256,
+      comments: 45,
+      retweets: 18,
+      timestamp: t("common.date", "5小時前"),
+      likedByCurrentUser: true,
+    },
+  ]);
+  const [newPostContent, setNewPostContent] = useState("");
 
   const handleLike = (postId: string) => {
-    setPosts((prevPosts) =>
-      prevPosts.map((post) =>
-        post.id === postId
-          ? {
-              ...post,
-              likes: post.likedByCurrentUser ? post.likes - 1 : post.likes + 1,
-              likedByCurrentUser: !post.likedByCurrentUser,
-            }
-          : post,
-      ),
-    );
+    setPosts(posts.map(post => 
+      post.id === postId 
+        ? { ...post, likes: post.likedByCurrentUser ? post.likes - 1 : post.likes + 1, likedByCurrentUser: !post.likedByCurrentUser } 
+        : post
+    ));
   };
 
-  const handleAddComment = (postId: string) => {
-    if (!newCommentText[postId] || newCommentText[postId].trim() === "") return;
-
-    const newComment: Comment = {
-      id: `c${Date.now()}`,
-      author: { name: "你", handle: "@you" }, // Simulate current user
-      text: newCommentText[postId],
-      timestamp: "剛剛",
+  const handlePostSubmit = () => {
+    if (!newPostContent.trim()) return;
+    const newPost: Post = {
+      id: Date.now().toString(),
+      author: { name: t("common.name", "你"), handle: "@current_user", avatar: "Y" },
+      content: newPostContent,
+      likes: 0,
+      comments: 0,
+      retweets: 0,
+      timestamp: t("common.date", "剛剛"),
+      likedByCurrentUser: false,
     };
-
-    setPosts((prevPosts) =>
-      prevPosts.map((post) =>
-        post.id === postId
-          ? { ...post, comments: [...post.comments, newComment] }
-          : post,
-      ),
-    );
-    setNewCommentText((prev) => ({ ...prev, [postId]: "" }));
+    setPosts([newPost, ...posts]);
+    setNewPostContent("");
   };
 
   return (
-    <div className="container mx-auto p-4 md:p-6 lg:p-8 max-w-2xl">
-      <h1 className="text-3xl font-bold mb-6">社群媒體動態 Demo</h1>
+    <div className="flex bg-background min-h-screen relative">
+      {/* Left Sidebar */}
+      <aside className="w-20 lg:w-64 border-r flex flex-col items-center lg:items-start px-4 py-6 sticky top-0 h-screen">
+        <div className="mb-8 px-2">
+          <Zap className="h-8 w-8 text-rose-500 fill-rose-500" />
+        </div>
+        <nav className="flex-1 space-y-4 w-full">
+          {[
+            { icon: Home, label: t("social.sidebar.home"), active: true },
+            { icon: Hash, label: t("social.sidebar.explore") },
+            { icon: Bell, label: t("social.sidebar.notifications") },
+            { icon: Mail, label: t("social.sidebar.messages") },
+            { icon: Bookmark, label: t("social.sidebar.bookmarks") },
+            { icon: User, label: t("social.sidebar.profile") },
+            { icon: Settings, label: t("social.sidebar.settings") },
+          ].map((item, i) => (
+            <div 
+              key={i} 
+              className={cn(
+                "flex items-center gap-4 p-3 rounded-full cursor-pointer transition-colors group",
+                item.active ? "text-rose-500 bg-rose-50 dark:bg-rose-900/20 font-bold" : "hover:bg-muted text-muted-foreground hover:text-foreground"
+              )}
+            >
+              <item.icon className={cn("h-6 w-6", item.active && "fill-rose-500")} />
+              <span className="text-lg hidden lg:block">{item.label}</span>
+            </div>
+          ))}
+          <Button className="w-full rounded-full py-6 mt-4 hidden lg:flex bg-rose-500 hover:bg-rose-600 font-bold text-lg shadow-lg shadow-rose-200">
+            {t("social.sidebar.post")}
+          </Button>
+          <Button size="icon" className="rounded-full h-12 w-12 lg:hidden bg-rose-500">
+            <Send className="h-5 w-5" />
+          </Button>
+        </nav>
+      </aside>
 
-      {posts.map((post) => (
-        <Card key={post.id} className="mb-6 shadow-sm">
-          <CardHeader className="flex flex-row items-center justify-between pb-3">
-            <div className="flex items-center space-x-3">
-              <Avatar>
-                <AvatarImage src={post.author.avatar} />
-                <AvatarFallback>{post.author.name.charAt(0)}</AvatarFallback>
-              </Avatar>
-              <div>
-                <p className="font-semibold">{post.author.name}</p>
-                <p className="text-sm text-muted-foreground">
-                  {post.author.handle} • {post.timestamp}
-                </p>
+      {/* Main Feed */}
+      <main className="flex-1 max-w-2xl border-r">
+        <header className="sticky top-0 z-10 bg-background/80 backdrop-blur-md border-b p-4">
+          <h2 className="text-xl font-bold">{t("social.feed_title")}</h2>
+        </header>
+
+        {/* Post Creation */}
+        <div className="p-4 border-b space-y-4">
+          <div className="flex gap-4">
+            <Avatar className="h-12 w-12">
+              <AvatarFallback className="bg-muted">你</AvatarFallback>
+            </Avatar>
+            <div className="flex-1">
+              <textarea 
+                placeholder={t("social.whats_happening")} 
+                className="w-full bg-transparent border-none resize-none focus:ring-0 text-xl min-h-[100px] outline-none"
+                value={newPostContent}
+                onChange={(e) => setNewPostContent(e.target.value)}
+              />
+              <div className="flex items-center justify-between pt-4 border-t">
+                <div className="flex items-center text-rose-500">
+                  <Button variant="ghost" size="icon" className="rounded-full hover:bg-rose-50"><ImageIcon className="h-5 w-5" /></Button>
+                  <Button variant="ghost" size="icon" className="rounded-full hover:bg-rose-50"><Hash className="h-5 w-5" /></Button>
+                  <Button variant="ghost" size="icon" className="rounded-full hover:bg-rose-50"><Smile className="h-5 w-5" /></Button>
+                  <Button variant="ghost" size="icon" className="rounded-full hover:bg-rose-50"><Calendar className="h-5 w-5" /></Button>
+                </div>
+                <Button 
+                  className="rounded-full px-6 bg-rose-500 hover:bg-rose-600 font-bold"
+                  disabled={!newPostContent.trim()}
+                  onClick={handlePostSubmit}
+                >
+                  {t("social.post_button")}
+                </Button>
               </div>
             </div>
-            <Button variant="ghost" size="icon">
-              <MoreHorizontalIcon className="h-5 w-5" />
-            </Button>
-          </CardHeader>
-          <CardContent className="py-2">
-            <p className="mb-4">{post.content}</p>
-            {post.imageUrl && (
-              <img
-                src={post.imageUrl}
-                alt="Post Image"
-                className="w-full rounded-md object-cover max-h-96 mb-4"
-              />
-            )}
-            <div className="flex items-center text-sm text-muted-foreground">
-              <ThumbsUp className="mr-1 h-4 w-4" /> {post.likes} 個讚
-              <MessageCircleIcon className="ml-4 mr-1 h-4 w-4" />{" "}
-              {post.comments.length} 則留言
-            </div>
-            <Separator className="my-4" />
-            <div className="flex space-x-4">
-              <Button
-                variant="ghost"
-                className="flex-1"
-                onClick={() => handleLike(post.id)}
+          </div>
+        </div>
+
+        {/* Feed Posts */}
+        <div className="divide-y">
+          <AnimatePresence>
+            {posts.map((post) => (
+              <motion.div 
+                key={post.id}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="p-4 hover:bg-muted/30 transition-colors cursor-pointer group"
               >
-                <HeartIcon
-                  className={
-                    post.likedByCurrentUser
-                      ? "mr-2 h-5 w-5 text-red-500 fill-red-500"
-                      : "mr-2 h-5 w-5"
-                  }
-                />
-                讚
-              </Button>
-              <Button variant="ghost" className="flex-1">
-                <MessageCircleIcon className="mr-2 h-5 w-5" />
-                留言
-              </Button>
-              <Button variant="ghost" className="flex-1">
-                <Share2Icon className="mr-2 h-5 w-5" />
-                分享
-              </Button>
-            </div>
+                <div className="flex gap-4">
+                  <Avatar className="h-12 w-12">
+                    <AvatarImage src={post.author.avatar} />
+                    <AvatarFallback>{post.author.name[0]}</AvatarFallback>
+                  </Avatar>
+                  <div className="flex-1 space-y-2">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-1">
+                        <span className="font-bold hover:underline decoration-2">{post.author.name}</span>
+                        <span className="text-muted-foreground text-sm">{post.author.handle}</span>
+                        <span className="text-muted-foreground text-sm">· {post.timestamp}</span>
+                      </div>
+                      <Button variant="ghost" size="icon" className="h-8 w-8 rounded-full opacity-0 group-hover:opacity-100"><MoreHorizontal className="h-4 w-4" /></Button>
+                    </div>
+                    <p className="text-[15px] leading-normal">{post.content}</p>
+                    {post.imageUrl && (
+                      <div className="mt-3 rounded-2xl overflow-hidden border">
+                        <img src={post.imageUrl} className="w-full object-cover max-h-[500px]" alt="Content" />
+                      </div>
+                    )}
+                    <div className="flex items-center justify-between pt-3 max-w-md text-muted-foreground">
+                      <Button variant="ghost" size="sm" className="rounded-full hover:text-blue-500 hover:bg-blue-50 transition-colors gap-2">
+                        <MessageCircle className="h-4 w-4" /> {post.comments}
+                      </Button>
+                      <Button variant="ghost" size="sm" className="rounded-full hover:text-green-500 hover:bg-green-50 transition-colors gap-2">
+                        <TrendingUp className="h-4 w-4" /> {post.retweets}
+                      </Button>
+                      <Button 
+                        variant="ghost" 
+                        size="sm" 
+                        className={cn(
+                          "rounded-full hover:text-rose-500 hover:bg-rose-50 transition-colors gap-2",
+                          post.likedByCurrentUser && "text-rose-500"
+                        )}
+                        onClick={(e) => { e.stopPropagation(); handleLike(post.id); }}
+                      >
+                        <Heart className={cn("h-4 w-4", post.likedByCurrentUser && "fill-current")} /> {post.likes}
+                      </Button>
+                      <Button variant="ghost" size="sm" className="rounded-full hover:text-blue-500 hover:bg-blue-50 transition-colors">
+                        <Share2 className="h-4 w-4" />
+                      </Button>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </AnimatePresence>
+        </div>
+      </main>
+
+      {/* Right Sidebar */}
+      <aside className="hidden xl:flex flex-col w-80 p-6 space-y-6 sticky top-0 h-screen overflow-y-auto">
+        <div className="relative">
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+          <Input placeholder={t("common.search")} className="pl-10 rounded-full bg-muted/50 border-none h-11" />
+        </div>
+
+        <Card className="rounded-2xl border-none bg-muted/30">
+          <CardHeader className="pb-2">
+            <CardTitle className="text-xl font-bold">{t("social.trending")}</CardTitle>
+          </CardHeader>
+          <CardContent className="p-0">
+            {[
+              { category: "科技 · 趨勢", topic: "React Router v7", posts: "125K posts" },
+              { category: "體育 · 正在流行", topic: "世界大賽", posts: "85K posts" },
+              { category: "娛樂 · 趨勢", topic: "惠尼影院", posts: "42K posts" },
+              { category: "台灣 · 流行", topic: "#台北101", posts: "12K posts" },
+            ].map((trend, i) => (
+              <div key={i} className="px-4 py-3 hover:bg-muted transition-colors cursor-pointer">
+                <p className="text-[10px] text-muted-foreground">{trend.category}</p>
+                <p className="font-bold">{trend.topic}</p>
+                <p className="text-[10px] text-muted-foreground">{trend.posts}</p>
+              </div>
+            ))}
           </CardContent>
           <CardFooter className="pt-2">
-            <div className="w-full">
-              {post.comments.length > 0 && (
-                <div className="space-y-3 mb-4">
-                  {post.comments.map((comment) => (
-                    <div key={comment.id} className="flex space-x-3 text-sm">
-                      <Avatar className="h-7 w-7">
-                        <AvatarImage
-                          src={`https://ui-avatars.com/api/?name=${comment.author.name}&background=random&color=fff`}
-                        />
-                        <AvatarFallback>
-                          {comment.author.name.charAt(0)}
-                        </AvatarFallback>
-                      </Avatar>
-                      <div>
-                        <p className="font-semibold">
-                          {comment.author.name}{" "}
-                          <span className="text-muted-foreground">
-                            {comment.author.handle}
-                          </span>
-                        </p>
-                        <p>{comment.text}</p>
-                        <p className="text-xs text-muted-foreground mt-1">
-                          {comment.timestamp}
-                        </p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              )}
-              <div className="flex items-center space-x-2">
-                <Input
-                  placeholder="新增留言..."
-                  value={newCommentText[post.id] || ""}
-                  onChange={(e) =>
-                    setNewCommentText((prev) => ({
-                      ...prev,
-                      [post.id]: e.target.value,
-                    }))
-                  }
-                  onKeyPress={(e) => {
-                    if (e.key === "Enter") {
-                      handleAddComment(post.id);
-                    }
-                  }}
-                />
-                <Button onClick={() => handleAddComment(post.id)}>發布</Button>
-              </div>
-            </div>
+            <Button variant="link" className="text-rose-500 px-0 h-auto">顯示更多</Button>
           </CardFooter>
         </Card>
-      ))}
+
+        <Card className="rounded-2xl border-none bg-muted/30">
+          <CardHeader className="pb-2">
+            <CardTitle className="text-xl font-bold">{t("social.who_to_follow")}</CardTitle>
+          </CardHeader>
+          <CardContent className="p-0">
+            {[
+              { name: "Frontend Master", handle: "@frontend_master", avatar: "FM" },
+              { name: "Design Daily", handle: "@design_daily", avatar: "DD" },
+            ].map((user, i) => (
+              <div key={i} className="px-4 py-3 flex items-center justify-between hover:bg-muted transition-colors cursor-pointer text-foreground">
+                <div className="flex items-center gap-3">
+                  <div className="h-10 w-10 rounded-full bg-primary/10 text-primary flex items-center justify-center font-bold">{user.avatar}</div>
+                  <div>
+                    <p className="text-sm font-bold">{user.name}</p>
+                    <p className="text-xs text-muted-foreground">{user.handle}</p>
+                  </div>
+                </div>
+                <Button size="sm" className="rounded-full bg-foreground text-background hover:bg-foreground/80">{t("social.follow")}</Button>
+              </div>
+            ))}
+          </CardContent>
+        </Card>
+      </aside>
+      <AiAssistant context="social" />
     </div>
   );
 }

@@ -4,6 +4,8 @@ import { Input } from "~/components/ui/input";
 import { Textarea } from "~/components/ui/textarea";
 import { motion } from "framer-motion";
 import { ArrowRightIcon, CheckCircle2Icon } from "lucide-react";
+import { AiAssistant } from "~/components/ai-assistant";
+import { useTranslation } from "react-i18next";
 
 const sectionVariants = {
   hidden: { opacity: 0, y: 50 },
@@ -20,6 +22,7 @@ const imageVariants = {
 };
 
 export default function ContentPromotionDemo() {
+  const { t } = useTranslation();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -44,7 +47,7 @@ export default function ContentPromotionDemo() {
   };
 
   return (
-    <div className="bg-background text-foreground">
+    <div className="bg-background text-foreground relative">
       {/* Hero Section */}
       <motion.section
         className="relative h-[60vh] md:h-[75vh] flex items-center justify-center text-center bg-gradient-to-r from-primary to-blue-600 text-white overflow-hidden p-4"
@@ -53,7 +56,7 @@ export default function ContentPromotionDemo() {
         transition={{ duration: 1 }}
       >
         <img
-          src="https://images.unsplash.com/photo-1517036611336-f044d081f9b3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w1NzM4OTAyMnwwfDF8cmFuZG9tfHx8fHx8fHx8MTcwMTg4NTcwMHw&ixlib=rb-4.0.3&q=80&w=1200"
+          src="https://images.unsplash.com/photo-1517036611336-f044d081f9b3?auto=format&fit=crop&q=80&w=1200"
           alt="Hero Background"
           className="absolute inset-0 w-full h-full object-cover opacity-30"
         />
@@ -81,9 +84,9 @@ export default function ContentPromotionDemo() {
           >
             <Button
               size="lg"
-              className="bg-white text-primary hover:bg-gray-100 shadow-lg transition-all"
+              className="bg-background text-primary hover:bg-gray-100 shadow-lg transition-all"
             >
-              了解更多 <ArrowRightIcon className="ml-2 h-5 w-5" />
+              {t("common.details")} <ArrowRightIcon className="ml-2 h-5 w-5" />
             </Button>
           </motion.div>
         </div>
@@ -138,13 +141,13 @@ export default function ContentPromotionDemo() {
         <div className="container mx-auto px-4 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
           <motion.div variants={imageVariants}>
             <img
-              src="https://images.unsplash.com/photo-1520607162513-772960444269?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w1NzM4OTAyMnwwfDF8cmFuZG9tfHx8fHx8fHx8MTcwMTg4NTcwMHw&ixlib=rb-4.0.3&q=80&w=800"
+              src="https://images.unsplash.com/photo-1520607162513-772960444269?auto=format&fit=crop&q=80&w=800"
               alt="Team Collaboration"
               className="w-full h-auto rounded-lg shadow-xl"
             />
           </motion.div>
           <motion.div variants={sectionVariants}>
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">關於我們</h2>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">{t("navbar.about")}</h2>
             <p className="text-lg text-muted-foreground mb-4">
               我們是一群充滿熱情與經驗的專業團隊，致力於為客戶提供創新且高效的解決方案。
             </p>
@@ -168,7 +171,7 @@ export default function ContentPromotionDemo() {
       >
         <div className="container mx-auto px-4 max-w-2xl">
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-4">
-            聯絡我們
+            {t("about.contact_title")}
           </h2>
           <p className="text-lg text-muted-foreground text-center mb-12">
             有任何疑問或合作意向？請填寫以下表格，我們將盡快與您聯繫。
@@ -188,7 +191,7 @@ export default function ContentPromotionDemo() {
               >
                 <CheckCircle2Icon className="h-20 w-20 text-green-500 mx-auto mb-4" />
                 <h3 className="text-2xl font-bold text-green-600">
-                  訊息已送出！
+                  {t("booking.success_title")}
                 </h3>
                 <p className="text-muted-foreground">
                   感謝您的訊息，我們會盡快回覆。
@@ -207,7 +210,7 @@ export default function ContentPromotionDemo() {
                     htmlFor="name"
                     className="block text-sm font-medium mb-2"
                   >
-                    您的姓名
+                    {t("booking.form.name")}
                   </label>
                   <Input
                     type="text"
@@ -216,7 +219,7 @@ export default function ContentPromotionDemo() {
                     value={formData.name}
                     onChange={handleChange}
                     required
-                    className="w-full"
+                    className="w-full bg-background"
                   />
                 </div>
                 <div>
@@ -224,7 +227,7 @@ export default function ContentPromotionDemo() {
                     htmlFor="email"
                     className="block text-sm font-medium mb-2"
                   >
-                    您的電子郵件
+                    {t("booking.form.email")}
                   </label>
                   <Input
                     type="email"
@@ -233,7 +236,7 @@ export default function ContentPromotionDemo() {
                     value={formData.email}
                     onChange={handleChange}
                     required
-                    className="w-full"
+                    className="w-full bg-background"
                   />
                 </div>
                 <div>
@@ -250,17 +253,19 @@ export default function ContentPromotionDemo() {
                     onChange={handleChange}
                     required
                     rows={5}
-                    className="w-full"
+                    className="w-full bg-background"
                   />
                 </div>
                 <Button type="submit" className="w-full">
-                  送出訊息
+                  {t("common.submit")}
                 </Button>
               </>
             )}
           </motion.form>
         </div>
       </motion.section>
+      
+      <AiAssistant context="promotion" />
     </div>
   );
 }

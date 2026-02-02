@@ -9,7 +9,7 @@ test.describe('Basic Site Functionality', () => {
 
   test('should have a correct title', async ({ page }) => {
     // Check title (replace with your actual site title)
-    await expect(page).toHaveTitle(/慧霓網站/);
+    await expect(page).toHaveTitle(/惠尼網站/);
   });
 
   test('should navigate to demos page via Navbar and verify heading', async ({ page }) => {

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import { Button } from "~/components/ui/button";
 import {
   Card,
@@ -10,13 +10,24 @@ import {
 } from "~/components/ui/card";
 import { Input } from "~/components/ui/input";
 import { Badge } from "~/components/ui/badge";
+import { Separator } from "~/components/ui/separator";
 import {
-  StarIcon,
-  SearchIcon,
-  FilterIcon,
-  ShoppingCartIcon,
-  ArrowLeftIcon,
-  ArrowRightIcon,
+  Star,
+  Search,
+  Filter,
+  ShoppingCart,
+  ArrowLeft,
+  ChevronRight,
+  Heart,
+  Eye,
+  ShoppingBag,
+  LayoutGrid,
+  List as ListIcon,
+  Plus,
+  Minus,
+  X,
+  CreditCard,
+  CheckCircle2
 } from "lucide-react";
 import {
   Select,
@@ -25,209 +36,368 @@ import {
   SelectTrigger,
   SelectValue,
 } from "~/components/ui/select";
+import { motion, AnimatePresence } from "framer-motion";
+import { cn } from "~/lib/utils";
+import { AiAssistant } from "~/components/ai-assistant";
+import { useTranslation } from "react-i18next";
 
-// Hardcoded data for demonstration purposes
-const allProducts = [
-  {
-    id: "p1",
-    name: "輕薄型筆記型電腦",
-    category: "電子產品",
-    price: 32000,
-    rating: 4.5,
-    imageUrl:
-      "https://images.unsplash.com/photo-1616071477546-2432a5146c24?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w1NzM4OTAyMnwwfDF8cmFuZG9tfHx8fHx8fHx8MTcwMTg4NTcwMHw&ixlib=rb-4.0.3&q=80&w=400",
-    description: "高性能處理器，輕薄設計，非常適合商務和學習。",
-    reviews: 120,
-  },
-  {
-    id: "p2",
-    name: "高音質藍牙耳機",
-    category: "電子產品",
-    price: 4500,
-    rating: 4.8,
-    imageUrl:
-      "https://images.unsplash.com/photo-1505740420928-5e560c06f2ae?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w1NzM4OTAyMnwwfDF8cmFuZG9tfHx8fHx8fHx8MTcwMTg4NTcwMHw&ixlib=rb-4.0.3&q=80&w=400",
-    description: "沉浸式音效體驗，長時間佩戴舒適。",
-    reviews: 85,
-  },
-  {
-    id: "p3",
-    name: "時尚簡約後背包",
-    category: "服飾配件",
-    price: 1800,
-    rating: 4.2,
-    imageUrl:
-      "https://images.unsplash.com/photo-1549298816-d8726e0e6439?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w1NzM4OTAyMnwwfDF8cmFuZG9tfHx8fHx8fHx8MTcwMTg4NTcwMHw&ixlib=rb-4.0.3&q=80&w=400",
-    description: "多功能收納，適合日常通勤或旅行。",
-    reviews: 50,
-  },
-  {
-    id: "p4",
-    name: "智能運動手環",
-    category: "電子產品",
-    price: 2500,
-    rating: 4.0,
-    imageUrl:
-      "https://images.unsplash.com/photo-1579586392095-2ca73602f90a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w1NzM4OTAyMnwwfDF8cmFuZG9tfHx8fHx8fHx8MTcwMTg4NTcwMHw&ixlib=rb-4.0.3&q=80&w=400",
-    description: "實時監測健康數據，助您保持活力。",
-    reviews: 30,
-  },
-  {
-    id: "p5",
-    name: "多功能料理鍋",
-    category: "家居生活",
-    price: 2800,
-    rating: 4.7,
-    imageUrl:
-      "https://images.unsplash.com/photo-1582299066699-2d128d5d4d3d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w1NzM4OTAyMnwwfDF8cmFuZG9tfHx8fHx8fHx8MTcwMTg4NTcwMHw&ixlib=rb-4.0.3&q=80&w=400",
-    description: "一鍋多用，輕鬆烹飪美味佳餚。",
-    reviews: 65,
-  },
-];
-
-const categories = ["所有", "電子產品", "服飾配件", "家居生活"];
+// Types
+interface Product {
+  id: string;
+  name: string;
+  category: string;
+  price: number;
+  originalPrice?: number;
+  rating: number;
+  imageUrl: string;
+  description: string;
+  reviews: number;
+  isNew?: boolean;
+  onSale?: boolean;
+}
 
 export default function EcommercePlatformDemo() {
-  const [selectedProduct, setSelectedProduct] = useState(null);
+  const { t } = useTranslation();
+  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("所有");
+  const [cartOpen, setCartOpen] = useState(false);
+  const [cart, setCart] = useState<{ product: Product; qty: number }[]>([]);
 
-  const filteredProducts = allProducts.filter((product) => {
-    const matchesSearch = product.name
-      .toLowerCase()
-      .includes(searchTerm.toLowerCase());
-    const matchesCategory =
-      selectedCategory === "所有" || product.category === selectedCategory;
-    return matchesSearch && matchesCategory;
-  });
+  const allProducts: Product[] = [
+    { id: "p1", name: "Huini Book Pro 14", category: t("common.category", "電子產品"), price: 32000, originalPrice: 38000, rating: 4.8, imageUrl: "https://images.unsplash.com/photo-1611186871348-b1ce696e52c9?auto=format&fit=crop&q=80&w=400", description: "頂級效能筆電，專為開發者與設計師打造。搭載 M3 晶片，續航力長達 20 小時。", reviews: 120, isNew: true },
+    { id: "p2", name: "Studio Pro 無線耳機", category: t("common.category", "電子產品"), price: 4500, rating: 4.9, imageUrl: "https://images.unsplash.com/photo-1505740420928-5e560c06f2ae?auto=format&fit=crop&q=80&w=400", description: "主動式降噪，沉浸式音效體驗。專利的空間音訊技術，讓您身歷其境。", reviews: 245, onSale: true },
+    { id: "p3", name: "城市探險後背包", category: "服飾配件", price: 1800, rating: 4.5, imageUrl: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&q=80&w=400", description: "防水耐磨，大容量設計。內置筆電隔層，是您通勤的最佳夥伴。", reviews: 56 },
+    { id: "p4", name: "Active 智慧運動錶", category: t("common.category", "電子產品"), price: 2500, originalPrice: 3200, rating: 4.2, imageUrl: "https://images.unsplash.com/photo-1508685096489-7aac291ba59e?auto=format&fit=crop&q=80&w=400", description: "全天候健康追蹤，支援多種運動模式。輕盈舒適，適合長時間佩戴。", reviews: 89, onSale: true },
+    { id: "p5", name: "質感陶瓷餐具組", category: "家居生活", price: 1200, rating: 4.7, imageUrl: "https://images.unsplash.com/photo-1577113336085-fc167ddb6190?auto=format&fit=crop&q=80&w=400", description: "北歐風格設計，簡約優雅。高品質陶瓷材質，耐溫且易清洗。", reviews: 112 },
+    { id: "p6", name: "智能空氣淨化器", category: "家居生活", price: 6800, rating: 4.6, imageUrl: "https://images.unsplash.com/photo-1585338107529-13afc5f02586?auto=format&fit=crop&q=80&w=400", description: "HEPA 濾網，有效過濾 99% 的過敏原。超靜音設計，守護您的呼吸健康。", reviews: 34 },
+  ];
 
-  if (selectedProduct) {
-    return (
-      <div className="container mx-auto p-4 md:p-6 lg:p-8">
-        <Button
-          variant="outline"
-          onClick={() => setSelectedProduct(null)}
-          className="mb-6"
-        >
-          <ArrowLeftIcon className="mr-2 h-4 w-4" /> 返回商品列表
-        </Button>
-        <Card>
-          <CardHeader>
-            <CardTitle className="text-3xl">{selectedProduct.name}</CardTitle>
-            <CardDescription className="text-lg">
-              NT$ {selectedProduct.price}
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <img
-              src={selectedProduct.imageUrl}
-              alt={selectedProduct.name}
-              className="w-full h-96 object-cover rounded-md mb-6"
-            />
-            <p className="text-muted-foreground mb-4">
-              {selectedProduct.description}
-            </p>
-            <div className="flex items-center mb-4">
-              <div className="flex text-yellow-500 mr-2">
-                {[...Array(Math.floor(selectedProduct.rating))].map((_, i) => (
-                  <StarIcon key={i} className="h-5 w-5 fill-current" />
-                ))}
-                {selectedProduct.rating % 1 !== 0 && (
-                  <StarIcon className="h-5 w-5 fill-current opacity-50" />
-                )}
-              </div>
-              <span className="text-sm text-muted-foreground">
-                ({selectedProduct.reviews} 評論)
-              </span>
-            </div>
-            <Button className="w-full text-lg">
-              <ShoppingCartIcon className="mr-2 h-5 w-5" /> 加入購物車
-            </Button>
-          </CardContent>
-        </Card>
-      </div>
-    );
-  }
+  const categories = ["所有", "電子產品", "服飾配件", "家居生活"];
+
+  const filteredProducts = useMemo(() => {
+    return allProducts.filter(p => {
+      const matchesSearch = p.name.toLowerCase().includes(searchTerm.toLowerCase());
+      const matchesCategory = selectedCategory === "所有" || p.category === selectedCategory || (selectedCategory === "電子產品" && p.category === t("common.category", "電子產品"));
+      return matchesSearch && matchesCategory;
+    });
+  }, [searchTerm, selectedCategory, t]);
+
+  const addToCart = (product: Product) => {
+    setCart(prev => {
+      const existing = prev.find(item => item.product.id === product.id);
+      if (existing) return prev.map(item => item.product.id === product.id ? { ...item, qty: item.qty + 1 } : item);
+      return [...prev, { product, qty: 1 }];
+    });
+    setCartOpen(true);
+  };
+
+  const removeFromCart = (id: string) => {
+    setCart(prev => prev.filter(item => item.product.id !== id));
+  };
+
+  const cartTotal = cart.reduce((acc, item) => acc + (item.product.price * item.qty), 0);
 
   return (
-    <div className="container mx-auto p-4 md:p-6 lg:p-8">
-      <h1 className="text-3xl font-bold mb-6">購物平台 Demo</h1>
-
-      <div className="flex flex-col md:flex-row gap-4 mb-8">
-        <div className="relative flex-grow">
-          <SearchIcon className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
-          <Input
-            type="text"
-            placeholder="搜尋商品..."
-            className="pl-10 w-full"
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-          />
+    <div className="flex bg-background min-h-screen relative text-foreground">
+      {/* Sidebar Filters */}
+      <aside className="w-64 border-r p-6 space-y-8 hidden lg:block sticky top-0 h-screen overflow-y-auto bg-background">
+        <div className="flex items-center gap-2 font-black text-2xl text-purple-600 mb-8">
+          <ShoppingBag className="h-8 w-8" />
+          <span>{t("demos_list.ecommerce_platform_title")}</span>
         </div>
-        <Select value={selectedCategory} onValueChange={setSelectedCategory}>
-          <SelectTrigger className="w-[180px]">
-            <FilterIcon className="mr-2 h-4 w-4" />
-            <SelectValue placeholder="分類" />
-          </SelectTrigger>
-          <SelectContent>
-            {categories.map((category) => (
-              <SelectItem key={category} value={category}>
-                {category}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
-      </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-        {filteredProducts.length > 0 ? (
-          filteredProducts.map((product) => (
-            <Card key={product.id} className="flex flex-col">
-              <CardHeader className="p-0">
-                <img
-                  src={product.imageUrl}
-                  alt={product.name}
-                  className="w-full h-48 object-cover rounded-t-lg"
-                />
-              </CardHeader>
-              <CardContent className="flex-grow p-4">
-                <Badge variant="secondary" className="mb-2">
-                  {product.category}
-                </Badge>
-                <CardTitle className="text-xl font-semibold line-clamp-2">
-                  {product.name}
-                </CardTitle>
-                <CardDescription className="text-muted-foreground mt-1 mb-2 line-clamp-2">
-                  {product.description}
-                </CardDescription>
-                <div className="flex items-center text-yellow-500 mb-2">
-                  {[...Array(Math.floor(product.rating))].map((_, i) => (
-                    <StarIcon key={i} className="h-4 w-4 fill-current" />
-                  ))}
-                  <span className="ml-1 text-sm text-muted-foreground">
-                    ({product.rating})
-                  </span>
-                </div>
-                <p className="text-2xl font-bold text-primary">
-                  NT$ {product.price}
-                </p>
-              </CardContent>
-              <CardFooter className="p-4 pt-0">
-                <Button
-                  className="w-full"
-                  onClick={() => setSelectedProduct(product)}
-                >
-                  查看詳情
+        <div className="space-y-4">
+          <h3 className="font-bold text-sm uppercase tracking-wider text-muted-foreground">{t("ecommerce.category_filter")}</h3>
+          <div className="space-y-2">
+            {categories.map(cat => (
+              <div 
+                key={cat} 
+                className={cn(
+                  "flex items-center justify-between px-3 py-2 rounded-lg cursor-pointer transition-colors text-sm font-medium",
+                  selectedCategory === cat ? "bg-purple-50 dark:bg-purple-900/20 text-purple-600" : "hover:bg-muted"
+                )}
+                onClick={() => setSelectedCategory(cat)}
+              >
+                {cat === "所有" ? t("common.all") : cat}
+                {selectedCategory === cat && <ChevronRight className="h-4 w-4" />}
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <Separator />
+
+        <div className="space-y-4">
+          <h3 className="font-bold text-sm uppercase tracking-wider text-muted-foreground">{t("ecommerce.price_range")}</h3>
+          <div className="grid grid-cols-2 gap-2">
+            <Input placeholder="Min" type="number" className="h-8 text-xs bg-background" />
+            <Input placeholder="Max" type="number" className="h-8 text-xs bg-background" />
+          </div>
+          <Button size="sm" variant="outline" className="w-full bg-background">{t("ecommerce.apply")}</Button>
+        </div>
+
+        <Separator />
+
+        <div className="space-y-4">
+          <h3 className="font-bold text-sm uppercase tracking-wider text-muted-foreground">{t("ecommerce.hot_tags")}</h3>
+          <div className="flex flex-wrap gap-2">
+            {["折扣中", "新品上架", "免運費", "快速到貨"].map(tag => (
+              <Badge key={tag} variant="secondary" className="cursor-pointer hover:bg-purple-100 dark:hover:bg-purple-900/40 bg-muted text-muted-foreground">{tag}</Badge>
+            ))}
+          </div>
+        </div>
+      </aside>
+
+      {/* Main Content */}
+      <main className="flex-1 flex flex-col">
+        <header className="h-16 border-b flex items-center justify-between px-8 bg-background/50 backdrop-blur-md sticky top-0 z-20">
+          <div className="flex-1 max-w-xl relative">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+            <Input 
+              placeholder={t("ecommerce.search_placeholder")} 
+              className="pl-10 bg-muted/50 border-none rounded-full h-10"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+          </div>
+          <div className="flex items-center gap-4">
+            <Button variant="ghost" size="icon" className="relative text-foreground" onClick={() => setCartOpen(true)}>
+              <ShoppingCart className="h-5 w-5" />
+              {cart.length > 0 && (
+                <span className="absolute -top-1 -right-1 bg-purple-600 text-white text-[10px] font-bold h-4 w-4 rounded-full flex items-center justify-center">
+                  {cart.reduce((a, b) => a + b.qty, 0)}
+                </span>
+              )}
+            </Button>
+            <div className="h-8 w-8 rounded-full bg-purple-100 dark:bg-purple-900/20 border border-purple-200 dark:border-purple-800" />
+          </div>
+        </header>
+
+        <div className="p-8 space-y-8">
+          <AnimatePresence mode="wait">
+            {selectedProduct ? (
+              <motion.div
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -20 }}
+                className="space-y-8"
+              >
+                <Button variant="ghost" onClick={() => setSelectedProduct(null)} className="group text-foreground">
+                  <ArrowLeft className="mr-2 h-4 w-4 group-hover:-translate-x-1 transition-transform" /> {t("common.back")}
                 </Button>
-              </CardFooter>
-            </Card>
-          ))
-        ) : (
-          <p className="col-span-full text-center text-muted-foreground text-lg">
-            沒有找到符合條件的商品。
-          </p>
+                
+                <div className="grid lg:grid-cols-2 gap-12">
+                  <div className="space-y-4">
+                    <img src={selectedProduct.imageUrl} className="w-full aspect-square object-cover rounded-3xl shadow-xl" alt={selectedProduct.name} />
+                    <div className="grid grid-cols-4 gap-4">
+                      {[1,2,3,4].map(i => (
+                        <div key={i} className="aspect-square bg-muted rounded-xl border-2 border-transparent hover:border-purple-500 cursor-pointer overflow-hidden">
+                          <img src={selectedProduct.imageUrl} className="w-full h-full object-cover opacity-50 hover:opacity-100 transition-opacity" alt="Thumb" />
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                  
+                  <div className="space-y-6">
+                    <div className="space-y-2">
+                      <Badge variant="secondary" className="bg-muted text-muted-foreground">{selectedProduct.category}</Badge>
+                      <h1 className="text-4xl font-black">{selectedProduct.name}</h1>
+                      <div className="flex items-center gap-2">
+                        <div className="flex text-amber-500">
+                          {[...Array(5)].map((_, i) => (
+                            <Star key={i} className={cn("h-4 w-4", i < Math.floor(selectedProduct.rating) ? "fill-current" : "")} />
+                          ))}
+                        </div>
+                        <span className="text-sm font-medium text-muted-foreground">{selectedProduct.reviews} 則評論</span>
+                      </div>
+                    </div>
+                    
+                    <div className="flex items-baseline gap-4">
+                      <span className="text-4xl font-black text-purple-600">NT$ {selectedProduct.price.toLocaleString()}</span>
+                      {selectedProduct.originalPrice && (
+                        <span className="text-xl text-muted-foreground line-through">NT$ {selectedProduct.originalPrice.toLocaleString()}</span>
+                      )}
+                    </div>
+                    
+                    <p className="text-lg text-muted-foreground leading-relaxed">
+                      {selectedProduct.description}
+                    </p>
+                    
+                    <Separator />
+                    
+                    <div className="space-y-4">
+                      <div className="flex items-center gap-4">
+                        <div className="flex items-center border rounded-full h-12 bg-background">
+                          <Button variant="ghost" size="icon" className="rounded-l-full text-foreground"><Minus className="h-4 w-4" /></Button>
+                          <span className="w-12 text-center font-bold">1</span>
+                          <Button variant="ghost" size="icon" className="rounded-r-full text-foreground"><Plus className="h-4 w-4" /></Button>
+                        </div>
+                        <Button className="h-12 flex-1 rounded-full bg-purple-600 hover:bg-purple-700 font-bold gap-2 text-white" onClick={() => addToCart(selectedProduct)}>
+                          <ShoppingCart className="h-5 w-5" /> {t("ecommerce.add_to_cart")}
+                        </Button>
+                      </div>
+                      <Button variant="outline" className="w-full h-12 rounded-full font-bold border-2 gap-2 bg-background text-foreground">
+                        <Heart className="h-5 w-5" /> 加入收藏清單
+                      </Button>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            ) : (
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                className="space-y-8"
+              >
+                <div className="flex items-center justify-between">
+                  <h2 className="text-3xl font-black">{t("ecommerce.product_list")}</h2>
+                  <div className="flex items-center gap-2 border rounded-lg p-1 bg-muted/50">
+                    <Button variant="ghost" size="sm" className="h-8 bg-background shadow-sm text-foreground"><LayoutGrid className="h-4 w-4 mr-2" /> 網格</Button>
+                    <Button variant="ghost" size="sm" className="h-8 text-foreground"><ListIcon className="h-4 w-4 mr-2" /> 列表</Button>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                  {filteredProducts.map((product) => (
+                    <Card key={product.id} className="group border-none shadow-none bg-transparent flex flex-col h-full">
+                      <div className="aspect-square rounded-2xl overflow-hidden relative mb-4">
+                        <img 
+                          src={product.imageUrl} 
+                          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" 
+                          alt={product.name}
+                        />
+                        <div className="absolute top-3 left-3 flex flex-col gap-2">
+                          {product.isNew && <Badge className="bg-purple-600 border-none text-white">NEW</Badge>}
+                          {product.onSale && <Badge className="bg-red-500 border-none text-white">SALE</Badge>}
+                        </div>
+                        <Button 
+                          size="icon" 
+                          variant="secondary" 
+                          className="absolute top-3 right-3 h-9 w-9 rounded-full opacity-0 group-hover:opacity-100 transition-opacity shadow-lg bg-background text-foreground"
+                        >
+                          <Heart className="h-4 w-4" />
+                        </Button>
+                        <div className="absolute inset-x-3 bottom-3 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all">
+                          <Button className="w-full bg-background/90 backdrop-blur-sm text-foreground hover:bg-background font-bold gap-2 border" onClick={() => addToCart(product)}>
+                            <Plus className="h-4 w-4" /> {t("ecommerce.quick_add")}
+                          </Button>
+                        </div>
+                      </div>
+                      <div className="space-y-2 flex-grow">
+                        <div className="flex justify-between items-start">
+                          <h4 className="font-bold group-hover:text-purple-600 transition-colors cursor-pointer" onClick={() => setSelectedProduct(product)}>
+                            {product.name}
+                          </h4>
+                          <span className="font-black">NT$ {product.price.toLocaleString()}</span>
+                        </div>
+                        <p className="text-xs text-muted-foreground line-clamp-2">{product.description}</p>
+                      </div>
+                      <div className="flex items-center gap-1 pt-3">
+                        <div className="flex text-amber-500">
+                          <Star className="h-3 w-3 fill-current" />
+                        </div>
+                        <span className="text-[10px] font-bold">{product.rating}</span>
+                        <span className="text-[10px] text-muted-foreground">({product.reviews})</span>
+                      </div>
+                    </Card>
+                  ))}
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
+      </main>
+
+      {/* Cart Drawer */}
+      <AnimatePresence>
+        {cartOpen && (
+          <>
+            <motion.div 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 bg-black/40 backdrop-blur-sm z-50"
+              onClick={() => setCartOpen(false)}
+            />
+            <motion.div 
+              initial={{ x: "100%" }}
+              animate={{ x: 0 }}
+              exit={{ x: "100%" }}
+              transition={{ type: "spring", damping: 25, stiffness: 200 }}
+              className="fixed right-0 top-0 bottom-0 w-full max-w-md bg-background z-50 shadow-2xl flex flex-col"
+            >
+              <div className="p-6 border-b flex items-center justify-between">
+                <h2 className="text-xl font-bold flex items-center gap-2">
+                  <ShoppingCart className="h-5 w-5" /> {t("ecommerce.cart")} ({cart.length})
+                </h2>
+                <Button variant="ghost" size="icon" className="text-foreground" onClick={() => setCartOpen(false)}>
+                  <X className="h-5 w-5" />
+                </Button>
+              </div>
+              
+              <div className="flex-1 overflow-y-auto p-6 space-y-6">
+                {cart.length === 0 ? (
+                  <div className="h-full flex flex-col items-center justify-center text-center space-y-4">
+                    <ShoppingBag className="h-16 w-16 text-muted-foreground/20" />
+                    <p className="text-muted-foreground">您的購物車目前是空的</p>
+                    <Button variant="outline" className="bg-background text-foreground" onClick={() => setCartOpen(false)}>去逛逛</Button>
+                  </div>
+                ) : (
+                  cart.map((item) => (
+                    <div key={item.product.id} className="flex gap-4">
+                      <img src={item.product.imageUrl} className="h-20 w-20 object-cover rounded-xl" alt={item.product.name} />
+                      <div className="flex-1">
+                        <div className="flex justify-between">
+                          <p className="font-bold text-sm">{item.product.name}</p>
+                          <Button variant="ghost" size="icon" className="h-6 w-6 text-foreground" onClick={() => removeFromCart(item.product.id)}>
+                            <X className="h-3 w-3" />
+                          </Button>
+                        </div>
+                        <p className="text-xs text-muted-foreground mb-2">{item.product.category}</p>
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center border rounded-md h-8 bg-background">
+                            <Button variant="ghost" size="icon" className="h-7 w-7 text-foreground"><Minus className="h-3 w-3" /></Button>
+                            <span className="w-8 text-center text-xs font-bold">{item.qty}</span>
+                            <Button variant="ghost" size="icon" className="h-7 w-7 text-foreground"><Plus className="h-3 w-3" /></Button>
+                          </div>
+                          <span className="font-black text-sm">NT$ {(item.product.price * item.qty).toLocaleString()}</span>
+                        </div>
+                      </div>
+                    </div>
+                  ))
+                )}
+              </div>
+              
+              <div className="p-6 border-t bg-muted/20 space-y-4">
+                <div className="space-y-2">
+                  <div className="flex justify-between text-sm">
+                    <span className="text-muted-foreground">小計</span>
+                    <span className="font-bold">NT$ {cartTotal.toLocaleString()}</span>
+                  </div>
+                  <div className="flex justify-between text-sm">
+                    <span className="text-muted-foreground">運費</span>
+                    <span className="text-green-600 font-bold">{t("ecommerce.free_shipping")}</span>
+                  </div>
+                  <Separator className="my-2" />
+                  <div className="flex justify-between text-lg font-black">
+                    <span>{t("ecommerce.total")}</span>
+                    <span className="text-purple-600">NT$ {cartTotal.toLocaleString()}</span>
+                  </div>
+                </div>
+                <Button className="w-full h-12 rounded-xl bg-purple-600 hover:bg-purple-700 font-bold text-lg gap-2 shadow-lg shadow-purple-200 text-white">
+                  <CreditCard className="h-5 w-5" /> {t("ecommerce.checkout")}
+                </Button>
+                <div className="flex items-center justify-center gap-2 text-[10px] text-muted-foreground">
+                  <CheckCircle2 className="h-3 w-3 text-green-500" /> 安全結帳保障
+                </div>
+              </div>
+            </motion.div>
+          </>
         )}
-      </div>
+      </AnimatePresence>
+      
+      <AiAssistant context="ecommerce" />
     </div>
   );
 }

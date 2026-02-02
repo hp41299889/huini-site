@@ -1,145 +1,103 @@
 import { Link } from "react-router";
-import { useThemeStore } from "~/stores/use-theme-store";
-import { useLanguageStore } from "~/stores/use-language-store";
-import { Sun, Moon, Languages, ChevronDown } from "lucide-react";
 import { cn } from "~/lib/utils";
-import { Button } from "~/components/ui/button";
 import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "~/components/ui/dropdown-menu";
-import { useTranslation } from "react-i18next"; // Import useTranslation
+  NavigationMenu,
+  NavigationMenuList,
+  NavigationMenuItem,
+  NavigationMenuTrigger,
+  NavigationMenuContent,
+  NavigationMenuLink,
+} from "~/components/ui/navigation-menu";
+import { useTranslation } from "react-i18next";
 
-export function Navbar() {
-  const { theme, toggleTheme } = useThemeStore();
-  const { language, setLanguage } = useLanguageStore();
-  const { t } = useTranslation(); // Initialize useTranslation
+export default function Navbar() {
+  const { t } = useTranslation();
 
-  const handleLanguageToggle = () => {
-    // This will now also trigger i18n.changeLanguage via the zustand store
-    setLanguage(language === "zh" ? "en" : "zh");
-  };
-
-  const demoCategories = [
-    { name: t("demos_list.cms_title"), path: "cms" },
+  const categorizedDemos = [
     {
-      name: t("demos_list.ecommerce_onepage_title"),
-      path: "ecommerce-onepage",
+      category: t("demos_categories.business_applications"),
+      demos: [
+        { name: t("demos_list.erp_title"), path: "erp" },
+        { name: t("demos_list.dashboard_title"), path: "dashboard" },
+        { name: t("demos_list.booking_system_title"), path: "booking-system" },
+        {
+          name: t("demos_list.project_management_title"),
+          path: "project-management",
+        },
+        { name: t("demos_list.lms_title"), path: "lms" },
+      ],
     },
     {
-      name: t("demos_list.content_promotion_title"),
-      path: "content-promotion",
+      category: t("demos_categories.content_marketing"),
+      demos: [
+        { name: t("demos_list.cms_title"), path: "cms" },
+        {
+          name: t("demos_list.content_promotion_title"),
+          path: "content-promotion",
+        },
+        { name: t("demos_list.blog_title"), path: "blog" },
+        {
+          name: t("demos_list.social_media_feed_title"),
+          path: "social-media-feed",
+        },
+        {
+          name: t("demos_list.corporate_website_title"),
+          path: "corporate-website",
+        },
+      ],
     },
-    { name: t("demos_list.erp_title"), path: "erp" },
     {
-      name: t("demos_list.corporate_website_title"),
-      path: "corporate-website",
+      category: t("demos_categories.ecommerce"),
+      demos: [
+        {
+          name: t("demos_list.ecommerce_onepage_title"),
+          path: "ecommerce-onepage",
+        },
+        {
+          name: t("demos_list.ecommerce_platform_title"),
+          path: "ecommerce-platform",
+        },
+      ],
     },
     {
-      name: t("demos_list.ecommerce_platform_title"),
-      path: "ecommerce-platform",
+      category: t("demos_categories.other"),
+      demos: [
+        { name: t("demos_list.forum_title"), path: "forum" },
+        { name: t("demos_list.portfolio_title"), path: "portfolio" },
+      ],
     },
-    { name: t("demos_list.dashboard_title"), path: "dashboard" },
-    {
-      name: t("demos_list.social_media_feed_title"),
-      path: "social-media-feed",
-    },
-    {
-      name: t("demos_list.project_management_title"),
-      path: "project-management",
-    },
-    { name: t("demos_list.booking_system_title"), path: "booking-system" },
-    { name: t("demos_list.lms_title"), path: "lms" },
-    { name: t("demos_list.blog_title"), path: "blog" },
-    { name: t("demos_list.forum_title"), path: "forum" },
-    { name: t("demos_list.portfolio_title"), path: "portfolio" },
-    { name: t("demos_list.todo_list_title"), path: "todo-list" },
   ];
 
   return (
-    <nav
-      className={cn(
-        "bg-background text-foreground border-b border-border p-4 flex justify-between items-center font-sans",
-      )}
-    >
-      <div className="flex items-center space-x-6">
-        <Link
-          to="/"
-          className="text-xl font-bold text-primary hover:text-accent transition-colors duration-200"
-        >
-          {t("navbar.site_title")} {/* Use translation */}
-        </Link>
-        <div className="hidden md:flex items-center space-x-6">
-          <Link
-            to="/"
-            className="text-foreground hover:text-accent transition-colors duration-200"
-          >
-            {t("navbar.home")} {/* Use translation */}
-          </Link>
-
-          {/* Demos Dropdown with shadcn/ui */}
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button
-                variant="ghost"
-                className="flex items-center text-foreground hover:text-accent"
-              >
-                {t("navbar.demos")}{" "}
-                <ChevronDown
-                  size={16}
-                  className="ml-1 transition-transform rotate-0 data-[state=open]:rotate-180"
-                />{" "}
-                {/* Use translation */}
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent className="w-48">
-              {demoCategories.map((category) => (
-                <DropdownMenuItem key={category.path} asChild>
-                  <Link to={`/showcases/${category.path}`}>
-                    {" "}
-                    {/* Updated path */}
-                    {category.name}
-                  </Link>
-                </DropdownMenuItem>
-              ))}
-            </DropdownMenuContent>
-          </DropdownMenu>
-
-          <Link
-            to="/about"
-            className="text-foreground hover:text-accent transition-colors duration-200"
-          >
-            {t("navbar.about")} {/* Use translation */}
-          </Link>
-        </div>
-      </div>
-      <div className="flex items-center space-x-4">
-        <Button
-          variant="ghost"
-          size="icon"
-          onClick={toggleTheme}
-          aria-label={t("navbar.toggle_theme")}
-        >
-          {" "}
-          {/* Use translation for aria-label */}
-          {theme === "dark" ? (
-            <Sun size={20} className="text-foreground" />
-          ) : (
-            <Moon size={20} className="text-foreground" />
-          )}
-        </Button>
-        <Button
-          variant="ghost"
-          onClick={handleLanguageToggle}
-          className="flex items-center"
-        >
-          <Languages size={20} className="text-foreground" />
-          <span className="ml-1 uppercase text-foreground">{language}</span>
-        </Button>
-        {/* TODO: Implement MobileMenu for small screens */}
-      </div>
-    </nav>
+    <NavigationMenu>
+      <NavigationMenuList>
+        {categorizedDemos.map((catGroup) => (
+          <NavigationMenuItem key={catGroup.category}>
+            <NavigationMenuTrigger>
+              {catGroup.category}
+            </NavigationMenuTrigger>
+            <NavigationMenuContent>
+              <ul className="grid gap-3 p-6 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
+                {catGroup.demos.map((demo) => (
+                  <li key={demo.path}>
+                    <NavigationMenuLink asChild>
+                      <Link
+                        to={`/demos/${demo.path}`}
+                        className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent/10 hover:text-accent-foreground focus:bg-accent/10 focus:text-accent-foreground"
+                      >
+                        <div className="text-sm font-medium leading-none">{demo.name}</div>
+                        <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
+                          {t(`demos_list.${demo.path}_description_short`, { defaultValue: '' })}
+                        </p>
+                      </Link>
+                    </NavigationMenuLink>
+                  </li>
+                ))}
+              </ul>
+            </NavigationMenuContent>
+          </NavigationMenuItem>
+        ))}
+      </NavigationMenuList>
+    </NavigationMenu>
   );
 }
