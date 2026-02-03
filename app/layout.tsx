@@ -1,6 +1,6 @@
 import { Outlet } from "react-router";
 import Topbar from "~/layout/topbar"; // Import the new Topbar component
-import { MobileMenu } from "~/components/layout/mobile-menu";
+import { MobileMenu } from "~/layout/mobile-menu";
 
 export default function Layout() {
   return (
