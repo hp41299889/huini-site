@@ -25,9 +25,13 @@ export default function Topbar() {
       <div className="flex items-center space-x-8">
         <Link
           to="/"
-          className="text-xl md:text-2xl font-bold tracking-tight text-primary hover:opacity-80 transition-opacity duration-200"
+          className="hover:opacity-80 transition-opacity duration-200"
         >
-          {t("navbar.site_title")}
+          <img 
+            src="/images/huini-logo.png" 
+            alt={t("navbar.site_title")} 
+            className="h-10 w-auto md:h-12"
+          />
         </Link>
       </div>
 

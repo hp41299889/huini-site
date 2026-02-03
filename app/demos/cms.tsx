@@ -283,8 +283,9 @@ export default function CmsDemo() {
                   </AnimatePresence>
                 </TableBody>
               </Table>
-            </Card>
-          ) : (
+            </div>
+          </Card>
+        ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
               {filteredArticles.map((article) => (
                 <Card key={article.id} className="overflow-hidden group bg-background">

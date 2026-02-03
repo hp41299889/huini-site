@@ -88,8 +88,8 @@ export default function ProjectManagementDemo() {
   const handleDrop = (e: React.DragEvent, newStatus: Task["status"]) => {
     e.preventDefault();
     const taskId = e.dataTransfer.getData("taskId");
-    setTasks(prev => prev.map(t => 
-      t.id === taskId ? { ...t, status: newStatus, progress: newStatus === t("project.columns.done") ? 100 : t.progress } : t
+    setTasks(prev => prev.map(task => 
+      task.id === taskId ? { ...task, status: newStatus, progress: newStatus === t("project.columns.done") ? 100 : task.progress } : task
     ));
   };
 

@@ -217,12 +217,12 @@ export default function ErpDemo() {
                       </TableCell>
                     </TableRow>
                   ))}
-                </TableBody>
-              </Table>
-            </CardContent>
-          </Card>
-        </TabsContent>
-
+                                  </TableBody>
+                                </Table>
+                              </div>
+                            </CardContent>
+                          </Card>
+                        </TabsContent>
         <TabsContent value="hr">
           <div className="grid gap-4 md:grid-cols-3">
             <Card className="md:col-span-2">
