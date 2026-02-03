@@ -35,10 +35,10 @@ export default function Topbar() {
 
       <div className="flex items-center space-x-6"> {/* Increased spacing for About, Theme, Language */}
         <Link
-          to="/about"
+          to="/cooperate"
           className="text-foreground hover:text-primary transition-colors duration-200" // Consistent hover with primary
         >
-          {t("navbar.about")} {/* About Link */}
+          我要合作
         </Link>
         <Button
           variant="ghost"
@@ -56,6 +56,7 @@ export default function Topbar() {
           variant="ghost"
           onClick={handleLanguageToggle}
           className="flex items-center"
+          data-testid="language-toggle"
         >
           <Languages size={20} className="text-foreground" />
           <span className="ml-1 uppercase text-foreground">{language}</span>

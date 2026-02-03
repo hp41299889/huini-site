@@ -56,39 +56,43 @@ interface Post {
 
 export default function SocialMediaFeedDemo() {
   const { t } = useTranslation();
-  const [posts, setPosts] = useState<Post[]>([
+  
+  // Mock Data inside component
+  const initialPosts: Post[] = [
     {
       id: "p1",
       author: {
-        name: "王小明",
-        avatar: "https://images.unsplash.com/photo-1535713875002-d1d0cfdfee26?auto=format&fit=crop&q=80&w=200",
+        name: t("common.author", "Xiaoming"),
+        avatar: "/images/erp-emp-1.jpg",
         handle: "@xiaoming",
         verified: true
       },
-      content: t("social.posts.p1", "今天在台北101附近散步，天氣真的太棒了！大家週末愉快 ☀️ #Taipei #WeekendVibes"),
-      imageUrl: "https://images.unsplash.com/photo-1507525428034-b723cf961c3e?auto=format&fit=crop&q=80&w=600",
+      content: t("social.posts.p1"),
+      imageUrl: "/images/social-post-1.jpg",
       likes: 124,
       comments: 12,
       retweets: 5,
-      timestamp: t("common.date", "2小時前"),
+      timestamp: t("common.date", "2h ago"),
       likedByCurrentUser: false,
     },
     {
       id: "p2",
       author: {
         name: "Jessica Wang",
-        avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29329?auto=format&fit=crop&q=80&w=200",
+        avatar: "/images/erp-emp-2.jpg",
         handle: "@jess_design",
       },
-      content: t("social.posts.p2", "剛完成這個新的設計草案，使用了最新的玻璃擬態風格。你們覺得如何？🎨✨"),
-      imageUrl: "https://images.unsplash.com/photo-1558655146-d09347e92766?auto=format&fit=crop&q=80&w=600",
+      content: t("social.posts.p2"),
+      imageUrl: "/images/social-post-2.jpg",
       likes: 256,
       comments: 45,
       retweets: 18,
-      timestamp: t("common.date", "5小時前"),
+      timestamp: t("common.date", "5h ago"),
       likedByCurrentUser: true,
     },
-  ]);
+  ];
+
+  const [posts, setPosts] = useState<Post[]>(initialPosts);
   const [newPostContent, setNewPostContent] = useState("");
 
   const handleLike = (postId: string) => {
@@ -103,12 +107,12 @@ export default function SocialMediaFeedDemo() {
     if (!newPostContent.trim()) return;
     const newPost: Post = {
       id: Date.now().toString(),
-      author: { name: t("common.name", "你"), handle: "@current_user", avatar: "Y" },
+      author: { name: t("common.name", "You"), handle: "@current_user", avatar: "Y" },
       content: newPostContent,
       likes: 0,
       comments: 0,
       retweets: 0,
-      timestamp: t("common.date", "剛剛"),
+      timestamp: t("common.date", "Just now"),
       likedByCurrentUser: false,
     };
     setPosts([newPost, ...posts]);
@@ -162,7 +166,7 @@ export default function SocialMediaFeedDemo() {
         <div className="p-4 border-b space-y-4">
           <div className="flex gap-4">
             <Avatar className="h-12 w-12">
-              <AvatarFallback className="bg-muted">你</AvatarFallback>
+              <AvatarFallback className="bg-muted">Me</AvatarFallback>
             </Avatar>
             <div className="flex-1">
               <textarea 
@@ -263,10 +267,10 @@ export default function SocialMediaFeedDemo() {
           </CardHeader>
           <CardContent className="p-0">
             {[
-              { category: "科技 · 趨勢", topic: "React Router v7", posts: "125K posts" },
-              { category: "體育 · 正在流行", topic: "世界大賽", posts: "85K posts" },
-              { category: "娛樂 · 趨勢", topic: "惠尼影院", posts: "42K posts" },
-              { category: "台灣 · 流行", topic: "#台北101", posts: "12K posts" },
+              { category: t("social.trends.tech"), topic: "React Router v7", posts: "125K posts" },
+              { category: t("social.trends.sports"), topic: "World Series", posts: "85K posts" },
+              { category: t("social.trends.entertainment"), topic: "Huini Cinema", posts: "42K posts" },
+              { category: t("social.trends.local"), topic: "#Taipei101", posts: "12K posts" },
             ].map((trend, i) => (
               <div key={i} className="px-4 py-3 hover:bg-muted transition-colors cursor-pointer">
                 <p className="text-[10px] text-muted-foreground">{trend.category}</p>
@@ -276,7 +280,7 @@ export default function SocialMediaFeedDemo() {
             ))}
           </CardContent>
           <CardFooter className="pt-2">
-            <Button variant="link" className="text-rose-500 px-0 h-auto">顯示更多</Button>
+            <Button variant="link" className="text-rose-500 px-0 h-auto">{t("forum.learn_more")}</Button>
           </CardFooter>
         </Card>
 

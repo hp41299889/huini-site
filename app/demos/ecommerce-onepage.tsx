@@ -44,9 +44,9 @@ export default function EcommerceOnePageDemo() {
     name: "Huini Watch Pro",
     price: 3999,
     originalPrice: 5999,
-    description: "重新定義您的智慧生活。Huini Watch Pro 結合頂尖工藝與前瞻科技，為您帶來前所未有的健康監測與極致效率。",
-    specs: ["心率監測", "睡眠追蹤", "IP68 防水", "14 天續航", "1.5 吋 AMOLED 螢幕"],
-    imageUrl: "https://images.unsplash.com/photo-1546868871-7041f2a55e12?auto=format&fit=crop&q=80&w=800",
+    description: t("ecommerce.onepage.product.desc"),
+    specs: t("ecommerce.onepage.product.specs", { returnObjects: true }) as string[],
+    imageUrl: "/images/product-watch.jpg",
   };
 
   const handleCheckout = (e: React.FormEvent) => {
@@ -78,10 +78,10 @@ export default function EcommerceOnePageDemo() {
             className="space-y-6"
           >
             <Badge className="bg-sky-100 text-sky-700 hover:bg-sky-100 border-none px-4 py-1 rounded-full text-sm font-bold">
-              2026 全新上市
+              {t("ecommerce.onepage.new_release")}
             </Badge>
             <h1 className="text-5xl md:text-7xl font-black tracking-tight leading-tight">
-              您的健康 <br /> 值得更 <span className="text-sky-600">智慧</span> 的呵護
+              {t("ecommerce.onepage.title_p1")} <br /> {t("ecommerce.onepage.title_p2")} <span className="text-sky-600">{t("ecommerce.onepage.title_p3")}</span> {t("ecommerce.onepage.title_p4")}
             </h1>
             <p className="text-xl text-muted-foreground leading-relaxed max-w-lg">
               {product.description}
@@ -94,7 +94,7 @@ export default function EcommerceOnePageDemo() {
                 <div className="flex text-amber-500">
                   {[1,2,3,4,5].map(i => <Star key={i} className="h-4 w-4 fill-current" />)}
                 </div>
-                <span className="text-sm font-medium text-muted-foreground">5,000+ 用戶五星好評</span>
+                <span className="text-sm font-medium text-muted-foreground">{t("ecommerce.onepage.reviews_count")}</span>
               </div>
             </div>
           </motion.div>
@@ -118,14 +118,14 @@ export default function EcommerceOnePageDemo() {
       <section className="py-20 bg-muted/30">
         <div className="container mx-auto px-4">
           <div className="text-center max-w-2xl mx-auto mb-16 space-y-4">
-            <h2 className="text-3xl font-black">極致功能，一應俱全</h2>
-            <p className="text-muted-foreground">我們考慮到每一個使用細節，只為給您最完美的體驗。</p>
+            <h2 className="text-3xl font-black">{t("ecommerce.onepage.features_title")}</h2>
+            <p className="text-muted-foreground">{t("ecommerce.onepage.features_desc")}</p>
           </div>
           <div className="grid md:grid-cols-3 gap-8">
             {[
-              { icon: Heart, title: "精準監測", desc: "搭載醫療級感應器，隨時掌握您的心率與血氧動態。" },
-              { icon: Zap, title: "極速續航", desc: "一次充電即可使用 14 天，告別每日充電的煩惱。" },
-              { icon: ShieldCheck, title: "強悍耐用", desc: "IP68 防水防塵標準，無論游泳或登山都能勝任。" },
+              { icon: Heart, title: t("ecommerce.onepage.features.f1.title"), desc: t("ecommerce.onepage.features.f1.desc") },
+              { icon: Zap, title: t("ecommerce.onepage.features.f2.title"), desc: t("ecommerce.onepage.features.f2.desc") },
+              { icon: ShieldCheck, title: t("ecommerce.onepage.features.f3.title"), desc: t("ecommerce.onepage.features.f3.desc") },
             ].map((f, i) => (
               <Card key={i} className="border-none shadow-none bg-background p-4 rounded-3xl hover:shadow-xl transition-shadow">
                 <CardHeader>
@@ -148,7 +148,7 @@ export default function EcommerceOnePageDemo() {
         <div className="container mx-auto max-w-5xl">
           <div className="grid lg:grid-cols-2 gap-12 bg-background rounded-[3rem] shadow-2xl overflow-hidden border">
             <div className="bg-muted/30 p-12 flex flex-col justify-center">
-              <h2 className="text-4xl font-black mb-6">準備好加入智慧生活了嗎？</h2>
+              <h2 className="text-4xl font-black mb-6">{t("ecommerce.onepage.cta_title")}</h2>
               <div className="space-y-4 mb-8">
                 {product.specs.map((s, i) => (
                   <div key={i} className="flex items-center gap-3 font-medium">
@@ -160,7 +160,7 @@ export default function EcommerceOnePageDemo() {
               <div className="flex items-baseline gap-4 mb-8">
                 <span className="text-5xl font-black text-primary">NT$ {product.price}</span>
                 <span className="text-xl text-muted-foreground line-through">NT$ {product.originalPrice}</span>
-                <Badge className="bg-red-500">限時 66 折</Badge>
+                <Badge className="bg-red-500">66% OFF</Badge>
               </div>
               <div className="grid grid-cols-2 gap-4 text-sm text-muted-foreground">
                 <div className="flex items-center gap-2">
@@ -186,7 +186,7 @@ export default function EcommerceOnePageDemo() {
                     </div>
                     <div>
                       <h3 className="text-2xl font-bold">{t("booking.success_title")}</h3>
-                      <p className="text-muted-foreground">感謝您的支持，我們將盡快為您出貨。</p>
+                      <p className="text-muted-foreground">{t("booking.success_desc")}</p>
                     </div>
                     <Button variant="outline" onClick={() => setIsSuccess(false)}>{t("common.back")}</Button>
                   </motion.div>
@@ -204,16 +204,16 @@ export default function EcommerceOnePageDemo() {
                       <div className="grid grid-cols-2 gap-4">
                         <div className="space-y-2">
                           <Label>{t("ecommerce.first_name")}</Label>
-                          <Input placeholder="王" required className="bg-background" />
+                          <Input placeholder="Wang" required className="bg-background" />
                         </div>
                         <div className="space-y-2">
                           <Label>{t("ecommerce.last_name")}</Label>
-                          <Input placeholder="小明" required className="bg-background" />
+                          <Input placeholder="Xiaoming" required className="bg-background" />
                         </div>
                       </div>
                       <div className="space-y-2">
                         <Label>{t("ecommerce.address")}</Label>
-                        <Input placeholder="請輸入詳細地址" required className="bg-background" />
+                        <Input placeholder="123 Main St" required className="bg-background" />
                       </div>
                       <div className="space-y-2">
                         <Label>{t("ecommerce.payment_method")}</Label>
@@ -227,7 +227,7 @@ export default function EcommerceOnePageDemo() {
                       {t("ecommerce.complete_order")} NT$ {product.price}
                     </Button>
                     <p className="text-[10px] text-center text-muted-foreground">
-                      點擊完成訂購即表示您同意我們的服務條款與隱私政策。
+                      Terms and Conditions apply.
                     </p>
                   </motion.form>
                 )}
@@ -245,12 +245,12 @@ export default function EcommerceOnePageDemo() {
             <span>HUINI SHOP</span>
           </div>
           <p className="text-muted-foreground max-w-md mx-auto">
-            我們致力於提供最優質的科技產品與服務，讓每個人都能享受智慧生活帶來的便利。
+            {t("corporate.hero_desc")}
           </p>
           <div className="flex justify-center gap-8 text-sm font-bold text-slate-500">
-            <a href="#" className="hover:text-sky-600">聯絡我們</a>
-            <a href="#" className="hover:text-sky-600">運送政策</a>
-            <a href="#" className="hover:text-sky-600">隱私條款</a>
+            <a href="#" className="hover:text-sky-600">{t("about.contact_title")}</a>
+            <a href="#" className="hover:text-sky-600">Shipping Policy</a>
+            <a href="#" className="hover:text-sky-600">Privacy Policy</a>
           </div>
           <p className="text-xs text-slate-400">© 2026 Huini Technologies Inc. All rights reserved.</p>
         </div>

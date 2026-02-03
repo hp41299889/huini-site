@@ -24,30 +24,30 @@ import { motion } from 'framer-motion';
 import { AiAssistant } from '~/components/ai-assistant';
 import { useTranslation } from "react-i18next";
 
-// Mock Data
-const inventoryData = [
-  { id: 'SKU-001', name: '高階處理器 A1', category: '電子零件', stock: 45, minStock: 50, status: '低庫存' },
-  { id: 'SKU-002', name: '液晶顯示面板', category: '螢幕組件', stock: 120, minStock: 30, status: '正常' },
-  { id: 'SKU-003', name: '鋰電池 5000mAh', category: '電池', stock: 8, minStock: 20, status: '缺貨' },
-  { id: 'SKU-004', name: '散熱風扇', category: '散熱系統', stock: 300, minStock: 100, status: '正常' },
-];
-
-const employeeData = [
-  { name: '王小明', role: '生產線經理', status: '在職', department: '生產部', image: '' },
-  { name: '李美華', role: '財務分析師', status: '開會中', department: '財務部', image: '' },
-  { name: '張大千', role: '軟體工程師', status: '休假', department: '技術部', image: '' },
-  { name: '陳小春', role: '採購主管', status: '在職', department: '供應鏈', image: '' },
-];
-
-const financialData = [
-  { month: '1月', revenue: 450000, expense: 320000 },
-  { month: '2月', revenue: 520000, expense: 340000 },
-  { month: '3月', revenue: 480000, expense: 310000 },
-];
-
 export default function ErpDemo() {
   const { t } = useTranslation();
   const [activeTab, setActiveTab] = useState('dashboard');
+
+  // Mock Data inside component
+  const inventoryData = [
+    { id: 'SKU-001', name: t("erp.inventory.items.i1"), category: t("erp.inventory.categories.c1"), stock: 45, minStock: 50, status: t("erp.inventory.status.low") },
+    { id: 'SKU-002', name: t("erp.inventory.items.i2"), category: t("erp.inventory.categories.c2"), stock: 120, minStock: 30, status: t("erp.inventory.status.normal") },
+    { id: 'SKU-003', name: t("erp.inventory.items.i3"), category: t("erp.inventory.categories.c3"), stock: 8, minStock: 20, status: t("erp.inventory.status.out") },
+    { id: 'SKU-004', name: t("erp.inventory.items.i4"), category: t("erp.inventory.categories.c4"), stock: 300, minStock: 100, status: t("erp.inventory.status.normal") },
+  ];
+
+  const employeeData = [
+    { name: t("common.author", "王小明"), role: t("erp.hr.roles.r1"), status: t("erp.hr.status.active"), department: t("erp.hr.departments.d1"), image: '/images/erp-emp-1.jpg' },
+    { name: t("common.author", "李美華"), role: t("erp.hr.roles.r2"), status: t("erp.hr.status.meeting"), department: t("erp.hr.departments.d2"), image: '/images/erp-emp-2.jpg' },
+    { name: t("common.author", "張大千"), role: t("erp.hr.roles.r3"), status: t("erp.hr.status.leave"), department: t("erp.hr.departments.d3"), image: '/images/erp-emp-1.jpg' },
+    { name: t("common.author", "陳小春"), role: t("erp.hr.roles.r4"), status: t("erp.hr.status.active"), department: t("erp.hr.departments.d4"), image: '/images/erp-emp-2.jpg' },
+  ];
+
+  const financialData = [
+    { month: t("dashboard.months.jan"), revenue: 450000, expense: 320000 },
+    { month: t("dashboard.months.feb"), revenue: 520000, expense: 340000 },
+    { month: t("dashboard.months.mar"), revenue: 480000, expense: 310000 },
+  ];
 
   const erpStats = [
     { title: t("erp.stats.revenue"), value: 'NT$ 4,250,000', change: '+12.5%', icon: DollarSign, color: 'text-blue-600' },
@@ -132,9 +132,9 @@ export default function ErpDemo() {
               <CardContent>
                 <div className="space-y-4">
                   {[
-                    { name: '智慧型手機組裝', progress: 85, eta: '2小時' },
-                    { name: '平板電腦測試', progress: 45, eta: '5小時' },
-                    { name: '伺服器機殼噴漆', progress: 15, eta: '1天' },
+                    { name: t("erp.production.jobs.j1"), progress: 85, eta: '2h' },
+                    { name: t("erp.production.jobs.j2"), progress: 45, eta: '5h' },
+                    { name: t("erp.production.jobs.j3"), progress: 15, eta: '1d' },
                   ].map((job, i) => (
                     <div key={i} className="space-y-2">
                       <div className="flex items-center justify-between text-sm">
@@ -207,7 +207,7 @@ export default function ErpDemo() {
                       <TableCell className="text-right font-bold">{item.stock}</TableCell>
                       <TableCell className="text-right text-muted-foreground">{item.minStock}</TableCell>
                       <TableCell>
-                        <Badge variant={item.status === '正常' ? 'default' : item.status === '低庫存' ? 'secondary' : 'destructive'}>
+                        <Badge variant={item.status === t("erp.inventory.status.normal") ? 'default' : item.status === t("erp.inventory.status.low") ? 'secondary' : 'destructive'}>
                           {item.status}
                         </Badge>
                       </TableCell>
@@ -242,7 +242,7 @@ export default function ErpDemo() {
                           <p className="text-xs text-muted-foreground">{emp.role} · {emp.department}</p>
                         </div>
                       </div>
-                      <Badge variant={emp.status === '在職' ? 'default' : emp.status === '開會中' ? 'secondary' : 'outline'}>
+                      <Badge variant={emp.status === t("erp.hr.status.active") ? 'default' : emp.status === t("erp.hr.status.meeting") ? 'secondary' : 'outline'}>
                         {emp.status}
                       </Badge>
                     </div>
@@ -324,9 +324,9 @@ export default function ErpDemo() {
               </CardHeader>
               <CardContent className="space-y-4">
                 {[
-                  { vendor: '電力公司', amount: 'NT$ 12,000', due: '3天內', status: '待支付' },
-                  { vendor: '雲端服務商', amount: 'NT$ 45,000', due: '7天內', status: '已審核' },
-                  { vendor: '辦公設備租賃', amount: 'NT$ 8,500', due: '已逾期', status: '逾期' },
+                  { vendor: t("erp.finance.vendors.v1"), amount: 'NT$ 12,000', due: '3d', status: t("erp.finance.status.pending") },
+                  { vendor: t("erp.finance.vendors.v2"), amount: 'NT$ 45,000', due: '7d', status: t("erp.finance.status.approved") },
+                  { vendor: t("erp.finance.vendors.v3"), amount: 'NT$ 8,500', due: 'Overdue', status: t("erp.finance.status.overdue") },
                 ].map((bill, i) => (
                   <div key={i} className="flex items-center justify-between p-3 rounded-lg border">
                     <div>
@@ -335,7 +335,7 @@ export default function ErpDemo() {
                     </div>
                     <div className="text-right">
                       <p className="text-sm font-bold">{bill.amount}</p>
-                      <Badge variant={bill.status === '逾期' ? 'destructive' : 'outline'} className="text-[10px] px-1 h-4">
+                      <Badge variant={bill.status === t("erp.finance.status.overdue") ? 'destructive' : 'outline'} className="text-[10px] px-1 h-4">
                         {bill.status}
                       </Badge>
                     </div>

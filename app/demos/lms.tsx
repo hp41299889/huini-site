@@ -63,33 +63,33 @@ export default function LmsDemo() {
   const coursesData: Course[] = [
     {
       id: "c1",
-      title: t("lms.courses.c1.title", "React 前端開發實戰"),
-      description: t("lms.courses.c1.desc", "從入門到精通，學習使用 React 構建現代化前端應用。"),
-      instructor: t("common.author", "王老師"),
+      title: t("lms.courses.c1.title"),
+      description: t("lms.courses.c1.desc"),
+      instructor: t("common.author", "Teacher Wang"),
       rating: 4.8,
       progress: 30,
-      category: t("common.category", "前端開發"),
-      image: "R",
+      category: t("common.category", "Frontend"),
+      image: "/images/lms-course-1.jpg",
       lessons: [
-        { id: "l1", title: t("lms.courses.c1.l1", "環境配置與基礎概念"), type: "video", duration: "20分", completed: true },
-        { id: "l2", title: t("lms.courses.c1.l2", "組件化開發思維"), type: "video", duration: "25分", completed: false },
-        { id: "l3", title: t("lms.courses.c1.l3", "狀態管理與 Hook"), type: "video", duration: "30分", completed: false },
-        { id: "l4", title: t("lms.courses.c1.l4", "React 測驗一"), type: "quiz", completed: false },
+        { id: "l1", title: t("lms.courses.c1.l1"), type: "video", duration: "20m", completed: true },
+        { id: "l2", title: t("lms.courses.c1.l2"), type: "video", duration: "25m", completed: false },
+        { id: "l3", title: t("lms.courses.c1.l3"), type: "video", duration: "30m", completed: false },
+        { id: "l4", title: t("lms.courses.c1.l4"), type: "quiz", completed: false },
       ],
     },
     {
       id: "c2",
-      title: t("lms.courses.c2.title", "Node.js 後端開發入門"),
-      description: t("lms.courses.c2.desc", "學習使用 Node.js 和 Express 構建高效能的後端服務。"),
-      instructor: t("common.author", "李老師"),
+      title: t("lms.courses.c2.title"),
+      description: t("lms.courses.c2.desc"),
+      instructor: t("common.author", "Teacher Li"),
       rating: 4.5,
       progress: 0,
-      category: t("common.category", "後端開發"),
-      image: "N",
+      category: t("common.category", "Backend"),
+      image: "/images/lms-course-2.jpg",
       lessons: [
-        { id: "l5", title: t("lms.courses.c2.l1", "Node.js 基礎"), type: "video", duration: "18分", completed: false },
-        { id: "l6", title: t("lms.courses.c2.l2", "Express 框架"), type: "video", duration: "22分", completed: false },
-        { id: "l7", title: t("lms.courses.c2.l3", "資料庫整合"), type: "text", completed: false },
+        { id: "l5", title: t("lms.courses.c2.l1"), type: "video", duration: "18m", completed: false },
+        { id: "l6", title: t("lms.courses.c2.l2"), type: "video", duration: "22m", completed: false },
+        { id: "l7", title: t("lms.courses.c2.l3"), type: "text", completed: false },
       ],
     },
   ];
@@ -115,8 +115,8 @@ export default function LmsDemo() {
             <CardTitle className="text-sm font-medium">{t("lms.stats.learning_time")}</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">42 小時</div>
-            <p className="text-xs opacity-70">+5 小時 從上週</p>
+            <div className="text-2xl font-bold">{t("lms.stats.time_val")}</div>
+            <p className="text-xs opacity-70">{t("lms.stats.time_diff")}</p>
           </CardContent>
         </Card>
         <Card>
@@ -124,8 +124,8 @@ export default function LmsDemo() {
             <CardTitle className="text-sm font-medium">{t("lms.stats.completed_courses")}</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">12 門</div>
-            <p className="text-xs text-muted-foreground">還有 3 門進行中</p>
+            <div className="text-2xl font-bold">{t("lms.stats.course_val")}</div>
+            <p className="text-xs text-muted-foreground">{t("lms.stats.course_pending")}</p>
           </CardContent>
         </Card>
         <Card>
@@ -133,8 +133,8 @@ export default function LmsDemo() {
             <CardTitle className="text-sm font-medium">{t("lms.stats.certificates")}</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">8 份</div>
-            <p className="text-xs text-muted-foreground">擊敗了 85% 的學員</p>
+            <div className="text-2xl font-bold">{t("lms.stats.cert_val")}</div>
+            <p className="text-xs text-muted-foreground">{t("lms.stats.cert_rank")}</p>
           </CardContent>
         </Card>
       </div>
@@ -144,8 +144,8 @@ export default function LmsDemo() {
         {coursesData.filter(c => c.progress > 0).map(course => (
           <Card key={course.id} className="overflow-hidden hover:shadow-md transition-shadow cursor-pointer bg-background" onClick={() => handleSelectCourse(course)}>
             <div className="flex flex-col md:flex-row">
-              <div className="w-full md:w-48 bg-teal-500 flex items-center justify-center text-white text-4xl font-bold">
-                {course.image}
+              <div className="w-full md:w-48 bg-teal-500 overflow-hidden">
+                <img src={course.image} className="w-full h-full object-cover" alt={course.title} />
               </div>
               <div className="flex-1 p-6 space-y-4">
                 <div className="flex justify-between items-start">
@@ -158,7 +158,7 @@ export default function LmsDemo() {
                 <div className="space-y-2">
                   <div className="flex justify-between text-sm">
                     <span className="text-muted-foreground">{t("project.progress")}: {course.progress}%</span>
-                    <span className="font-medium">12/35 章節</span>
+                    <span className="font-medium">12/35 {t("lms.course_chapters")}</span>
                   </div>
                   <Progress value={course.progress} className="h-2" />
                 </div>
@@ -174,8 +174,8 @@ export default function LmsDemo() {
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
       {coursesData.map((course) => (
         <Card key={course.id} className="flex flex-col overflow-hidden hover:shadow-lg transition-all group bg-background">
-          <div className="aspect-video bg-teal-600 flex items-center justify-center text-white text-6xl font-bold group-hover:scale-105 transition-transform">
-            {course.image}
+          <div className="aspect-video bg-teal-600 overflow-hidden">
+            <img src={course.image} className="w-full h-full object-cover group-hover:scale-105 transition-transform" alt={course.title} />
           </div>
           <CardHeader>
             <div className="flex justify-between items-center mb-2">
@@ -191,7 +191,7 @@ export default function LmsDemo() {
           <CardContent className="flex-grow">
             <div className="flex items-center gap-2 text-sm text-muted-foreground">
               <PlayCircle className="h-4 w-4" />
-              <span>{course.lessons.length} 節課</span>
+              <span>{course.lessons.length} {t("lms.course_chapters")}</span>
             </div>
           </CardContent>
           <CardFooter className="border-t pt-4">
@@ -210,6 +210,7 @@ export default function LmsDemo() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         <div className="lg:col-span-2 space-y-6">
           <div className="aspect-video bg-black rounded-xl overflow-hidden relative group">
+            <img src="/images/lms-video-bg.jpg" className="absolute inset-0 w-full h-full object-cover opacity-60" alt="Video Background" />
             <div className="absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity">
               <Button size="lg" className="rounded-full h-16 w-16 p-0">
                 <Play className="h-8 w-8 fill-current" />
@@ -229,7 +230,7 @@ export default function LmsDemo() {
               </Button>
             </div>
             <p className="text-muted-foreground leading-relaxed">
-              在本節課程中，我們將深入探討 {currentLesson?.title}。這不僅是現代 Web 開發的核心技術，更是每位開發者必須掌握的基礎...
+              In this lesson, we will deep dive into {currentLesson?.title}...
             </p>
           </div>
           
@@ -239,7 +240,7 @@ export default function LmsDemo() {
         <Card className="h-fit bg-background">
           <CardHeader>
             <CardTitle>{t("lms.course_chapters")}</CardTitle>
-            <CardDescription>已完成 {selectedCourse.lessons.filter(l => l.completed).length} / {selectedCourse.lessons.length}</CardDescription>
+            <CardDescription>{t("common.status")}: {selectedCourse.lessons.filter(l => l.completed).length} / {selectedCourse.lessons.length}</CardDescription>
           </CardHeader>
           <CardContent className="p-0">
             <div className="divide-y">
@@ -264,7 +265,7 @@ export default function LmsDemo() {
                       <p className={cn("text-sm font-medium", lesson.completed && "text-muted-foreground")}>
                         {lesson.title}
                       </p>
-                      <span className="text-[10px] text-muted-foreground">{lesson.duration || '5分'}</span>
+                      <span className="text-[10px] text-muted-foreground">{lesson.duration || '5m'}</span>
                     </div>
                   </div>
                   {currentLesson?.id === lesson.id && <div className="w-1.5 h-1.5 rounded-full bg-primary" />}
@@ -312,8 +313,8 @@ export default function LmsDemo() {
         <div className="p-4 mt-auto">
           <div className="p-4 rounded-xl bg-gradient-to-br from-teal-500 to-emerald-600 text-white space-y-3">
             <p className="text-xs font-bold uppercase opacity-80">{t("lms.daily_goal")}</p>
-            <p className="text-sm font-medium">再學習 20 分鐘即可達成今日學習目標！</p>
-            <Button size="sm" variant="secondary" className="w-full text-xs font-bold">查看計劃</Button>
+            <p className="text-sm font-medium">{t("lms.daily_goal_text")}</p>
+            <Button size="sm" variant="secondary" className="w-full text-xs font-bold">{t("lms.view_plan")}</Button>
           </div>
           <Separator className="my-4" />
           <Button variant="ghost" className="w-full justify-start text-muted-foreground hover:text-destructive">
@@ -333,11 +334,11 @@ export default function LmsDemo() {
           </div>
           <div className="flex items-center gap-4">
             <div className="text-right hidden sm:block">
-              <p className="text-sm font-bold">王小明</p>
-              <p className="text-xs text-muted-foreground">高級會員</p>
+              <p className="text-sm font-bold">Xiaoming</p>
+              <p className="text-xs text-muted-foreground">Premium</p>
             </div>
             <div className="h-10 w-10 rounded-full bg-teal-100 text-teal-700 flex items-center justify-center font-bold">
-              王
+              X
             </div>
           </div>
         </header>
@@ -353,14 +354,14 @@ export default function LmsDemo() {
             >
               <div className="mb-8">
                 <h1 className="text-3xl font-bold tracking-tight">
-                  {activeView === "dashboard" && `${t("lms.dashboard_welcome")}，小明`}
+                  {activeView === "dashboard" && `${t("lms.dashboard_welcome")}, Xiaoming`}
                   {activeView === "my-courses" && t("lms.sidebar.my_courses")}
                   {activeView === "course-detail" && selectedCourse?.title}
                 </h1>
                 <p className="text-muted-foreground">
-                  {activeView === "dashboard" && "今天也是個學習的好日子。"}
-                  {activeView === "my-courses" && "繼續完成您的學習之旅。"}
-                  {activeView === "course-detail" && `講師: ${selectedCourse?.instructor}`}
+                  {activeView === "dashboard" && "Today is a great day to learn."}
+                  {activeView === "my-courses" && "Continue your learning journey."}
+                  {activeView === "course-detail" && `Instructor: ${selectedCourse?.instructor}`}
                 </p>
               </div>
 

@@ -22,17 +22,22 @@ export default function Home() {
           <p className="text-xl md:text-2xl font-sans text-foreground max-w-3xl mx-auto opacity-0 animate-fade-in delay-200 drop-shadow-sm">
             {t("home.hero_desc", "展示尖端 UI/UX、動畫和 AI 整合，打造現代化網路應用。")}
           </p>
-          <a href="/demos" className="mt-10 inline-flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-accent hover:bg-accent/90 transition-colors duration-300 animate-fade-in delay-700 opacity-0 transform translate-y-2">
-            {t("home.explore_demos", "探索所有演示")} <ArrowRight className="ml-2 w-5 h-5" />
-          </a>
+          <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center animate-fade-in delay-700 opacity-0 transform translate-y-2">
+            <a href="/demos" className="inline-flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-accent hover:bg-accent/90 transition-colors duration-300">
+              {t("home.explore_demos", "探索所有演示")} <ArrowRight className="ml-2 w-5 h-5" />
+            </a>
+            <a href="/cooperate" className="inline-flex items-center justify-center px-8 py-3 border-2 border-primary text-base font-medium rounded-md text-primary hover:bg-primary/10 transition-colors duration-300">
+              我要合作 <ArrowRight className="ml-2 w-5 h-5" />
+            </a>
+          </div>
         </section>
 
-        {/* Personal Introduction - Card with Glassmorphism */}
+        {/* Introduction - Card with Glassmorphism */}
         <section className="max-w-4xl mx-auto text-center mb-24 px-4 relative z-10">
           <div className="bg-card/30 backdrop-blur-md border border-border/50 rounded-2xl p-8 shadow-xl animate-fade-in delay-1000">
-            <h2 className="text-4xl font-heading font-semibold text-primary mb-6 drop-shadow-sm">{t("navbar.about")}</h2>
+            <h2 className="text-4xl font-heading font-semibold text-primary mb-6 drop-shadow-sm">關於惠尼</h2>
             <p className="text-lg md:text-xl font-sans text-foreground leading-relaxed drop-shadow-sm">
-              {t("home.about_me_text", "作為一名全端開發者，我專注於打造優雅且高效能的網路解決方案。我的熱情在於透過流暢的動畫和智慧的 AI 驅動功能，創造直觀的使用者體驗。")}
+              惠尼專注於打造優雅且高效能的客製化系統解決方案。我們致力於透過深度 AI 整合、流暢的動畫與直觀的 UI/UX 設計，為您的企業創造競爭優勢。
             </p>
           </div>
         </section>

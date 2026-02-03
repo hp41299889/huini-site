@@ -112,7 +112,12 @@
     "production": {
       "title": "Recent Production",
       "desc": "Track factory production progress",
-      "eta": "Estimated"
+      "eta": "Estimated",
+      "jobs": {
+        "j1": "Smartphone Assembly",
+        "j2": "Tablet Testing",
+        "j3": "Server Case Painting"
+      }
     },
     "supply_chain": {
       "title": "Supply Chain Alert",
@@ -130,7 +135,24 @@
       "warehouse_scheduling": "Warehouse Scheduling",
       "stock": "Current Stock",
       "min_stock": "Min Stock",
-      "purchase": "Purchase"
+      "purchase": "Purchase",
+      "items": {
+        "i1": "High-end Processor A1",
+        "i2": "LCD Display Panel",
+        "i3": "Li-ion Battery 5000mAh",
+        "i4": "Cooling Fan"
+      },
+      "categories": {
+        "c1": "Electronic Parts",
+        "c2": "Screen Components",
+        "c3": "Battery",
+        "c4": "Cooling System"
+      },
+      "status": {
+        "normal": "Normal",
+        "low": "Low Stock",
+        "out": "Out of Stock"
+      }
     },
     "hr": {
       "title": "Employee Overview",
@@ -140,7 +162,24 @@
       "attendance_rate": "Attendance Rate",
       "normal": "Normal",
       "leave": "On Leave",
-      "missing_clock": "No Clock-in"
+      "missing_clock": "No Clock-in",
+      "roles": {
+        "r1": "Production Manager",
+        "r2": "Financial Analyst",
+        "r3": "Software Engineer",
+        "r4": "Procurement Lead"
+      },
+      "departments": {
+        "d1": "Production",
+        "d2": "Finance",
+        "d3": "Technology",
+        "d4": "Supply Chain"
+      },
+      "status": {
+        "active": "Active",
+        "meeting": "In Meeting",
+        "leave": "On Leave"
+      }
     },
     "finance": {
       "title": "Finance Overview",
@@ -150,7 +189,17 @@
       "pending_bills": "Pending Bills",
       "pending_bills_desc": "Accounts payable and invoice management",
       "due_date": "Due Date",
-      "enter_system": "Enter Finance System"
+      "enter_system": "Enter Finance System",
+      "vendors": {
+        "v1": "Power Company",
+        "v2": "Cloud Service Provider",
+        "v3": "Office Equipment Rental"
+      },
+      "status": {
+        "pending": "Pending",
+        "approved": "Approved",
+        "overdue": "Overdue"
+      }
     }
   },
   "booking": {
@@ -173,6 +222,18 @@
       "service": "Service",
       "staff": "Staff",
       "time": "Time"
+    },
+    "services": {
+      "s1": "Professional Haircut",
+      "s2": "Deep Conditioning",
+      "s3": "Styling & Coloring"
+    },
+    "staff": {
+      "roles": {
+        "r1": "Creative Director",
+        "r2": "Senior Stylist",
+        "r3": "Stylist"
+      }
     }
   },
   "project": {
@@ -194,6 +255,13 @@
       "high": "High",
       "medium": "Medium",
       "low": "Low"
+    },
+    "tasks": {
+      "t1": { "title": "Design Homepage", "desc": "Complete responsive homepage UI/UX design" },
+      "t2": { "title": "Develop Backend API", "desc": "Implement user auth and data endpoints" },
+      "t3": { "title": "Write Test Cases", "desc": "Write unit and integration tests for core features" },
+      "t4": { "title": "Deploy to Staging", "desc": "Deploy application to staging environment" },
+      "t5": { "title": "Optimize DB Queries", "desc": "Improve performance of slow queries" }
     }
   },
   "ecommerce": {
@@ -220,7 +288,64 @@
     "payment_method": "Payment Method",
     "cash_on_delivery": "Cash on Delivery",
     "credit_card": "Credit Card",
-    "complete_order": "Complete Order"
+    "complete_order": "Complete Order",
+    "onepage": {
+      "title_p1": "Your Health",
+      "title_p2": "Deserves",
+      "title_p3": "Smarter",
+      "title_p4": "Care",
+      "new_release": "2026 New Release",
+      "reviews_count": "5,000+ 5-Star Reviews",
+      "features_title": "Ultimate Features",
+      "features_desc": "Every detail considered for your perfect experience.",
+      "features": {
+        "f1": { "title": "Precise Monitoring", "desc": "Medical-grade sensors for heart rate & SpO2." },
+        "f2": { "title": "Long Battery Life", "desc": "14 days usage on a single charge." },
+        "f3": { "title": "Durable Design", "desc": "IP68 water and dust resistance for any activity." }
+      },
+      "cta_title": "Ready for a Smarter Life?",
+      "product": {
+        "desc": "Redefine your smart life. Huini Watch Pro combines top craftsmanship with future tech for unprecedented health monitoring and efficiency.",
+        "specs": ["Heart Rate", "Sleep Tracking", "IP68 Waterproof", "14-Day Battery", "1.5\" AMOLED"]
+      }
+    },
+    "platform": {
+      "categories": {
+        "electronics": "Electronics",
+        "clothing": "Clothing",
+        "home": "Home & Living"
+      },
+      "tags": {
+        "discount": "On Sale",
+        "new": "New Arrival",
+        "free_shipping": "Free Shipping",
+        "fast_delivery": "Fast Delivery"
+      },
+      "products": {
+        "p1": { "desc": "Top-tier laptop for devs & designers. M3 chip, 20h battery life." },
+        "p2": { "desc": "Active noise cancelling, immersive audio. Spatial audio technology." },
+        "p3": { "desc": "Waterproof, durable, large capacity. Laptop compartment included." },
+        "p4": { "desc": "24/7 health tracking, multiple sports modes. Lightweight comfort." },
+        "p5": { "desc": "Nordic design, simple elegance. High-quality ceramic, heat resistant." },
+        "p6": { "desc": "HEPA filter, removes 99% allergens. Ultra-quiet design." }
+      },
+      "cart_empty": "Your cart is empty",
+      "go_shopping": "Go Shopping",
+      "subtotal": "Subtotal",
+      "shipping": "Shipping",
+      "secure_checkout": "Secure Checkout",
+      "add_wishlist": "Add to Wishlist",
+      "view_mode": {
+        "grid": "Grid",
+        "list": "List"
+      },
+      "reviews": "reviews"
+    },
+    "tabs": {
+      "software": "Software Sub",
+      "hardware": "Hardware Sales",
+      "consulting": "Consulting"
+    }
   },
   "lms": {
     "dashboard_welcome": "Welcome back",
@@ -234,12 +359,20 @@
     "stats": {
       "learning_time": "Total Learning Time",
       "completed_courses": "Completed Courses",
-      "certificates": "Certificates"
+      "certificates": "Certificates",
+      "time_val": "42 Hours",
+      "time_diff": "+5 Hours from last week",
+      "course_val": "12 Courses",
+      "course_pending": "3 In Progress",
+      "cert_val": "8 Certs",
+      "cert_rank": "Top 15%"
     },
     "continue_learning": "Continue Learning",
     "course_chapters": "Course Chapters",
     "download_materials": "Download Materials",
     "daily_goal": "Daily Goal",
+    "daily_goal_text": "Learn 20 more mins to reach your daily goal!",
+    "view_plan": "View Plan",
     "courses": {
       "c1": {
         "title": "React Frontend Mastery",
@@ -267,6 +400,7 @@
       "settings": "Settings"
     },
     "storage_space": "Storage Space",
+    "storage_usage": "Used 4.5GB / 10GB",
     "content_library": "Content Library",
     "filter": "Filter",
     "article_title": "Article Title",
@@ -283,7 +417,29 @@
       "a2": { "title": "SEO Optimization Guide" },
       "a3": { "title": "Choosing Cloud Providers" },
       "a4": { "title": "2026 Frontend Trends" }
-    }
+    },
+    "status_label": {
+      "published": "Published",
+      "draft": "Draft",
+      "pending": "Pending"
+    },
+    "categories": {
+      "tech": "Tech",
+      "design": "Design",
+      "marketing": "Marketing",
+      "news": "News"
+    },
+    "actions": {
+      "publish_now": "Publish Now",
+      "save_draft": "Save Draft",
+      "submit_review": "Submit for Review"
+    },
+    "placeholders": {
+      "title": "Enter title...",
+      "summary": "Enter short summary...",
+      "content": "Content Summary"
+    },
+    "preview_text": "This is a mock article preview. The CMS allows you to see how the article will look on the frontend before publishing."
   },
   "blog": {
     "featured_article": "Featured",
@@ -294,7 +450,44 @@
     "newsletter_desc": "Get the latest tech trends and design inspiration weekly.",
     "subscribe": "Subscribe Now",
     "recommended_authors": "Recommended Authors",
-    "reading_time": "min read"
+    "reading_time": "min read",
+    "most_popular": "Most Popular",
+    "posts": {
+      "b1": {
+        "title": "Exploring Modern Frontend Trends",
+        "summary": "Deep dive into React, Vue, Angular developments and Web Components. Analyzing tech trends for the next 3 years.",
+        "content": "<p>In recent years, frontend development has evolved rapidly...</p>",
+        "author_role": "Senior Frontend Engineer",
+        "category": "Tech Trends"
+      },
+      "b2": {
+        "title": "Cloud Computing in Digital Transformation",
+        "summary": "How cloud services accelerate innovation, reduce costs, and improve competitiveness. Hybrid vs Multi-cloud strategies.",
+        "author_role": "Cloud Architect",
+        "category": "Enterprise"
+      },
+      "b3": {
+        "title": "2026 Design Aesthetics: Minimalism Returns",
+        "summary": "From UI design to graphic aesthetics, minimalism is back. Deconstructing the latest design languages.",
+        "author_role": "UI/UX Designer",
+        "category": "Design"
+      }
+    },
+    "tags": {
+      "ai": "AI",
+      "react": "React",
+      "typescript": "TypeScript",
+      "design_system": "Design System",
+      "ui_ux": "UI/UX",
+      "product_mgmt": "Product Mgmt",
+      "career": "Career",
+      "web3": "Web3"
+    },
+    "roles": {
+      "frontend": "Frontend Engineer",
+      "pm": "Product Manager",
+      "designer": "Designer"
+    }
   },
   "social": {
     "sidebar": {
@@ -316,6 +509,12 @@
     "posts": {
       "p1": "Beautiful day walking around Taipei 101! Have a great weekend everyone ☀️ #Taipei #WeekendVibes",
       "p2": "Just finished this new design draft using glassmorphism. What do you think? 🎨✨"
+    },
+    "trends": {
+      "tech": "Tech · Trending",
+      "sports": "Sports · Live",
+      "entertainment": "Entertainment · Trending",
+      "local": "Taiwan · Popular"
     }
   },
   "dashboard": {
@@ -327,7 +526,27 @@
     "resource_allocation": "Resource Allocation",
     "realtime_transactions": "Real-time Transactions",
     "system_health": "System Health",
-    "smart_suggestions": "Smart Suggestions"
+    "smart_suggestions": "Smart Suggestions",
+    "months": {
+      "jan": "Jan",
+      "feb": "Feb",
+      "mar": "Mar",
+      "apr": "Apr",
+      "may": "May",
+      "jun": "Jun",
+      "jul": "Jul",
+      "aug": "Aug",
+      "sep": "Sep",
+      "oct": "Oct",
+      "nov": "Nov",
+      "dec": "Dec"
+    },
+    "health_metrics": {
+      "server": "Server Load",
+      "db": "DB Response Time",
+      "api": "API Availability"
+    },
+    "suggestion_text": "Significant subscription growth this month. Suggest adding advanced consulting plans..."
   },
   "forum": {
     "sidebar_title": "Huini Community",
@@ -341,7 +560,30 @@
     "share": "Share",
     "support": "Support",
     "all_replies": "All Replies",
-    "post_reply": "Post Reply"
+    "post_reply": "Post Reply",
+    "today_active": "Today Active",
+    "contribution_desc": "You beat 92% of users in contributions. Keep it up!",
+    "join_premium": "Join Premium",
+    "premium_desc": "Unlock exclusive badges, advanced analytics, and priority discussions.",
+    "learn_more": "Learn More",
+    "roles": {
+      "admin": "Admin",
+      "core": "Core Member"
+    },
+    "threads": {
+      "t1": {
+        "title": "2026 Frontend Frameworks: React vs Vue vs Svelte",
+        "content": "With React 19 stable and Svelte 5 released, what are your thoughts for 2026 large projects? Performance vs DX?"
+      },
+      "t2": {
+        "title": "Remote Work Efficiency Tips",
+        "content": "Been WFH for 2 years, feeling burnout. Any tips for maintaining focus?"
+      }
+    },
+    "replies_content": {
+      "r1": "Svelte Runes changed the game. Dev speed increased significantly.",
+      "r2": "React ecosystem is still unbeatable for enterprise apps."
+    }
   },
   "portfolio": {
     "accepting_projects": "Available for new projects",
@@ -353,6 +595,72 @@
     "cta_title": "Ready to energize your next project?",
     "cta_desc": "Whether looking for a partner or just want to learn more, I'm happy to chat.",
     "contact_now": "Contact Now",
-    "book_meeting": "Book a Meeting"
+    "book_meeting": "Book a Meeting",
+    "hero_intro": "Hi, I'm",
+    "hero_desc": "Fullstack Developer & UI/UX Enthusiast. Specialized in React, Node.js, and TypeScript.",
+    "start_collab": "Start Collaboration",
+    "stats": {
+      "projects": "Projects",
+      "happy_clients": "Happy Clients",
+      "code": "Code Commits",
+      "years": "Years Exp"
+    },
+    "projects": {
+      "p1": { "title": "AI Collab Platform", "desc": "Integrated LLMs for real-time code review and auto-test generation." },
+      "p2": { "title": "Cross-chain DEX", "desc": "ZK-proof based low latency cross-chain asset exchange." },
+      "p3": { "title": "Immersive Data Viz", "desc": "Real-time monitoring dashboard using WebGL for logistics." }
+    },
+    "exp": {
+      "huini": "Lead architect for core products.",
+      "cyber": "Optimized e-commerce platform performance by 40%.",
+      "startup": "Built multiple MVPs from scratch."
+    },
+    "skill_groups": {
+      "frontend": "Frontend",
+      "backend": "Backend",
+      "arch": "Architecture"
+    }
+  },
+  "corporate": {
+    "hero_title": "Leading Digital Solutions Provider",
+    "hero_desc": "Helping you stand out in the digital age and achieve business growth",
+    "learn_services": "Learn Our Services",
+    "services_title": "Our Services",
+    "team_title": "Our Team",
+    "news_title": "Latest News",
+    "cta_title": "Ready to transform your business?",
+    "services": {
+      "s1": { "title": "Innovative Solutions", "desc": "Cutting-edge tech and insights to energize your business." },
+      "s2": { "title": "Pro Project Mgmt", "desc": "From planning to execution, ensuring efficiency and goals." },
+      "s3": { "title": "Custom Services", "desc": "Tailored digital strategies for your unique needs." }
+    },
+    "roles": {
+      "ceo": "CEO",
+      "cto": "CTO",
+      "mkt": "Marketing Manager"
+    },
+    "news": {
+      "n1": { "title": "Company Wins Innovation Award", "summary": "Our latest project received high industry acclaim." },
+      "n2": { "title": "Overseas Expansion: Europe Branch", "summary": "Major step in global strategy." },
+      "n3": { "title": "Annual Tech Whitepaper Released", "summary": "Deep dive into future tech trends." }
+    }
+  },
+  "promotion": {
+    "hero_title": "Innovative Solutions, Leading the Future",
+    "hero_desc": "We are dedicated to providing excellent service and unmatched experiences.",
+    "features_title": "What can we do for you?",
+    "features_desc": "From strategy to implementation, we provide comprehensive professional services.",
+    "features": {
+      "f1": { "title": "Digital Transformation", "desc": "Helping enterprises embrace new tech and improve efficiency." },
+      "f2": { "title": "Market Expansion", "desc": "Pushing your products to broader markets with precise strategies." },
+      "f3": { "title": "Brand Building", "desc": "Shaping unique brand image and competitive edge." }
+    },
+    "about_desc1": "We are a passionate team dedicated to innovative solutions.",
+    "about_desc2": "Customer-first philosophy, pursuing excellence.",
+    "meet_team": "Meet the Team",
+    "contact_desc": "Questions? Fill out the form below.",
+    "message_label": "Your Message",
+    "success_msg": "Thank you, we will reply shortly.",
+    "send_another": "Send Another Message"
   }
 }

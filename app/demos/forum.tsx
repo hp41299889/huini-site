@@ -62,59 +62,61 @@ interface Thread {
   replies: Reply[];
 }
 
-const threadsData: Thread[] = [
-  {
-    id: "t1",
-    title: "2026 年前端框架選擇：React vs Vue vs Svelte",
-    author: "前端老鳥",
-    authorAvatar: "https://images.unsplash.com/photo-1535713875002-d1d0cfdfee26?auto=format&fit=crop&q=80&w=200",
-    authorRole: "版主",
-    date: "2026-01-30",
-    repliesCount: 42,
-    likes: 156,
-    category: "技術討論",
-    tags: ["前端", "框架", "趨勢"],
-    content: "隨著 React 19 的穩定和 Svelte 5 的正式發布，大家對於 2026 年的中大型專案選擇有什麼看法？在效能與開發體驗之間，你們會如何權衡？",
-    replies: [
-      {
-        id: "r1",
-        author: "DevMaster",
-        authorAvatar: "https://images.unsplash.com/photo-1599566150163-29194dcaad36?auto=format&fit=crop&q=80&w=200",
-        date: "2小時前",
-        content: "我認為 Svelte 的 Runes 真的改變了遊戲規則，開發效率提升非常明顯。",
-        likes: 24
-      },
-      {
-        id: "r2",
-        author: "全端工程師",
-        authorAvatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&q=80&w=200",
-        date: "1小時前",
-        content: "React 的生態系依然是無法忽視的優勢，特別是在大型企業環境下。",
-        likes: 12
-      },
-    ],
-  },
-  {
-    id: "t2",
-    title: "遠端工作的效率秘訣：如何保持專注？",
-    author: "PM小助理",
-    authorAvatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29329?auto=format&fit=crop&q=80&w=200",
-    authorRole: "核心成員",
-    date: "2026-01-29",
-    repliesCount: 28,
-    likes: 89,
-    category: "職場生活",
-    tags: ["遠端工作", "效率", "生活"],
-    content: "在家工作已經兩年了，最近感到有點倦怠。大家有什麼維持生活規規和工作專注度的小技巧嗎？",
-    replies: [],
-  },
-];
-
 export default function ForumDemo() {
   const { t } = useTranslation();
+  const [activeCategory, setActiveCategory] = useState(t("forum.all_discussions"));
+
+  // Mock Data inside component
+  const threadsData: Thread[] = [
+    {
+      id: "t1",
+      title: t("forum.threads.t1.title"),
+      author: t("common.author", "Frontend Vet"),
+      authorAvatar: "/images/erp-emp-1.jpg",
+      authorRole: t("forum.roles.admin"),
+      date: "2026-01-30",
+      repliesCount: 42,
+      likes: 156,
+      category: t("forum.tech_talk"),
+      tags: [t("blog.tags.frontend"), "Framework", t("blog.tags.career")],
+      content: t("forum.threads.t1.content"),
+      replies: [
+        {
+          id: "r1",
+          author: "DevMaster",
+          authorAvatar: "/images/erp-emp-2.jpg",
+          date: "2h ago",
+          content: t("forum.replies_content.r1"),
+          likes: 24
+        },
+        {
+          id: "r2",
+          author: "Fullstack Eng",
+          authorAvatar: "/images/erp-emp-1.jpg",
+          date: "1h ago",
+          content: t("forum.replies_content.r2"),
+          likes: 12
+        },
+      ],
+    },
+    {
+      id: "t2",
+      title: t("forum.threads.t2.title"),
+      author: "PM Assistant",
+      authorAvatar: "/images/erp-emp-2.jpg",
+      authorRole: t("forum.roles.core"),
+      date: "2026-01-29",
+      repliesCount: 28,
+      likes: 89,
+      category: t("forum.career_life"),
+      tags: ["Remote Work", "Efficiency", "Life"],
+      content: t("forum.threads.t2.content"),
+      replies: [],
+    },
+  ];
+
   const [selectedThread, setSelectedThread] = useState<Thread | null>(null);
   const [newReplyContent, setNewReplyContent] = useState("");
-  const [activeCategory, setActiveCategory] = useState(t("forum.all_discussions"));
 
   const categories = [
     { name: t("forum.all_discussions"), icon: Home },
@@ -127,9 +129,9 @@ export default function ForumDemo() {
     if (!newReplyContent.trim() || !selectedThread) return;
     const newReply: Reply = {
       id: `r${Date.now()}`,
-      author: "惠尼用戶",
+      author: t("common.name", "User"),
       authorAvatar: "https://ui-avatars.com/api/?name=User&background=7C3AED&color=fff",
-      date: "剛剛",
+      date: t("common.date", "Just now"),
       content: newReplyContent,
       likes: 0
     };
@@ -146,7 +148,7 @@ export default function ForumDemo() {
       <div className="flex items-center justify-between mb-4">
         <h2 className="text-xl font-bold">{activeCategory}</h2>
         <div className="flex gap-2">
-          <Button variant="ghost" size="sm" className="font-bold text-primary">最熱門</Button>
+          <Button variant="ghost" size="sm" className="font-bold text-primary">{t("blog.most_popular")}</Button>
           <Button variant="ghost" size="sm">{t("common.all")}</Button>
         </div>
       </div>
@@ -174,7 +176,7 @@ export default function ForumDemo() {
                         <AvatarFallback>{thread.author[0]}</AvatarFallback>
                       </Avatar>
                       <span className="text-xs font-bold">{thread.author}</span>
-                      <span className="text-xs text-muted-foreground">發布於 {thread.date}</span>
+                      <span className="text-xs text-muted-foreground">{thread.date}</span>
                       <Badge variant="secondary" className="ml-auto text-[10px] py-0 h-5 bg-primary/10 text-primary border-none">
                         {thread.category}
                       </Badge>
@@ -259,7 +261,7 @@ export default function ForumDemo() {
                 <p className="text-sm leading-relaxed">{reply.content}</p>
                 <div className="flex items-center gap-4 text-xs text-muted-foreground">
                   <button className="hover:text-primary font-medium">{t("forum.support")} ({reply.likes})</button>
-                  <button className="hover:text-primary font-medium">回覆</button>
+                  <button className="hover:text-primary font-medium">{t("forum.post_reply")}</button>
                 </div>
               </div>
             ))}
@@ -270,11 +272,11 @@ export default function ForumDemo() {
           <Card className="shadow-xl border-2 bg-background">
             <CardContent className="p-4 flex gap-4">
               <Avatar className="h-8 w-8 hidden sm:flex">
-                <AvatarFallback>我</AvatarFallback>
+                <AvatarFallback>Me</AvatarFallback>
               </Avatar>
               <div className="flex-1 space-y-3">
                 <Textarea 
-                  placeholder="發表您的看法..." 
+                  placeholder={t("forum.start_discussion") + "..."} 
                   className="min-h-[80px] bg-muted/50 focus:bg-background transition-colors border-none"
                   value={newReplyContent}
                   onChange={(e) => setNewReplyContent(e.target.value)}
@@ -315,10 +317,10 @@ export default function ForumDemo() {
         </nav>
         <div className="mt-auto p-4 rounded-2xl bg-muted text-slate-600 space-y-3">
           <div className="flex items-center justify-between text-xs font-bold">
-            <span>今日活躍</span>
+            <span>{t("forum.today_active")}</span>
             <Badge variant="secondary" className="bg-green-100 text-green-700 border-none">1.2K</Badge>
           </div>
-          <p className="text-[10px] leading-relaxed">您的貢獻度擊敗了 92% 的用戶，繼續保持！</p>
+          <p className="text-[10px] leading-relaxed">{t("forum.contribution_desc")}</p>
         </div>
       </aside>
 
@@ -346,7 +348,13 @@ export default function ForumDemo() {
             <CardTitle className="text-lg font-bold">{t("blog.popular_tags")}</CardTitle>
           </CardHeader>
           <CardContent className="flex flex-wrap gap-2">
-            {["React19", "遠端工作", "面試指南", "咖啡生活", "AI應用", "職涯規劃"].map(tag => (
+            {[
+              "React19", 
+              "Remote Work", 
+              "Interview", 
+              "AI", 
+              "Career"
+            ].map(tag => (
               <Badge key={tag} variant="secondary" className="cursor-pointer hover:bg-primary hover:text-white transition-all">#{tag}</Badge>
             ))}
           </CardContent>
@@ -360,9 +368,9 @@ export default function ForumDemo() {
           </CardHeader>
           <CardContent className="space-y-4">
             {[
-              { name: "前端老鳥", points: 2450, avatar: "老" },
+              { name: "Frontend Vet", points: 2450, avatar: "F" },
               { name: "DevMaster", points: 1890, avatar: "D" },
-              { name: "設計大師", points: 1560, avatar: "設" },
+              { name: "DesignGuru", points: 1560, avatar: "G" },
             ].map((u, i) => (
               <div key={i} className="flex items-center justify-between text-foreground">
                 <div className="flex items-center gap-3">
@@ -377,9 +385,9 @@ export default function ForumDemo() {
 
         <div className="p-6 rounded-[2rem] bg-gradient-to-br from-primary to-purple-600 text-white space-y-4 shadow-xl">
           <Users className="h-10 w-10 opacity-50" />
-          <h4 className="text-xl font-black">加入高級社群</h4>
-          <p className="text-xs opacity-80 leading-relaxed">解鎖專屬頭銜、進階數據分析以及優先討論權限。</p>
-          <Button variant="secondary" className="w-full font-bold">了解更多</Button>
+          <h4 className="text-xl font-black">{t("forum.join_premium")}</h4>
+          <p className="text-xs opacity-80 leading-relaxed">{t("forum.premium_desc")}</p>
+          <Button variant="secondary" className="w-full font-bold">{t("forum.learn_more")}</Button>
         </div>
       </aside>
       <AiAssistant context="forum" />

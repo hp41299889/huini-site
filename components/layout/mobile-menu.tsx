@@ -41,13 +41,13 @@ export function MobileMenu() {
           <LayoutDashboard size={20} />
           <span>演示</span>
         </Link>
-        <Link
-          to="/about"
-          className="flex flex-col items-center text-foreground hover:text-accent transition-colors duration-200"
-        >
-          <InfoIcon size={20} />
-          <span>關於</span>
-        </Link>
+          <Link
+            to="/cooperate"
+            className="flex items-center space-x-2 text-foreground hover:text-primary transition-colors"
+            onClick={() => setIsOpen(false)}
+          >
+            <span>我要合作</span>
+          </Link>
 
         {/* Theme Toggle */}
         <Button

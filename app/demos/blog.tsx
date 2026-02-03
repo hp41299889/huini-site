@@ -46,62 +46,55 @@ interface BlogPost {
   likes: number;
 }
 
-const blogPostsData: BlogPost[] = [
-  {
-    id: "b1",
-    title: "探索現代前端框架的最新趨勢",
-    summary: "深入探討 React, Vue, Angular 的最新發展，以及 Web 組件技術的興起。本文將分析未來三年的前端技術走向，並提供實用的學習路徑建議。",
-    content: `
-      <p>近年來，前端開發領域的發展日新月異。從傳統的 JavaScript 函式庫到 modern 化的框架，每一次的迭代都為開發者帶來了更高效、更強大的工具。</p>
-      <h2>React 生態系的持續繁榮</h2>
-      <p>React 仍然是前端開發的主流選擇之一。其強大的生態系、靈活的組件化思想以及豐富的第三方函式庫，使其在大型專案中表現出色。特別是 React 18 引入的併發模式，為使用者體驗帶來了質的飛躍。</p>
-      <blockquote>「前端開發不再只是寫代碼，而是構建用戶與數位世界的橋樑。」</blockquote>
-      <h2>Web 組件的崛起</h2>
-      <p>Web 組件技術（如 Custom Elements, Shadow DOM, HTML Templates）的成熟，為構建可重用、跨框架的 UI 組件提供了原生的解決方案。這將有助於減少對特定框架的依賴，提高前端開發的靈活性。</p>
-    `,
-    author: "張三",
-    authorRole: "資深前端工程師",
-    date: "2026-02-01",
-    readTime: "8 分鐘",
-    category: "技術趨勢",
-    tags: ["前端", "React", "Web開發"],
-    imageUrl: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&q=80&w=800",
-    likes: 128,
-  },
-  {
-    id: "b2",
-    title: "雲端運算在企業數位轉型中的角色",
-    summary: "分析雲端服務如何加速企業創新、降低成本，並提升市場競爭力。我們將探討混合雲與多雲策略的優劣。",
-    content: "<p>雲端運算已成為企業數位轉型的核心驅動力...</p>",
-    author: "李四",
-    authorRole: "雲端架構師",
-    date: "2026-01-25",
-    readTime: "12 分鐘",
-    category: "企業轉型",
-    tags: ["雲端", "數位轉型"],
-    imageUrl: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=800",
-    likes: 85,
-  },
-  {
-    id: "b3",
-    title: "2026 年設計美學：極簡主義的回歸",
-    summary: "從 UI 設計到平面美學，極簡主義正以全新的姿態重新佔領大眾視野。本文帶您解構最新的設計語言。",
-    content: "<p>美學的循環總是讓人驚艷...</p>",
-    author: "王五",
-    authorRole: "UI/UX 設計師",
-    date: "2026-01-20",
-    readTime: "6 分鐘",
-    category: "設計美學",
-    tags: ["設計", "極簡主義", "UI"],
-    imageUrl: "https://images.unsplash.com/photo-1558655146-d09347e92766?auto=format&fit=crop&q=80&w=800",
-    likes: 210,
-  },
-];
-
 export default function BlogDemo() {
   const { t } = useTranslation();
   const [selectedPost, setSelectedPost] = useState<BlogPost | null>(null);
   const [readingProgress, setReadingProgress] = useState(0);
+
+  const blogPostsData: BlogPost[] = [
+    {
+      id: "b1",
+      title: t("blog.posts.b1.title"),
+      summary: t("blog.posts.b1.summary"),
+      content: t("blog.posts.b1.content"),
+      author: t("common.author", "張三"),
+      authorRole: t("blog.posts.b1.author_role"),
+      date: "2026-02-01",
+      readTime: `8 ${t("blog.reading_time")}`,
+      category: t("blog.posts.b1.category"),
+      tags: [t("blog.tags.frontend"), t("blog.tags.react"), t("blog.tags.web3")],
+      imageUrl: "/images/blog-hero.jpg",
+      likes: 128,
+    },
+    {
+      id: "b2",
+      title: t("blog.posts.b2.title"),
+      summary: t("blog.posts.b2.summary"),
+      content: "<p>Cloud computing...</p>",
+      author: t("common.author", "李四"),
+      authorRole: t("blog.posts.b2.author_role"),
+      date: "2026-01-25",
+      readTime: `12 ${t("blog.reading_time")}`,
+      category: t("blog.posts.b2.category"),
+      tags: [t("blog.tags.design_system"), t("blog.tags.product_mgmt")],
+      imageUrl: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=800",
+      likes: 85,
+    },
+    {
+      id: "b3",
+      title: t("blog.posts.b3.title"),
+      summary: t("blog.posts.b3.summary"),
+      content: "<p>Minimalism...</p>",
+      author: t("common.author", "王五"),
+      authorRole: t("blog.posts.b3.author_role"),
+      date: "2026-01-20",
+      readTime: `6 ${t("blog.reading_time")}`,
+      category: t("blog.posts.b3.category"),
+      tags: [t("blog.tags.design_system"), t("blog.tags.ui_ux")],
+      imageUrl: "https://images.unsplash.com/photo-1558655146-d09347e92766?auto=format&fit=crop&q=80&w=800",
+      likes: 210,
+    },
+  ];
 
   useEffect(() => {
     const handleScroll = () => {
@@ -231,7 +224,7 @@ export default function BlogDemo() {
               <h3 className="text-2xl font-bold">{t("blog.latest_articles")}</h3>
               <div className="flex items-center gap-4">
                 <Button variant="ghost" size="sm" className="text-primary font-bold">{t("common.all")}</Button>
-                <Button variant="ghost" size="sm">最熱門</Button>
+                <Button variant="ghost" size="sm">{t("blog.most_popular")}</Button>
               </div>
             </div>
 
@@ -286,7 +279,16 @@ export default function BlogDemo() {
                 <TrendingUp className="h-5 w-5 text-primary" /> {t("blog.popular_tags")}
               </h4>
               <div className="flex flex-wrap gap-2">
-                {["人工智慧", "React", "TypeScript", "設計系統", "UI/UX", "產品管理", "職涯發展", "Web3"].map(tag => (
+                {[
+                  t("blog.tags.ai"),
+                  t("blog.tags.react"),
+                  t("blog.tags.typescript"),
+                  t("blog.tags.design_system"),
+                  t("blog.tags.ui_ux"),
+                  t("blog.tags.product_mgmt"),
+                  t("blog.tags.career"),
+                  t("blog.tags.web3")
+                ].map(tag => (
                   <Badge key={tag} variant="secondary" className="px-3 py-1 cursor-pointer hover:bg-primary hover:text-white transition-colors">
                     {tag}
                   </Badge>
@@ -305,9 +307,9 @@ export default function BlogDemo() {
             <section className="space-y-4">
               <h4 className="text-lg font-bold">{t("blog.recommended_authors")}</h4>
               {[
-                { name: "張三", role: "前端工程師", avatar: "張" },
-                { name: "李四", role: "產品經理", avatar: "李" },
-                { name: "王五", role: "設計師", avatar: "王" },
+                { name: t("common.author", "張三"), role: t("blog.roles.frontend"), avatar: "Z" },
+                { name: t("common.author", "李四"), role: t("blog.roles.pm"), avatar: "L" },
+                { name: t("common.author", "王五"), role: t("blog.roles.designer"), avatar: "W" },
               ].map((author, i) => (
                 <div key={i} className="flex items-center justify-between">
                   <div className="flex items-center gap-3">

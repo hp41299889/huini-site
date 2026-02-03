@@ -37,34 +37,34 @@ export default function PortfolioDemo() {
   const projects = [
     {
       id: "p1",
-      title: t("portfolio.projects.p1.title", "AI 協作開發平台"),
+      title: t("portfolio.projects.p1.title"),
       category: "Fullstack",
-      description: t("portfolio.projects.p1.desc", "整合多種 LLM 模型，提供實時代碼審查與自動化單元測試生成。大幅提升開發團隊的生產力。"),
+      description: t("portfolio.projects.p1.desc"),
       tags: ["Next.js", "Python", "OpenAI", "Tailwind"],
-      image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&q=80&w=800",
+      image: "/images/project-1.jpg",
     },
     {
       id: "p2",
-      title: t("portfolio.projects.p2.title", "跨鏈去中心化交易所"),
+      title: t("portfolio.projects.p2.title"),
       category: "Blockchain",
-      description: t("portfolio.projects.p2.desc", "基於零知識證明技術，實現低延遲、高安全性的跨鏈資產交換。支持多種主流公鏈。"),
+      description: t("portfolio.projects.p2.desc"),
       tags: ["Solidity", "TypeScript", "Ethers.js", "Rust"],
       image: "https://images.unsplash.com/photo-1639762681485-074b7f938ba0?auto=format&fit=crop&q=80&w=800",
     },
     {
       id: "p3",
-      title: t("portfolio.projects.p3.title", "沉浸式數據視覺化系統"),
+      title: t("portfolio.projects.p3.title"),
       category: "Frontend",
-      description: t("portfolio.projects.p3.desc", "為大型企業設計的即時監控儀表板。使用 WebGL 技術呈現複雜的全球物流拓撲結構。"),
+      description: t("portfolio.projects.p3.desc"),
       tags: ["React", "Three.js", "D3.js", "WebSockets"],
       image: "https://images.unsplash.com/photo-1551288049-bbdac8a28a1e?auto=format&fit=crop&q=80&w=800",
     },
   ];
 
   const experience = [
-    { year: "2024 - Present", company: "Huini Tech", role: "Lead Fullstack Developer", desc: t("portfolio.exp.huini", "主導核心產品的架構設計與開發。") },
-    { year: "2021 - 2023", company: "Cyber Soft", role: "Senior Frontend Engineer", desc: t("portfolio.exp.cyber", "優化大型電商平台的性能，提升 40% 的加載速度。") },
-    { year: "2019 - 2021", company: "StartUp Inc", role: "Web Developer", desc: t("portfolio.exp.startup", "從零開始構建多個 MVP 並成功上線。") },
+    { year: "2024 - Present", company: "Huini Tech", role: "Lead Fullstack Developer", desc: t("portfolio.exp.huini") },
+    { year: "2021 - 2023", company: "Cyber Soft", role: "Senior Frontend Engineer", desc: t("portfolio.exp.cyber") },
+    { year: "2019 - 2021", company: "StartUp Inc", role: "Web Developer", desc: t("portfolio.exp.startup") },
   ];
 
   const filteredProjects = projects.filter(p => filter === "All" || p.category === filter);
@@ -87,15 +87,15 @@ export default function PortfolioDemo() {
               {t("portfolio.accepting_projects")}
             </div>
             <h1 className="text-6xl lg:text-8xl font-black tracking-tighter leading-none text-foreground">
-              你好，我是 <br />
-              <span className="text-blue-600">張大明</span>
+              {t("portfolio.hero_intro")} <br />
+              <span className="text-blue-600">John Doe</span>
             </h1>
             <p className="text-xl text-muted-foreground max-w-lg leading-relaxed">
-              全端開發者與 UI/UX 愛好者。專注於使用 <span className="font-bold text-foreground">React</span>、<span className="font-bold text-foreground">Node.js</span> 與 <span className="font-bold text-foreground">TypeScript</span> 打造極致的數位體驗。
+              {t("portfolio.hero_desc")}
             </p>
             <div className="flex flex-wrap gap-4 pt-4">
               <Button size="lg" className="rounded-full bg-foreground text-background px-8 h-14 font-bold text-lg gap-2 border">
-                開始合作 <ChevronRight className="h-5 w-5" />
+                {t("portfolio.start_collab")} <ChevronRight className="h-5 w-5" />
               </Button>
               <div className="flex items-center gap-2">
                 {[
@@ -118,7 +118,7 @@ export default function PortfolioDemo() {
             <div className="relative">
               <div className="absolute -inset-4 bg-blue-500/10 rounded-full blur-3xl animate-pulse" />
               <Avatar className="h-64 w-64 lg:h-80 lg:w-80 border-8 border-background shadow-2xl">
-                <AvatarImage src="https://images.unsplash.com/photo-1507003211169-e695d7ea6d1?auto=format&fit=crop&q=80&w=400" />
+                <AvatarImage src="/images/portfolio-avatar.jpg" />
                 <AvatarFallback>JD</AvatarFallback>
               </Avatar>
             </div>
@@ -130,10 +130,10 @@ export default function PortfolioDemo() {
       <section className="py-12 bg-background border-b">
         <div className="container mx-auto px-6 flex flex-wrap justify-around gap-8 text-center">
           {[
-            { label: "專案完成", val: "50+" },
-            { label: "滿意客戶", val: "30+" },
-            { label: "代碼貢獻", val: "10K+" },
-            { label: "技術經驗", val: "6年" },
+            { label: t("portfolio.stats.projects"), val: "50+" },
+            { label: t("portfolio.stats.clients"), val: "30+" },
+            { label: t("portfolio.stats.code"), val: "10K+" },
+            { label: t("portfolio.stats.years"), val: "6+" },
           ].map((stat, i) => (
             <div key={i} className="space-y-1">
               <p className="text-3xl lg:text-5xl font-black text-foreground">{stat.val}</p>
@@ -150,7 +150,7 @@ export default function PortfolioDemo() {
             <div className="space-y-4">
               <h2 className="text-4xl font-black text-foreground">{t("portfolio.featured_work")}</h2>
               <p className="text-muted-foreground max-w-md font-medium text-lg">
-                這是我最近參與的一些具備挑戰性的專案，展示了我的技術能力與設計品味。
+                Recent projects showcasing my skills and design taste.
               </p>
             </div>
             <div className="flex gap-2 p-1 bg-muted rounded-full">
@@ -208,7 +208,7 @@ export default function PortfolioDemo() {
                     </CardHeader>
                     <CardFooter className="px-8 pb-8 mt-auto">
                       <Button variant="link" className="p-0 font-bold text-foreground group/link">
-                        預覽連結 <ExternalLink className="ml-2 h-4 w-4 group-hover/link:translate-x-1 transition-transform" />
+                        Live Preview <ExternalLink className="ml-2 h-4 w-4 group-hover/link:translate-x-1 transition-transform" />
                       </Button>
                     </CardFooter>
                   </Card>
@@ -251,9 +251,9 @@ export default function PortfolioDemo() {
             <h2 className="text-4xl font-black text-foreground">{t("portfolio.skills")}</h2>
             <div className="grid gap-8">
               {[
-                { label: "前端開發", icon: Layout, skills: ["React", "Next.js", "TypeScript", "Tailwind", "Framer Motion"] },
-                { label: "後端開發", icon: Terminal, skills: ["Node.js", "Python", "Go", "PostgreSQL", "Redis"] },
-                { label: "架構設計", icon: Cpu, skills: ["Microservices", "System Design", "Docker", "AWS", "CI/CD"] },
+                { label: t("portfolio.skill_groups.frontend"), icon: Layout, skills: ["React", "Next.js", "TypeScript", "Tailwind", "Framer Motion"] },
+                { label: t("portfolio.skill_groups.backend"), icon: Terminal, skills: ["Node.js", "Python", "Go", "PostgreSQL", "Redis"] },
+                { label: t("portfolio.skill_groups.arch"), icon: Cpu, skills: ["Microservices", "System Design", "Docker", "AWS", "CI/CD"] },
               ].map((group, i) => (
                 <div key={i} className="space-y-4">
                   <div className="flex items-center gap-3">

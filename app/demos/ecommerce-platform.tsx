@@ -60,28 +60,28 @@ export default function EcommercePlatformDemo() {
   const { t } = useTranslation();
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [searchTerm, setSearchTerm] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState("所有");
+  const [selectedCategory, setSelectedCategory] = useState("All");
   const [cartOpen, setCartOpen] = useState(false);
   const [cart, setCart] = useState<{ product: Product; qty: number }[]>([]);
 
   const allProducts: Product[] = [
-    { id: "p1", name: "Huini Book Pro 14", category: t("common.category", "電子產品"), price: 32000, originalPrice: 38000, rating: 4.8, imageUrl: "https://images.unsplash.com/photo-1611186871348-b1ce696e52c9?auto=format&fit=crop&q=80&w=400", description: "頂級效能筆電，專為開發者與設計師打造。搭載 M3 晶片，續航力長達 20 小時。", reviews: 120, isNew: true },
-    { id: "p2", name: "Studio Pro 無線耳機", category: t("common.category", "電子產品"), price: 4500, rating: 4.9, imageUrl: "https://images.unsplash.com/photo-1505740420928-5e560c06f2ae?auto=format&fit=crop&q=80&w=400", description: "主動式降噪，沉浸式音效體驗。專利的空間音訊技術，讓您身歷其境。", reviews: 245, onSale: true },
-    { id: "p3", name: "城市探險後背包", category: "服飾配件", price: 1800, rating: 4.5, imageUrl: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&q=80&w=400", description: "防水耐磨，大容量設計。內置筆電隔層，是您通勤的最佳夥伴。", reviews: 56 },
-    { id: "p4", name: "Active 智慧運動錶", category: t("common.category", "電子產品"), price: 2500, originalPrice: 3200, rating: 4.2, imageUrl: "https://images.unsplash.com/photo-1508685096489-7aac291ba59e?auto=format&fit=crop&q=80&w=400", description: "全天候健康追蹤，支援多種運動模式。輕盈舒適，適合長時間佩戴。", reviews: 89, onSale: true },
-    { id: "p5", name: "質感陶瓷餐具組", category: "家居生活", price: 1200, rating: 4.7, imageUrl: "https://images.unsplash.com/photo-1577113336085-fc167ddb6190?auto=format&fit=crop&q=80&w=400", description: "北歐風格設計，簡約優雅。高品質陶瓷材質，耐溫且易清洗。", reviews: 112 },
-    { id: "p6", name: "智能空氣淨化器", category: "家居生活", price: 6800, rating: 4.6, imageUrl: "https://images.unsplash.com/photo-1585338107529-13afc5f02586?auto=format&fit=crop&q=80&w=400", description: "HEPA 濾網，有效過濾 99% 的過敏原。超靜音設計，守護您的呼吸健康。", reviews: 34 },
+    { id: "p1", name: "Huini Book Pro 14", category: t("ecommerce.platform.categories.electronics"), price: 32000, originalPrice: 38000, rating: 4.8, imageUrl: "/images/shop-laptop.jpg", description: t("ecommerce.platform.products.p1.desc"), reviews: 120, isNew: true },
+    { id: "p2", name: "Studio Pro Wireless", category: t("ecommerce.platform.categories.electronics"), price: 4500, rating: 4.9, imageUrl: "/images/shop-headphones.jpg", description: t("ecommerce.platform.products.p2.desc"), reviews: 245, onSale: true },
+    { id: "p3", name: "Urban Backpack", category: t("ecommerce.platform.categories.clothing"), price: 1800, rating: 4.5, imageUrl: "/images/shop-backpack.jpg", description: t("ecommerce.platform.products.p3.desc"), reviews: 56 },
+    { id: "p4", name: "Active Watch", category: t("ecommerce.platform.categories.electronics"), price: 2500, originalPrice: 3200, rating: 4.2, imageUrl: "/images/shop-watch.jpg", description: t("ecommerce.platform.products.p4.desc"), reviews: 89, onSale: true },
+    { id: "p5", name: "Ceramic Set", category: t("ecommerce.platform.categories.home"), price: 1200, rating: 4.7, imageUrl: "/images/shop-ceramic.jpg", description: t("ecommerce.platform.products.p5.desc"), reviews: 112 },
+    { id: "p6", name: "Air Purifier", category: t("ecommerce.platform.categories.home"), price: 6800, rating: 4.6, imageUrl: "/images/shop-purifier.jpg", description: t("ecommerce.platform.products.p6.desc"), reviews: 34 },
   ];
 
-  const categories = ["所有", "電子產品", "服飾配件", "家居生活"];
+  const categories = ["All", t("ecommerce.platform.categories.electronics"), t("ecommerce.platform.categories.clothing"), t("ecommerce.platform.categories.home")];
 
   const filteredProducts = useMemo(() => {
     return allProducts.filter(p => {
       const matchesSearch = p.name.toLowerCase().includes(searchTerm.toLowerCase());
-      const matchesCategory = selectedCategory === "所有" || p.category === selectedCategory || (selectedCategory === "電子產品" && p.category === t("common.category", "電子產品"));
+      const matchesCategory = selectedCategory === "All" || p.category === selectedCategory || (selectedCategory === "Electronics" && p.category === t("ecommerce.platform.categories.electronics")); // Fallback logic
       return matchesSearch && matchesCategory;
     });
-  }, [searchTerm, selectedCategory, t]);
+  }, [searchTerm, selectedCategory, t, allProducts]);
 
   const addToCart = (product: Product) => {
     setCart(prev => {
@@ -119,7 +119,7 @@ export default function EcommercePlatformDemo() {
                 )}
                 onClick={() => setSelectedCategory(cat)}
               >
-                {cat === "所有" ? t("common.all") : cat}
+                {cat === "All" ? t("common.all") : cat}
                 {selectedCategory === cat && <ChevronRight className="h-4 w-4" />}
               </div>
             ))}
@@ -142,7 +142,12 @@ export default function EcommercePlatformDemo() {
         <div className="space-y-4">
           <h3 className="font-bold text-sm uppercase tracking-wider text-muted-foreground">{t("ecommerce.hot_tags")}</h3>
           <div className="flex flex-wrap gap-2">
-            {["折扣中", "新品上架", "免運費", "快速到貨"].map(tag => (
+            {[
+              t("ecommerce.platform.tags.discount"),
+              t("ecommerce.platform.tags.new"),
+              t("ecommerce.platform.tags.free_shipping"),
+              t("ecommerce.platform.tags.fast_delivery")
+            ].map(tag => (
               <Badge key={tag} variant="secondary" className="cursor-pointer hover:bg-purple-100 dark:hover:bg-purple-900/40 bg-muted text-muted-foreground">{tag}</Badge>
             ))}
           </div>
@@ -209,7 +214,7 @@ export default function EcommercePlatformDemo() {
                             <Star key={i} className={cn("h-4 w-4", i < Math.floor(selectedProduct.rating) ? "fill-current" : "")} />
                           ))}
                         </div>
-                        <span className="text-sm font-medium text-muted-foreground">{selectedProduct.reviews} 則評論</span>
+                        <span className="text-sm font-medium text-muted-foreground">{selectedProduct.reviews} {t("ecommerce.platform.reviews")}</span>
                       </div>
                     </div>
                     
@@ -238,7 +243,7 @@ export default function EcommercePlatformDemo() {
                         </Button>
                       </div>
                       <Button variant="outline" className="w-full h-12 rounded-full font-bold border-2 gap-2 bg-background text-foreground">
-                        <Heart className="h-5 w-5" /> 加入收藏清單
+                        <Heart className="h-5 w-5" /> {t("ecommerce.platform.add_wishlist")}
                       </Button>
                     </div>
                   </div>
@@ -253,8 +258,8 @@ export default function EcommercePlatformDemo() {
                 <div className="flex items-center justify-between">
                   <h2 className="text-3xl font-black">{t("ecommerce.product_list")}</h2>
                   <div className="flex items-center gap-2 border rounded-lg p-1 bg-muted/50">
-                    <Button variant="ghost" size="sm" className="h-8 bg-background shadow-sm text-foreground"><LayoutGrid className="h-4 w-4 mr-2" /> 網格</Button>
-                    <Button variant="ghost" size="sm" className="h-8 text-foreground"><ListIcon className="h-4 w-4 mr-2" /> 列表</Button>
+                    <Button variant="ghost" size="sm" className="h-8 bg-background shadow-sm text-foreground"><LayoutGrid className="h-4 w-4 mr-2" /> {t("ecommerce.platform.view_mode.grid")}</Button>
+                    <Button variant="ghost" size="sm" className="h-8 text-foreground"><ListIcon className="h-4 w-4 mr-2" /> {t("ecommerce.platform.view_mode.list")}</Button>
                   </div>
                 </div>
 
@@ -340,8 +345,8 @@ export default function EcommercePlatformDemo() {
                 {cart.length === 0 ? (
                   <div className="h-full flex flex-col items-center justify-center text-center space-y-4">
                     <ShoppingBag className="h-16 w-16 text-muted-foreground/20" />
-                    <p className="text-muted-foreground">您的購物車目前是空的</p>
-                    <Button variant="outline" className="bg-background text-foreground" onClick={() => setCartOpen(false)}>去逛逛</Button>
+                    <p className="text-muted-foreground">{t("ecommerce.platform.cart_empty")}</p>
+                    <Button variant="outline" className="bg-background text-foreground" onClick={() => setCartOpen(false)}>{t("ecommerce.platform.go_shopping")}</Button>
                   </div>
                 ) : (
                   cart.map((item) => (
@@ -372,11 +377,11 @@ export default function EcommercePlatformDemo() {
               <div className="p-6 border-t bg-muted/20 space-y-4">
                 <div className="space-y-2">
                   <div className="flex justify-between text-sm">
-                    <span className="text-muted-foreground">小計</span>
+                    <span className="text-muted-foreground">{t("ecommerce.platform.subtotal")}</span>
                     <span className="font-bold">NT$ {cartTotal.toLocaleString()}</span>
                   </div>
                   <div className="flex justify-between text-sm">
-                    <span className="text-muted-foreground">運費</span>
+                    <span className="text-muted-foreground">{t("ecommerce.platform.shipping")}</span>
                     <span className="text-green-600 font-bold">{t("ecommerce.free_shipping")}</span>
                   </div>
                   <Separator className="my-2" />
@@ -389,7 +394,7 @@ export default function EcommercePlatformDemo() {
                   <CreditCard className="h-5 w-5" /> {t("ecommerce.checkout")}
                 </Button>
                 <div className="flex items-center justify-center gap-2 text-[10px] text-muted-foreground">
-                  <CheckCircle2 className="h-3 w-3 text-green-500" /> 安全結帳保障
+                  <CheckCircle2 className="h-3 w-3 text-green-500" /> {t("ecommerce.platform.secure_checkout")}
                 </div>
               </div>
             </motion.div>

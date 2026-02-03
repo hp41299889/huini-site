@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { 
   Sparkles, 
@@ -46,7 +46,8 @@ export type AiContext =
   | "portfolio"
   | "dashboard"
   | "promotion"
-  | "corporate";
+  | "corporate"
+  | "cooperate";
 
 interface AiTool {
   label: string;
@@ -65,147 +66,6 @@ interface ContextConfig {
 // Consistent Frontal AI Icon (Bot head is very recognizable and frontal)
 const GLOBAL_AI_ICON = Bot;
 
-const contextConfig: Record<AiContext, ContextConfig> = {
-  erp: { 
-    title: "AI 企業顧問", 
-    color: "#2563eb", 
-    gradient: "from-[#2563eb] to-[#4f46e5]",
-    suggestion: "分析本季度的營收增長點...",
-    tools: [
-      { label: "生成月報", icon: FileText, action: "generate_report" },
-      { label: "預測營收", icon: LineChart, action: "forecast" },
-      { label: "庫存優化", icon: PieChart, action: "inventory" }
-    ]
-  },
-  booking: { 
-    title: "AI 預約助手", 
-    color: "#f97316", 
-    gradient: "from-[#f97316] to-[#ef4444]",
-    suggestion: "幫我查看下週一的空檔時段...",
-    tools: [
-      { label: "推薦時段", icon: Lightbulb, action: "suggest_slot" },
-      { label: "自動排程", icon: Zap, action: "auto_schedule" }
-    ]
-  },
-  project: { 
-    title: "AI 任務分析師", 
-    color: "#9333ea", 
-    gradient: "from-[#9333ea] to-[#c026d3]",
-    suggestion: "這項任務是否有潛在的延遲風險？",
-    tools: [
-      { label: "總結進度", icon: FileText, action: "summarize" },
-      { label: "估計工時", icon: LineChart, action: "estimate" },
-      { label: "風險預警", icon: AlertTriangle, action: "risk" }
-    ]
-  },
-  lms: { 
-    title: "AI 導師", 
-    color: "#0d9488", 
-    gradient: "from-[#0d9488] to-[#059669]",
-    suggestion: "總結這堂課的重點並提供練習題...",
-    tools: [
-      { label: "製作測驗", icon: CheckCircle2, action: "quiz" },
-      { label: "疑難排解", icon: HelpCircle, action: "solve" },
-      { label: "個人化建議", icon: Wand2, action: "path" }
-    ]
-  },
-  cms: { 
-    title: "AI 內容生成器", 
-    color: "#db2777", 
-    gradient: "from-[#db2777] to-[#e11d48]",
-    suggestion: "幫我為這篇文章寫一個吸引人的摘要...",
-    tools: [
-      { label: "SEO 優化", icon: Search, action: "seo" },
-      { label: "文章續寫", icon: Wand2, action: "continue" },
-      { label: "語法修正", icon: CheckCircle2, action: "fix" }
-    ]
-  },
-  blog: { 
-    title: "AI 寫作助手", 
-    color: "#475569", 
-    gradient: "from-[#334155] to-[#0f172a]",
-    suggestion: "幫我擴充這段關於技術趨勢的內容...",
-    tools: [
-      { label: "標題建議", icon: Lightbulb, action: "titles" },
-      { label: "摘要提取", icon: FileText, action: "summary" },
-      { label: "翻譯", icon: Languages, action: "translate" }
-    ]
-  },
-  social: { 
-    title: "AI 社群經理", 
-    color: "#e11d48", 
-    gradient: "from-[#e11d48] to-[#be123c]",
-    suggestion: "幫我寫一段具備病毒式傳播潛力的文案...",
-    tools: [
-      { label: "熱度分析", icon: LineChart, action: "stats" },
-      { label: "生成回覆", icon: Send, action: "reply" },
-      { label: "情緒監測", icon: BrainCircuit, action: "sentiment" }
-    ]
-  },
-  ecommerce: { 
-    title: "AI 購物清單建議", 
-    color: "#0ea5e9", 
-    gradient: "from-[#0ea5e9] to-[#2563eb]",
-    suggestion: "根據我的喜好推薦搭配的配件...",
-    tools: [
-      { label: "比價助手", icon: Search, action: "price" },
-      { label: "穿搭推薦", icon: Wand2, action: "outfit" },
-      { label: "庫存通知", icon: Zap, action: "alert" }
-    ]
-  },
-  forum: { 
-    title: "AI 討論引導員", 
-    color: "#16a34a", 
-    gradient: "from-[#16a34a] to-[#0d9488]",
-    suggestion: "幫我總結這個討論串的核心爭議點...",
-    tools: [
-      { label: "討論總結", icon: FileText, action: "recap" },
-      { label: "違規偵測", icon: AlertTriangle, action: "mod" }
-    ]
-  },
-  portfolio: { 
-    title: "AI 簡歷優化師", 
-    color: "#4f46e5", 
-    gradient: "from-[#4f46e5] to-[#7c3aed]",
-    suggestion: "如何描述我的 React 經驗更具競爭力？",
-    tools: [
-      { label: "代碼審查", icon: Code2, action: "review" },
-      { label: "技能路徑", icon: LineChart, action: "roadmap" }
-    ]
-  },
-  dashboard: { 
-    title: "AI 數據分析師", 
-    color: "#6366f1", 
-    gradient: "from-[#6366f1] to-[#4338ca]",
-    suggestion: "解釋這個趨勢圖背後的數據意義...",
-    tools: [
-      { label: "異常偵測", icon: AlertTriangle, action: "anomaly" },
-      { label: "趨勢洞察", icon: Lightbulb, action: "insight" },
-      { label: "導出報告", icon: FileText, action: "export" }
-    ]
-  },
-  promotion: {
-    title: "AI 營銷專家",
-    color: "#d97706",
-    gradient: "from-[#d97706] to-[#ea580c]",
-    suggestion: "如何優化這個頁面的轉化率？",
-    tools: [
-      { label: "文案建議", icon: Edit3, action: "copy" },
-      { label: "A/B 測試", icon: Zap, action: "ab_test" }
-    ]
-  },
-  corporate: {
-    title: "AI 品牌顧問",
-    color: "#1d4ed8",
-    gradient: "from-[#1d4ed8] to-[#0891b2]",
-    suggestion: "提供關於品牌數位化轉型的策略...",
-    tools: [
-      { label: "競爭分析", icon: Search, action: "competitor" },
-      { label: "願景優化", icon: Lightbulb, action: "vision" }
-    ]
-  }
-};
-
 interface AiAssistantProps {
   context: AiContext;
   className?: string;
@@ -217,6 +77,157 @@ export function AiAssistant({ context, className, variant = "floating" }: AiAssi
   const [query, setQuery] = useState("");
   const { t } = useTranslation();
   
+  const contextConfig: Record<AiContext, ContextConfig> = useMemo(() => ({
+    erp: { 
+      title: t("ai.advisor", "AI Advisor"), 
+      color: "#2563eb", 
+      gradient: "from-[#2563eb] to-[#4f46e5]",
+      suggestion: t("ai.suggest_erp", "Analyze revenue growth for this quarter..."),
+      tools: [
+        { label: t("ai.tools.report", "Report"), icon: FileText, action: "generate_report" },
+        { label: t("ai.tools.forecast", "Forecast"), icon: LineChart, action: "forecast" },
+        { label: t("ai.tools.inventory", "Inventory"), icon: PieChart, action: "inventory" }
+      ]
+    },
+    booking: { 
+      title: t("ai.assistant", "AI Assistant"), 
+      color: "#f97316", 
+      gradient: "from-[#f97316] to-[#ef4444]",
+      suggestion: t("ai.suggest_booking", "Check free slots for next Monday..."),
+      tools: [
+        { label: t("ai.tools.suggest_slot", "Suggest Slot"), icon: Lightbulb, action: "suggest_slot" },
+        { label: t("ai.tools.auto_schedule", "Auto Schedule"), icon: Zap, action: "auto_schedule" }
+      ]
+    },
+    project: { 
+      title: t("ai.analyze", "AI Analyst"), 
+      color: "#9333ea", 
+      gradient: "from-[#9333ea] to-[#c026d3]",
+      suggestion: t("ai.suggest_project", "Any potential risks for this task?"),
+      tools: [
+        { label: t("ai.tools.summarize", "Summarize"), icon: FileText, action: "summarize" },
+        { label: t("ai.tools.estimate", "Estimate"), icon: LineChart, action: "estimate" },
+        { label: t("ai.tools.risk", "Risk Alert"), icon: AlertTriangle, action: "risk" }
+      ]
+    },
+    lms: { 
+      title: t("ai.tutor", "AI Tutor"), 
+      color: "#0d9488", 
+      gradient: "from-[#0d9488] to-[#059669]",
+      suggestion: t("ai.suggest_lms", "Summarize key points and give me quiz..."),
+      tools: [
+        { label: t("ai.tools.quiz", "Quiz"), icon: CheckCircle2, action: "quiz" },
+        { label: t("ai.tools.solve", "Q&A"), icon: HelpCircle, action: "solve" },
+        { label: t("ai.tools.path", "Path"), icon: Wand2, action: "path" }
+      ]
+    },
+    cms: { 
+      title: t("ai.generate", "AI Generator"), 
+      color: "#db2777", 
+      gradient: "from-[#db2777] to-[#e11d48]",
+      suggestion: t("ai.suggest_cms", "Write a catchy abstract for this article..."),
+      tools: [
+        { label: t("ai.tools.seo", "SEO"), icon: Search, action: "seo" },
+        { label: t("ai.tools.continue", "Continue"), icon: Wand2, action: "continue" },
+        { label: t("ai.tools.fix", "Fix Grammar"), icon: CheckCircle2, action: "fix" }
+      ]
+    },
+    blog: { 
+      title: t("ai.helper", "AI Helper"), 
+      color: "#475569", 
+      gradient: "from-[#334155] to-[#0f172a]",
+      suggestion: t("ai.suggest_blog", "Expand on this tech trend..."),
+      tools: [
+        { label: t("ai.tools.titles", "Titles"), icon: Lightbulb, action: "titles" },
+        { label: t("ai.tools.summary", "Summary"), icon: FileText, action: "summary" },
+        { label: t("ai.tools.translate", "Translate"), icon: Languages, action: "translate" }
+      ]
+    },
+    social: { 
+      title: t("ai.manager", "AI Manager"), 
+      color: "#e11d48", 
+      gradient: "from-[#e11d48] to-[#be123c]",
+      suggestion: t("ai.suggest_social", "Write a viral potential copy..."),
+      tools: [
+        { label: t("ai.tools.stats", "Stats"), icon: LineChart, action: "stats" },
+        { label: t("ai.tools.reply", "Reply"), icon: Send, action: "reply" },
+        { label: t("ai.tools.sentiment", "Sentiment"), icon: BrainCircuit, action: "sentiment" }
+      ]
+    },
+    ecommerce: { 
+      title: t("ai.advisor", "AI Advisor"), 
+      color: "#0ea5e9", 
+      gradient: "from-[#0ea5e9] to-[#2563eb]",
+      suggestion: t("ai.suggest_ecommerce", "Recommend accessories based on my likes..."),
+      tools: [
+        { label: t("ai.tools.price", "Price Check"), icon: Search, action: "price" },
+        { label: t("ai.tools.outfit", "Outfit"), icon: Wand2, action: "outfit" },
+        { label: t("ai.tools.alert", "Alert"), icon: Zap, action: "alert" }
+      ]
+    },
+    forum: { 
+      title: t("ai.mod", "AI Moderator"), 
+      color: "#16a34a", 
+      gradient: "from-[#16a34a] to-[#0d9488]",
+      suggestion: t("ai.suggest_forum", "Summarize core arguments of this thread..."),
+      tools: [
+        { label: t("ai.tools.recap", "Recap"), icon: FileText, action: "recap" },
+        { label: t("ai.tools.mod", "Detect"), icon: AlertTriangle, action: "mod" }
+      ]
+    },
+    portfolio: { 
+      title: t("ai.coach", "AI Coach"), 
+      color: "#4f46e5", 
+      gradient: "from-[#4f46e5] to-[#7c3aed]",
+      suggestion: t("ai.suggest_portfolio", "How to describe my React experience better?"),
+      tools: [
+        { label: t("ai.tools.review", "Review"), icon: Code2, action: "review" },
+        { label: t("ai.tools.roadmap", "Roadmap"), icon: LineChart, action: "roadmap" }
+      ]
+    },
+    dashboard: { 
+      title: t("ai.analyst", "AI Analyst"), 
+      color: "#6366f1", 
+      gradient: "from-[#6366f1] to-[#4338ca]",
+      suggestion: t("ai.suggest_dashboard", "Explain the meaning behind this trend..."),
+      tools: [
+        { label: t("ai.tools.anomaly", "Anomaly"), icon: AlertTriangle, action: "anomaly" },
+        { label: t("ai.tools.insight", "Insight"), icon: Lightbulb, action: "insight" },
+        { label: t("ai.tools.export", "Export"), icon: FileText, action: "export" }
+      ]
+    },
+    promotion: {
+      title: t("ai.expert", "AI Expert"),
+      color: "#d97706",
+      gradient: "from-[#d97706] to-[#ea580c]",
+      suggestion: t("ai.suggest_promotion", "How to optimize conversion rate?"),
+      tools: [
+        { label: t("ai.tools.copy", "Copy"), icon: Edit3, action: "copy" },
+        { label: t("ai.tools.ab_test", "A/B Test"), icon: Zap, action: "ab_test" }
+      ]
+    },
+    corporate: {
+      title: t("ai.consultant", "AI Consultant"),
+      color: "#1d4ed8",
+      gradient: "from-[#1d4ed8] to-[#0891b2]",
+      suggestion: t("ai.suggest_corporate", "Strategies for digital transformation..."),
+      tools: [
+        { label: t("ai.tools.competitor", "Competitor"), icon: Search, action: "competitor" },
+        { label: t("ai.tools.vision", "Vision"), icon: Lightbulb, action: "vision" }
+      ]
+    },
+    cooperate: {
+      title: t("ai.consultant", "AI Consultant"),
+      color: "#1d4ed8",
+      gradient: "from-[#1d4ed8] to-[#0891b2]",
+      suggestion: t("ai.suggest_corporate", "Strategies for digital transformation..."),
+      tools: [
+        { label: t("ai.tools.competitor", "Competitor"), icon: Search, action: "competitor" },
+        { label: t("ai.tools.vision", "Vision"), icon: Lightbulb, action: "vision" }
+      ]
+    }
+  }), [t]);
+
   const config = contextConfig[context];
 
   const handleToggle = () => setIsOpen(!isOpen);
@@ -373,10 +384,10 @@ export function AiAssistant({ context, className, variant = "floating" }: AiAssi
         <Button
           size="lg"
           className={cn(
-            "h-18 w-18 rounded-full shadow-[0_0_30px_rgba(0,0,0,0.2)] transition-all duration-500 p-0 overflow-hidden relative z-10 border-[6px] border-white dark:border-slate-900",
+            "h-14 w-14 rounded-full shadow-[0_0_30px_rgba(0,0,0,0.2)] transition-all duration-500 p-0 overflow-hidden relative z-10 border-[4px] border-white dark:border-slate-900",
             isOpen ? "bg-slate-900" : "bg-gradient-to-br " + config.gradient
           )}
-          style={{ width: '72px', height: '72px' }}
+          style={{ width: '56px', height: '56px' }}
           onClick={handleToggle}
         >
           <AnimatePresence mode="wait">

@@ -56,7 +56,7 @@ export default function ContentPromotionDemo() {
         transition={{ duration: 1 }}
       >
         <img
-          src="https://images.unsplash.com/photo-1517036611336-f044d081f9b3?auto=format&fit=crop&q=80&w=1200"
+          src="/images/promotion-hero.jpg"
           alt="Hero Background"
           className="absolute inset-0 w-full h-full object-cover opacity-30"
         />
@@ -67,7 +67,7 @@ export default function ContentPromotionDemo() {
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.5, duration: 0.8 }}
           >
-            創新解決方案，引領未來
+            {t("promotion.hero_title")}
           </motion.h1>
           <motion.p
             className="text-lg md:text-xl mb-8 drop-shadow-md"
@@ -75,7 +75,7 @@ export default function ContentPromotionDemo() {
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.7, duration: 0.8 }}
           >
-            我們致力於為您提供卓越的服務與無與倫比的體驗。
+            {t("promotion.hero_desc")}
           </motion.p>
           <motion.div
             initial={{ scale: 0.8, opacity: 0 }}
@@ -102,28 +102,28 @@ export default function ContentPromotionDemo() {
       >
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            我們能為您做什麼？
+            {t("promotion.features_title")}
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-12">
-            從策略規劃到實施，我們提供全方位的專業服務，助您的業務騰飛。
+            {t("promotion.features_desc")}
           </p>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <motion.div variants={sectionVariants}>
-              <h3 className="text-xl font-semibold mb-2">數位轉型</h3>
+              <h3 className="text-xl font-semibold mb-2">{t("promotion.features.f1.title")}</h3>
               <p className="text-muted-foreground">
-                協助企業擁抱最新技術，提升營運效率。
+                {t("promotion.features.f1.desc")}
               </p>
             </motion.div>
             <motion.div variants={sectionVariants}>
-              <h3 className="text-xl font-semibold mb-2">市場拓展</h3>
+              <h3 className="text-xl font-semibold mb-2">{t("promotion.features.f2.title")}</h3>
               <p className="text-muted-foreground">
-                透過精準策略，將您的產品推向更廣闊的市場。
+                {t("promotion.features.f2.desc")}
               </p>
             </motion.div>
             <motion.div variants={sectionVariants}>
-              <h3 className="text-xl font-semibold mb-2">品牌建設</h3>
+              <h3 className="text-xl font-semibold mb-2">{t("promotion.features.f3.title")}</h3>
               <p className="text-muted-foreground">
-                塑造獨特品牌形象，增強市場競爭力。
+                {t("promotion.features.f3.desc")}
               </p>
             </motion.div>
           </div>
@@ -141,7 +141,7 @@ export default function ContentPromotionDemo() {
         <div className="container mx-auto px-4 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
           <motion.div variants={imageVariants}>
             <img
-              src="https://images.unsplash.com/photo-1520607162513-772960444269?auto=format&fit=crop&q=80&w=800"
+              src="/images/promotion-about.jpg"
               alt="Team Collaboration"
               className="w-full h-auto rounded-lg shadow-xl"
             />
@@ -149,13 +149,13 @@ export default function ContentPromotionDemo() {
           <motion.div variants={sectionVariants}>
             <h2 className="text-3xl md:text-4xl font-bold mb-4">{t("navbar.about")}</h2>
             <p className="text-lg text-muted-foreground mb-4">
-              我們是一群充滿熱情與經驗的專業團隊，致力於為客戶提供創新且高效的解決方案。
+              {t("promotion.about_desc1")}
             </p>
             <p className="text-muted-foreground">
-              秉持著客戶至上的理念，我們不斷追求卓越，協助企業在數位時代中取得成功。
+              {t("promotion.about_desc2")}
             </p>
             <Button className="mt-8">
-              了解團隊 <ArrowRightIcon className="ml-2 h-5 w-5" />
+              {t("promotion.meet_team")} <ArrowRightIcon className="ml-2 h-5 w-5" />
             </Button>
           </motion.div>
         </div>
@@ -174,7 +174,7 @@ export default function ContentPromotionDemo() {
             {t("about.contact_title")}
           </h2>
           <p className="text-lg text-muted-foreground text-center mb-12">
-            有任何疑問或合作意向？請填寫以下表格，我們將盡快與您聯繫。
+            {t("promotion.contact_desc")}
           </p>
           <motion.form
             onSubmit={handleSubmit}
@@ -194,13 +194,13 @@ export default function ContentPromotionDemo() {
                   {t("booking.success_title")}
                 </h3>
                 <p className="text-muted-foreground">
-                  感謝您的訊息，我們會盡快回覆。
+                  {t("promotion.success_msg")}
                 </p>
                 <Button
                   onClick={() => setFormSubmitted(false)}
                   className="mt-6"
                 >
-                  送出另一則訊息
+                  {t("promotion.send_another")}
                 </Button>
               </motion.div>
             ) : (
@@ -244,7 +244,7 @@ export default function ContentPromotionDemo() {
                     htmlFor="message"
                     className="block text-sm font-medium mb-2"
                   >
-                    您的訊息
+                    {t("promotion.message_label")}
                   </label>
                   <Textarea
                     id="message"

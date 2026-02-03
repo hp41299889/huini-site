@@ -43,16 +43,18 @@ interface Task {
   progress: number;
 }
 
-const initialTasks: Task[] = [
-  { id: "1", title: "設計網站首頁", description: "完成響應式首頁的UI/UX設計", status: "進行中", priority: "高", dueDate: "2026-02-10", progress: 65 },
-  { id: "2", title: "開發後端API", description: "實現使用者認證和數據接口", status: "待辦", priority: "高", dueDate: "2026-02-20", progress: 0 },
-  { id: "3", title: "撰寫測試案例", description: "為核心功能編寫單元和整合測試", status: "待辦", priority: "中", dueDate: "2026-02-15", progress: 0 },
-  { id: "4", title: "部署到測試環境", description: "將應用程式部署到Staging環境", status: "已完成", priority: "低", dueDate: "2026-01-30", progress: 100 },
-  { id: "5", title: "優化資料庫查詢", description: "改進慢查詢的性能", status: "進行中", priority: "高", dueDate: "2026-02-18", progress: 30 },
-];
-
 export default function ProjectManagementDemo() {
   const { t } = useTranslation();
+  
+  // Mock Data inside component
+  const initialTasks: Task[] = [
+    { id: "1", title: t("project.tasks.t1.title"), description: t("project.tasks.t1.desc"), status: t("project.columns.in_progress") as any, priority: t("project.priority.high") as any, dueDate: "2026-02-10", progress: 65 },
+    { id: "2", title: t("project.tasks.t2.title"), description: t("project.tasks.t2.desc"), status: t("project.columns.todo") as any, priority: t("project.priority.high") as any, dueDate: "2026-02-20", progress: 0 },
+    { id: "3", title: t("project.tasks.t3.title"), description: t("project.tasks.t3.desc"), status: t("project.columns.todo") as any, priority: t("project.priority.medium") as any, dueDate: "2026-02-15", progress: 0 },
+    { id: "4", title: t("project.tasks.t4.title"), description: t("project.tasks.t4.desc"), status: t("project.columns.done") as any, priority: t("project.priority.low") as any, dueDate: "2026-01-30", progress: 100 },
+    { id: "5", title: t("project.tasks.t5.title"), description: t("project.tasks.t5.desc"), status: t("project.columns.in_progress") as any, priority: t("project.priority.high") as any, dueDate: "2026-02-18", progress: 30 },
+  ];
+
   const [tasks, setTasks] = useState<Task[]>(initialTasks);
   const [searchTerm, setSearchTerm] = useState("");
   const [isAddingTask, setIsAddingTask] = useState(false);
@@ -62,13 +64,13 @@ export default function ProjectManagementDemo() {
   const [formData, setFormData] = useState<Partial<Task>>({
     title: "",
     description: "",
-    priority: "中",
-    status: "待辦",
+    priority: t("project.priority.medium") as any,
+    status: t("project.columns.todo") as any,
     dueDate: new Date().toISOString().split('T')[0],
     progress: 0
   });
 
-  const statuses: ("待辦" | "進行中" | "已完成")[] = ["待辦", "進行中", "已完成"];
+  const statuses: ("待辦" | "進行中" | "已完成")[] = [t("project.columns.todo") as any, t("project.columns.in_progress") as any, t("project.columns.done") as any];
 
   const filteredTasks = useMemo(() => {
     return tasks.filter(task => 
@@ -87,19 +89,19 @@ export default function ProjectManagementDemo() {
     e.preventDefault();
     const taskId = e.dataTransfer.getData("taskId");
     setTasks(prev => prev.map(t => 
-      t.id === taskId ? { ...t, status: newStatus, progress: newStatus === "已完成" ? 100 : t.progress } : t
+      t.id === taskId ? { ...t, status: newStatus, progress: newStatus === t("project.columns.done") ? 100 : t.progress } : t
     ));
   };
 
   const addTask = () => {
     const newTask: Task = {
       id: Math.random().toString(36).substr(2, 9),
-      title: formData.title || "無標題任務",
+      title: formData.title || t("common.no_data"),
       description: formData.description || "",
-      priority: formData.priority as any || "中",
-      status: formData.status as any || "待辦",
+      priority: formData.priority as any || t("project.priority.medium"),
+      status: formData.status as any || t("project.columns.todo"),
       dueDate: formData.dueDate || "",
-      progress: formData.status === "已完成" ? 100 : (formData.progress || 0)
+      progress: formData.status === t("project.columns.done") ? 100 : (formData.progress || 0)
     };
     setTasks([...tasks, newTask]);
     setIsAddingTask(false);
@@ -118,7 +120,7 @@ export default function ProjectManagementDemo() {
   };
 
   const resetForm = () => {
-    setFormData({ title: "", description: "", priority: "中", status: "待辦", dueDate: new Date().toISOString().split('T')[0], progress: 0 });
+    setFormData({ title: "", description: "", priority: t("project.priority.medium") as any, status: t("project.columns.todo") as any, dueDate: new Date().toISOString().split('T')[0], progress: 0 });
   };
 
   const openEdit = (task: Task) => {
@@ -161,10 +163,10 @@ export default function ProjectManagementDemo() {
           >
             <div className="flex items-center justify-between mb-4 px-2">
               <h2 className="font-bold flex items-center gap-2">
-                {status === "待辦" && <Clock className="h-4 w-4 text-slate-500" />}
-                {status === "進行中" && <AlertCircle className="h-4 w-4 text-blue-500" />}
-                {status === "已完成" && <CheckCircle2 className="h-4 w-4 text-green-500" />}
-                {status === "待辦" ? t("project.columns.todo") : status === "進行中" ? t("project.columns.in_progress") : t("project.columns.done")}
+                {status === t("project.columns.todo") && <Clock className="h-4 w-4 text-slate-500" />}
+                {status === t("project.columns.in_progress") && <AlertCircle className="h-4 w-4 text-blue-500" />}
+                {status === t("project.columns.done") && <CheckCircle2 className="h-4 w-4 text-green-500" />}
+                {status}
                 <Badge variant="secondary" className="ml-2 bg-background/50">
                   {filteredTasks.filter(t => t.status === status).length}
                 </Badge>
@@ -188,7 +190,7 @@ export default function ProjectManagementDemo() {
                       <Card className="group cursor-grab active:cursor-grabbing hover:shadow-md transition-shadow relative overflow-hidden bg-background">
                         <div className={cn(
                           "absolute top-0 left-0 w-1 h-full",
-                          task.priority === "高" ? "bg-red-500" : task.priority === "中" ? "bg-amber-500" : "bg-blue-500"
+                          task.priority === t("project.priority.high") ? "bg-red-500" : task.priority === t("project.priority.medium") ? "bg-amber-500" : "bg-blue-500"
                         )} />
                         <CardHeader className="p-4 pb-2 flex flex-row items-start justify-between space-y-0">
                           <CardTitle className="text-sm font-bold leading-tight group-hover:text-primary transition-colors cursor-pointer" onClick={() => openEdit(task)}>
@@ -216,14 +218,14 @@ export default function ProjectManagementDemo() {
                           </p>
                           <div className="flex flex-wrap items-center gap-2">
                             <Badge variant="outline" className="text-[10px] py-0 h-5">
-                              {task.priority === "高" ? t("project.priority.high") : task.priority === "中" ? t("project.priority.medium") : t("project.priority.low")}
+                              {task.priority}
                             </Badge>
                             <div className="flex items-center text-[10px] text-muted-foreground">
                               <CalendarIcon className="mr-1 h-3 w-3" />
                               {task.dueDate}
                             </div>
                           </div>
-                          {status === "進行中" && (
+                          {status === t("project.columns.in_progress") && (
                             <div className="space-y-1">
                               <div className="flex justify-between text-[10px] font-medium">
                                 <span>{t("project.progress")}</span>
@@ -262,7 +264,7 @@ export default function ProjectManagementDemo() {
                 <div className="space-y-2">
                   <Label>{t("project.task_title")}</Label>
                   <Input 
-                    placeholder="例如：設計首頁" 
+                    placeholder="e.g. Design Homepage" 
                     value={formData.title}
                     onChange={(e) => setFormData({ ...formData, title: e.target.value })}
                   />
@@ -270,7 +272,7 @@ export default function ProjectManagementDemo() {
                 <div className="space-y-2">
                   <Label>{t("project.description")}</Label>
                   <Textarea 
-                    placeholder="輸入詳細內容..." 
+                    placeholder={t("cms.placeholders.summary")} 
                     value={formData.description}
                     onChange={(e) => setFormData({ ...formData, description: e.target.value })}
                   />
@@ -280,12 +282,12 @@ export default function ProjectManagementDemo() {
                     <Label>{t("project.priority_label")}</Label>
                     <Select value={formData.priority} onValueChange={(v) => setFormData({ ...formData, priority: v as any })}>
                       <SelectTrigger>
-                        <SelectValue placeholder="選擇優先級" />
+                        <SelectValue placeholder={t("project.priority_label")} />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="高">{t("project.priority.high")}</SelectItem>
-                        <SelectItem value="中">{t("project.priority.medium")}</SelectItem>
-                        <SelectItem value="低">{t("project.priority.low")}</SelectItem>
+                        <SelectItem value={t("project.priority.high")}>{t("project.priority.high")}</SelectItem>
+                        <SelectItem value={t("project.priority.medium")}>{t("project.priority.medium")}</SelectItem>
+                        <SelectItem value={t("project.priority.low")}>{t("project.priority.low")}</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>

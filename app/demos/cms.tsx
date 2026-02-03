@@ -61,10 +61,10 @@ interface Article {
 export default function CmsDemo() {
   const { t } = useTranslation();
   const [articles, setArticles] = useState<Article[]>([
-    { id: "1", title: t("cms.mock.a1.title", "網站改版：提升使用者體驗的關鍵策略"), author: "張三", status: "published", category: "設計", views: 1245, date: "2026-01-28" },
-    { id: "2", title: t("cms.mock.a2.title", "SEO 優化指南：讓您的網站排名更靠前"), author: "李四", status: "draft", category: "行銷", views: 0, date: "2026-01-27" },
-    { id: "3", title: t("cms.mock.a3.title", "如何選擇適合的雲端服務供應商"), author: "王五", status: "published", category: "技術", views: 890, date: "2026-01-25" },
-    { id: "4", title: t("cms.mock.a4.title", "2026 年前端開發趨勢預測"), author: "趙六", status: "pending", category: "技術", views: 50, date: "2026-01-24" },
+    { id: "1", title: t("cms.mock.a1.title"), author: t("common.author", "張三"), status: "published", category: t("cms.categories.design"), views: 1245, date: "2026-01-28" },
+    { id: "2", title: t("cms.mock.a2.title"), author: t("common.author", "李四"), status: "draft", category: t("cms.categories.marketing"), views: 0, date: "2026-01-27" },
+    { id: "3", title: t("cms.mock.a3.title"), author: t("common.author", "王五"), status: "published", category: t("cms.categories.tech"), views: 890, date: "2026-01-25" },
+    { id: "4", title: t("cms.mock.a4.title"), author: t("common.author", "趙六"), status: "pending", category: t("cms.categories.tech"), views: 50, date: "2026-01-24" },
   ]);
   const [searchTerm, setSearchTerm] = useState("");
   const [viewMode, setViewMode] = useState<"list" | "grid">("list");
@@ -148,7 +148,7 @@ export default function CmsDemo() {
             <CardContent className="p-4 space-y-2">
               <p className="text-xs font-bold text-primary">{t("cms.storage_space")}</p>
               <Progress value={45} className="h-1" />
-              <p className="text-[10px] text-muted-foreground">已使用 4.5GB / 10GB</p>
+              <p className="text-[10px] text-muted-foreground">{t("cms.storage_usage")}</p>
             </CardContent>
           </Card>
         </div>
@@ -197,7 +197,7 @@ export default function CmsDemo() {
           <div className="mb-8 flex items-center justify-between">
             <div>
               <h1 className="text-3xl font-bold tracking-tight">{t("cms.content_library")}</h1>
-              <p className="text-muted-foreground">共 {articles.length} 篇文章</p>
+              <p className="text-muted-foreground">{t("common.total")} {articles.length} {t("cms.sidebar.content_management")}</p>
             </div>
             <div className="flex items-center gap-2">
               <Button variant="outline" size="sm">
@@ -248,7 +248,7 @@ export default function CmsDemo() {
                                   : "outline"
                             }
                           >
-                            {article.status === "published" ? "已發布" : article.status === "draft" ? "草稿" : "待審核"}
+                            {article.status === "published" ? t("cms.status_label.published") : article.status === "draft" ? t("cms.status_label.draft") : t("cms.status_label.pending")}
                           </Badge>
                         </TableCell>
                         <TableCell>{article.views.toLocaleString()}</TableCell>
@@ -304,7 +304,7 @@ export default function CmsDemo() {
                   <CardFooter className="p-4 pt-0 flex justify-between items-center border-t mt-2">
                     <span className="text-xs text-muted-foreground">{article.author}</span>
                     <Badge variant={article.status === "published" ? "default" : "secondary"} className="text-[10px] py-0 h-4">
-                      {article.status === "published" ? "已發布" : "草稿"}
+                      {article.status === "published" ? t("cms.status_label.published") : t("cms.status_label.draft")}
                     </Badge>
                   </CardFooter>
                 </Card>
@@ -334,7 +334,7 @@ export default function CmsDemo() {
                 <div className="space-y-2">
                   <Label>{t("cms.article_title")}</Label>
                   <Input 
-                    placeholder="請輸入標題..." 
+                    placeholder={t("cms.placeholders.title")} 
                     value={formData.title}
                     onChange={(e) => setFormData({ ...formData, title: e.target.value })}
                     className="text-lg font-bold bg-background"
@@ -348,10 +348,10 @@ export default function CmsDemo() {
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="技術">技術</SelectItem>
-                        <SelectItem value="設計">設計</SelectItem>
-                        <SelectItem value="行銷">行銷</SelectItem>
-                        <SelectItem value="新聞">新聞</SelectItem>
+                        <SelectItem value={t("cms.categories.tech")}>{t("cms.categories.tech")}</SelectItem>
+                        <SelectItem value={t("cms.categories.design")}>{t("cms.categories.design")}</SelectItem>
+                        <SelectItem value={t("cms.categories.marketing")}>{t("cms.categories.marketing")}</SelectItem>
+                        <SelectItem value={t("cms.categories.news")}>{t("cms.categories.news")}</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
@@ -362,16 +362,16 @@ export default function CmsDemo() {
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="published">立即發布</SelectItem>
-                        <SelectItem value="draft">儲存草稿</SelectItem>
-                        <SelectItem value="pending">提交審核</SelectItem>
+                        <SelectItem value="published">{t("cms.actions.publish_now")}</SelectItem>
+                        <SelectItem value="draft">{t("cms.actions.save_draft")}</SelectItem>
+                        <SelectItem value="pending">{t("cms.actions.submit_review")}</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
                 </div>
                 <div className="space-y-2">
-                  <Label>內容摘要</Label>
-                  <Textarea placeholder="輸入簡短的文章摘要..." className="min-h-[100px] bg-background" />
+                  <Label>{t("cms.placeholders.content")}</Label>
+                  <Textarea placeholder={t("cms.placeholders.summary")} className="min-h-[100px] bg-background" />
                 </div>
                 <div className="p-4 border-2 border-dashed rounded-xl flex flex-col items-center justify-center gap-2 hover:bg-muted/50 transition-colors cursor-pointer">
                   <ImageIcon className="h-8 w-8 text-muted-foreground" />
@@ -420,7 +420,7 @@ export default function CmsDemo() {
                     <ImageIcon className="h-12 w-12 text-muted-foreground/20" />
                   </div>
                   <div className="prose prose-lg dark:prose-invert">
-                    <p>這是一個模擬的文章預覽內容。內容管理系統允許您在發布之前查看文章在前端的實際呈現效果。</p>
+                    <p>{t("cms.preview_text")}</p>
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
                   </div>
                 </div>

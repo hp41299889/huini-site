@@ -36,19 +36,6 @@ import { useTranslation } from "react-i18next";
 type Service = { id: string; name: string; duration: string; price: string; icon: any };
 type Staff = { id: string; name: string; role: string; rating: number; image: string };
 
-// Mock Data
-const services: Service[] = [
-  { id: "s1", name: "專業剪髮", duration: "45 分鐘", price: "NT$ 800", icon: Scissors },
-  { id: "s2", name: "深層護髮", duration: "60 分鐘", price: "NT$ 1,200", icon: Star },
-  { id: "s3", name: "造型染髮", duration: "120 分鐘", price: "NT$ 2,500", icon: Scissors },
-];
-
-const staffMembers: Staff[] = [
-  { id: "st1", name: "Alex Chen", role: "創意總監", rating: 4.9, image: "A" },
-  { id: "st2", name: "Jessica Wang", role: "資深設計師", rating: 4.8, image: "J" },
-  { id: "st3", name: "David Lee", role: "造型設計師", rating: 4.7, image: "D" },
-];
-
 const timeSlots = [
   "09:00", "10:00", "11:00", "13:00", "14:00", "15:00", "16:00", "17:00"
 ];
@@ -64,6 +51,19 @@ export default function BookingSystemDemo() {
   const [email, setEmail] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isBooked, setIsBooked] = useState(false);
+
+  // Mock Data inside component to use t()
+  const services: Service[] = [
+    { id: "s1", name: t("booking.services.s1"), duration: "45 min", price: "NT$ 800", icon: Scissors },
+    { id: "s2", name: t("booking.services.s2"), duration: "60 min", price: "NT$ 1,200", icon: Star },
+    { id: "s3", name: t("booking.services.s3"), duration: "120 min", price: "NT$ 2,500", icon: Scissors },
+  ];
+
+  const staffMembers: Staff[] = [
+    { id: "st1", name: "Alex Chen", role: t("booking.staff.roles.r1"), rating: 4.9, image: "A" },
+    { id: "st2", name: "Jessica Wang", role: t("booking.staff.roles.r2"), rating: 4.8, image: "J" },
+    { id: "st3", name: "David Lee", role: t("booking.staff.roles.r3"), rating: 4.7, image: "D" },
+  ];
 
   const nextStep = () => setStep(prev => prev + 1);
   const prevStep = () => setStep(prev => prev - 1);
@@ -155,7 +155,7 @@ export default function BookingSystemDemo() {
                     )}
                   >
                     <CalendarIcon className="mr-3 h-5 w-5" />
-                    {selectedDate ? format(selectedDate, "yyyy年MM月dd日") : t("common.search")}
+                    {selectedDate ? format(selectedDate, "yyyy-MM-dd") : t("common.search")}
                   </Button>
                 </PopoverTrigger>
                 <PopoverContent className="w-auto p-0" align="start">
@@ -241,6 +241,20 @@ export default function BookingSystemDemo() {
 
   return (
     <div className="container mx-auto p-4 md:p-6 lg:p-8 max-w-xl">
+      {/* Hero Image */}
+      <div className="mb-8 rounded-xl overflow-hidden shadow-lg aspect-[16/9] md:aspect-[21/9] bg-muted relative group">
+        <img 
+          src="/images/booking-hero.jpg" 
+          alt="Modern Salon Interior" 
+          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+          onError={(e) => {
+            const parent = e.currentTarget.parentElement;
+            if (parent) parent.style.display = 'none';
+          }}
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-60" />
+      </div>
+
       <div className="mb-8 text-center space-y-2">
         <h1 className="text-3xl font-extrabold tracking-tight">{t("booking.title")}</h1>
         <div className="flex justify-center gap-2">

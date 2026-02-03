@@ -112,7 +112,12 @@
     "production": {
       "title": "最近生產排程",
       "desc": "追蹤工廠生產進度",
-      "eta": "預計剩餘"
+      "eta": "預計剩餘",
+      "jobs": {
+        "j1": "智慧型手機組裝",
+        "j2": "平板電腦測試",
+        "j3": "伺服器機殼噴漆"
+      }
     },
     "supply_chain": {
       "title": "供應鏈預警",
@@ -130,7 +135,24 @@
       "warehouse_scheduling": "倉庫調度",
       "stock": "當前庫存",
       "min_stock": "安全庫存",
-      "purchase": "採購"
+      "purchase": "採購",
+      "items": {
+        "i1": "高階處理器 A1",
+        "i2": "液晶顯示面板",
+        "i3": "鋰電池 5000mAh",
+        "i4": "散熱風扇"
+      },
+      "categories": {
+        "c1": "電子零件",
+        "c2": "螢幕組件",
+        "c3": "電池",
+        "c4": "散熱系統"
+      },
+      "status": {
+        "normal": "正常",
+        "low": "低庫存",
+        "out": "缺貨"
+      }
     },
     "hr": {
       "title": "員工概覽",
@@ -140,7 +162,24 @@
       "attendance_rate": "出勤率",
       "normal": "正常出勤",
       "leave": "休假/請假",
-      "missing_clock": "未打卡"
+      "missing_clock": "未打卡",
+      "roles": {
+        "r1": "生產線經理",
+        "r2": "財務分析師",
+        "r3": "軟體工程師",
+        "r4": "採購主管"
+      },
+      "departments": {
+        "d1": "生產部",
+        "d2": "財務部",
+        "d3": "技術部",
+        "d4": "供應鏈"
+      },
+      "status": {
+        "active": "在職",
+        "meeting": "開會中",
+        "leave": "休假"
+      }
     },
     "finance": {
       "title": "收支概況",
@@ -150,7 +189,17 @@
       "pending_bills": "待支付帳單",
       "pending_bills_desc": "應付帳款與發票管理",
       "due_date": "到期日",
-      "enter_system": "進入財務系統"
+      "enter_system": "進入財務系統",
+      "vendors": {
+        "v1": "電力公司",
+        "v2": "雲端服務商",
+        "v3": "辦公設備租賃"
+      },
+      "status": {
+        "pending": "待支付",
+        "approved": "已審核",
+        "overdue": "逾期"
+      }
     }
   },
   "booking": {
@@ -173,6 +222,18 @@
       "service": "服務項目",
       "staff": "設計師",
       "time": "時間"
+    },
+    "services": {
+      "s1": "專業剪髮",
+      "s2": "深層護髮",
+      "s3": "造型染髮"
+    },
+    "staff": {
+      "roles": {
+        "r1": "創意總監",
+        "r2": "資深設計師",
+        "r3": "造型設計師"
+      }
     }
   },
   "project": {
@@ -194,6 +255,13 @@
       "high": "高",
       "medium": "中",
       "low": "低"
+    },
+    "tasks": {
+      "t1": { "title": "設計網站首頁", "desc": "完成響應式首頁的UI/UX設計" },
+      "t2": { "title": "開發後端API", "desc": "實現使用者認證和數據接口" },
+      "t3": { "title": "撰寫測試案例", "desc": "為核心功能編寫單元和整合測試" },
+      "t4": { "title": "部署到測試環境", "desc": "將應用程式部署到Staging環境" },
+      "t5": { "title": "優化資料庫查詢", "desc": "改進慢查詢的性能" }
     }
   },
   "ecommerce": {
@@ -220,7 +288,64 @@
     "payment_method": "付款方式",
     "cash_on_delivery": "貨到付款",
     "credit_card": "信用卡支付",
-    "complete_order": "完成訂購"
+    "complete_order": "完成訂購",
+    "onepage": {
+      "title_p1": "您的健康",
+      "title_p2": "值得更",
+      "title_p3": "智慧",
+      "title_p4": "的呵護",
+      "new_release": "2026 全新上市",
+      "reviews_count": "5,000+ 用戶五星好評",
+      "features_title": "極致功能，一應俱全",
+      "features_desc": "我們考慮到每一個使用細節，只為給您最完美的體驗。",
+      "features": {
+        "f1": { "title": "精準監測", "desc": "搭載醫療級感應器，隨時掌握您的心率與血氧動態。" },
+        "f2": { "title": "極速續航", "desc": "一次充電即可使用 14 天，告別每日充電的煩惱。" },
+        "f3": { "title": "強悍耐用", "desc": "IP68 防水防塵標準，無論游泳或登山都能勝任。" }
+      },
+      "cta_title": "準備好加入智慧生活了嗎？",
+      "product": {
+        "desc": "重新定義您的智慧生活。Huini Watch Pro 結合頂尖工藝與前瞻科技，為您帶來前所未有的健康監測與極致效率。",
+        "specs": ["心率監測", "睡眠追蹤", "IP68 防水", "14 天續航", "1.5 吋 AMOLED 螢幕"]
+      }
+    },
+    "platform": {
+      "categories": {
+        "electronics": "電子產品",
+        "clothing": "服飾配件",
+        "home": "家居生活"
+      },
+      "tags": {
+        "discount": "折扣中",
+        "new": "新品上架",
+        "free_shipping": "免運費",
+        "fast_delivery": "快速到貨"
+      },
+      "products": {
+        "p1": { "desc": "頂級效能筆電，專為開發者與設計師打造。搭載 M3 晶片，續航力長達 20 小時。" },
+        "p2": { "desc": "主動式降噪，沉浸式音效體驗。專利的空間音訊技術，讓您身歷其境。" },
+        "p3": { "desc": "防水耐磨，大容量設計。內置筆電隔層，是您通勤的最佳夥伴。" },
+        "p4": { "desc": "全天候健康追蹤，支援多種運動模式。輕盈舒適，適合長時間佩戴。" },
+        "p5": { "desc": "北歐風格設計，簡約優雅。高品質陶瓷材質，耐溫且易清洗。" },
+        "p6": { "desc": "HEPA 濾網，有效過濾 99% 的過敏原。超靜音設計，守護您的呼吸健康。" }
+      },
+      "cart_empty": "您的購物車目前是空的",
+      "go_shopping": "去逛逛",
+      "subtotal": "小計",
+      "shipping": "運費",
+      "secure_checkout": "安全結帳保障",
+      "add_wishlist": "加入收藏清單",
+      "view_mode": {
+        "grid": "網格",
+        "list": "列表"
+      },
+      "reviews": "則評論"
+    },
+    "tabs": {
+      "software": "軟體訂閱",
+      "hardware": "硬體銷售",
+      "consulting": "顧問服務"
+    }
   },
   "lms": {
     "dashboard_welcome": "歡迎回來",
@@ -234,12 +359,20 @@
     "stats": {
       "learning_time": "累計學習時長",
       "completed_courses": "已完成課程",
-      "certificates": "獲得證書"
+      "certificates": "獲得證書",
+      "time_val": "42 小時",
+      "time_diff": "+5 小時 從上週",
+      "course_val": "12 門",
+      "course_pending": "還有 3 門進行中",
+      "cert_val": "8 份",
+      "cert_rank": "擊敗了 85% 的學員"
     },
     "continue_learning": "繼續學習",
     "course_chapters": "課程章節",
     "download_materials": "下載講義",
     "daily_goal": "今日目標",
+    "daily_goal_text": "再學習 20 分鐘即可達成今日學習目標！",
+    "view_plan": "查看計劃",
     "courses": {
       "c1": {
         "title": "React 前端開發實戰",
@@ -267,6 +400,7 @@
       "settings": "設定"
     },
     "storage_space": "儲存空間",
+    "storage_usage": "已使用 4.5GB / 10GB",
     "content_library": "內容庫",
     "filter": "篩選",
     "article_title": "文章標題",
@@ -283,7 +417,29 @@
       "a2": { "title": "SEO 優化指南：讓您的網站排名更靠前" },
       "a3": { "title": "如何選擇適合的雲端服務供應商" },
       "a4": { "title": "2026 年前端開發趨勢預測" }
-    }
+    },
+    "status_label": {
+      "published": "已發布",
+      "draft": "草稿",
+      "pending": "待審核"
+    },
+    "categories": {
+      "tech": "技術",
+      "design": "設計",
+      "marketing": "行銷",
+      "news": "新聞"
+    },
+    "actions": {
+      "publish_now": "立即發布",
+      "save_draft": "儲存草稿",
+      "submit_review": "提交審核"
+    },
+    "placeholders": {
+      "title": "請輸入標題...",
+      "summary": "輸入簡短的文章摘要...",
+      "content": "內容摘要"
+    },
+    "preview_text": "這是一個模擬的文章預覽內容。內容管理系統允許您在發布之前查看文章在前端的實際呈現效果。"
   },
   "blog": {
     "featured_article": "精選文章",
@@ -294,7 +450,44 @@
     "newsletter_desc": "每週獲取最新的技術趨勢與設計靈感。",
     "subscribe": "立即訂閱",
     "recommended_authors": "推薦作者",
-    "reading_time": "分鐘閱讀"
+    "reading_time": "分鐘閱讀",
+    "most_popular": "最熱門",
+    "posts": {
+      "b1": {
+        "title": "探索現代前端框架的最新趨勢",
+        "summary": "深入探討 React, Vue, Angular 的最新發展，以及 Web 組件技術的興起。本文將分析未來三年的前端技術走向，並提供實用的學習路徑建議。",
+        "content": "<p>近年來，前端開發領域的發展日新月異...</p>",
+        "author_role": "資深前端工程師",
+        "category": "技術趨勢"
+      },
+      "b2": {
+        "title": "雲端運算在企業數位轉型中的角色",
+        "summary": "分析雲端服務如何加速企業創新、降低成本，並提升市場競爭力。我們將探討混合雲與多雲策略的優劣。",
+        "author_role": "雲端架構師",
+        "category": "企業轉型"
+      },
+      "b3": {
+        "title": "2026 年設計美學：極簡主義的回歸",
+        "summary": "從 UI 設計到平面美學，極簡主義正以全新的姿態重新佔領大眾視野。本文帶您解構最新的設計語言。",
+        "author_role": "UI/UX 設計師",
+        "category": "設計美學"
+      }
+    },
+    "tags": {
+      "ai": "人工智慧",
+      "react": "React",
+      "typescript": "TypeScript",
+      "design_system": "設計系統",
+      "ui_ux": "UI/UX",
+      "product_mgmt": "產品管理",
+      "career": "職涯發展",
+      "web3": "Web3"
+    },
+    "roles": {
+      "frontend": "前端工程師",
+      "pm": "產品經理",
+      "designer": "設計師"
+    }
   },
   "social": {
     "sidebar": {
@@ -316,6 +509,12 @@
     "posts": {
       "p1": "今天在台北101附近散步，天氣真的太棒了！大家週末愉快 ☀️ #Taipei #WeekendVibes",
       "p2": "剛完成這個新的設計草案，使用了最新的玻璃擬態風格。你們覺得如何？🎨✨"
+    },
+    "trends": {
+      "tech": "科技 · 趨勢",
+      "sports": "體育 · 正在流行",
+      "entertainment": "娛樂 · 趨勢",
+      "local": "台灣 · 流行"
     }
   },
   "dashboard": {
@@ -327,7 +526,27 @@
     "resource_allocation": "資源佔比",
     "realtime_transactions": "實時交易流",
     "system_health": "系統健康度",
-    "smart_suggestions": "智慧建議"
+    "smart_suggestions": "智慧建議",
+    "months": {
+      "jan": "1月",
+      "feb": "2月",
+      "mar": "3月",
+      "apr": "4月",
+      "may": "5月",
+      "jun": "6月",
+      "jul": "7月",
+      "aug": "8月",
+      "sep": "9月",
+      "oct": "10月",
+      "nov": "11月",
+      "dec": "12月"
+    },
+    "health_metrics": {
+      "server": "伺服器負載",
+      "db": "資料庫回應時間",
+      "api": "API 可用性"
+    },
+    "suggestion_text": "本月訂閱量增長顯著，建議增加針對「軟體訂閱」用戶的進階顧問方案..."
   },
   "forum": {
     "sidebar_title": "惠尼社區",
@@ -341,7 +560,30 @@
     "share": "分享",
     "support": "支持",
     "all_replies": "所有回覆",
-    "post_reply": "發布回覆"
+    "post_reply": "發布回覆",
+    "today_active": "今日活躍",
+    "contribution_desc": "您的貢獻度擊敗了 92% 的用戶，繼續保持！",
+    "join_premium": "加入高級社群",
+    "premium_desc": "解鎖專屬頭銜、進階數據分析以及優先討論權限。",
+    "learn_more": "了解更多",
+    "roles": {
+      "admin": "版主",
+      "core": "核心成員"
+    },
+    "threads": {
+      "t1": {
+        "title": "2026 年前端框架選擇：React vs Vue vs Svelte",
+        "content": "隨著 React 19 的穩定和 Svelte 5 的正式發布，大家對於 2026 年的中大型專案選擇有什麼看法？在效能與開發體驗之間，你們會如何權衡？"
+      },
+      "t2": {
+        "title": "遠端工作的效率秘訣：如何保持專注？",
+        "content": "在家工作已經兩年了，最近感到有點倦怠。大家有什麼維持生活規規和工作專注度的小技巧嗎？"
+      }
+    },
+    "replies_content": {
+      "r1": "我認為 Svelte 的 Runes 真的改變了遊戲規則，開發效率提升非常明顯。",
+      "r2": "React 的生態系依然是無法忽視的優勢，特別是在大型企業環境下。"
+    }
   },
   "portfolio": {
     "accepting_projects": "可接受新專案委託",
@@ -353,6 +595,72 @@
     "cta_title": "準備好為您的下一個專案注入能量了嗎？",
     "cta_desc": "無論您是尋找合作夥伴還是想要了解更多，我都樂意與您交流。",
     "contact_now": "立即聯絡",
-    "book_meeting": "預約會議"
+    "book_meeting": "預約會議",
+    "hero_intro": "你好，我是",
+    "hero_desc": "全端開發者與 UI/UX 愛好者。專注於使用 React、Node.js 與 TypeScript 打造極致的數位體驗。",
+    "start_collab": "開始合作",
+    "stats": {
+      "projects": "專案完成",
+      "clients": "滿意客戶",
+      "code": "代碼貢獻",
+      "years": "技術經驗"
+    },
+    "projects": {
+      "p1": { "title": "AI 協作開發平台", "desc": "整合多種 LLM 模型，提供實時代碼審查與自動化單元測試生成。大幅提升開發團隊的生產力。" },
+      "p2": { "title": "跨鏈去中心化交易所", "desc": "基於零知識證明技術，實現低延遲、高安全性的跨鏈資產交換。支持多種主流公鏈。" },
+      "p3": { "title": "沉浸式數據視覺化系統", "desc": "為大型企業設計的即時監控儀表板。使用 WebGL 技術呈現複雜的全球物流拓撲結構。" }
+    },
+    "exp": {
+      "huini": "主動核心產品的架構設計與開發。",
+      "cyber": "優化大型電商平台的性能，提升 40% 的加載速度。",
+      "startup": "從零開始構建多個 MVP 並成功上線。"
+    },
+    "skill_groups": {
+      "frontend": "前端開發",
+      "backend": "後端開發",
+      "arch": "架構設計"
+    }
+  },
+  "corporate": {
+    "hero_title": "領先業界的數位解決方案提供商",
+    "hero_desc": "助您在數位時代中脫穎而出，實現業務增長",
+    "learn_services": "了解我們的服務",
+    "services_title": "我們的服務",
+    "team_title": "我們的團隊",
+    "news_title": "最新消息",
+    "cta_title": "準備好改變您的業務了嗎？",
+    "services": {
+      "s1": { "title": "創新解決方案", "desc": "提供領先業界的技術與獨到見解，為您的業務注入活力。" },
+      "s2": { "title": "專業專案管理", "desc": "從規劃到執行，確保專案順利高效，達到預期目標。" },
+      "s3": { "title": "客製化服務", "desc": "依據您的獨特需求，量身打造最合適的數位策略。" }
+    },
+    "roles": {
+      "ceo": "執行長",
+      "cto": "技術總監",
+      "mkt": "市場行銷經理"
+    },
+    "news": {
+      "n1": { "title": "公司榮獲年度最佳創新獎", "summary": "我們的最新專案獲得了業界的高度肯定。" },
+      "n2": { "title": "拓展海外市場，成立歐洲分公司", "summary": "全球化戰略邁出重要一步。" },
+      "n3": { "title": "發布年度技術白皮書", "summary": "深入探討未來科技發展趨勢。" }
+    }
+  },
+  "promotion": {
+    "hero_title": "創新解決方案，引領未來",
+    "hero_desc": "我們致力於為您提供卓越的服務與無與倫比的體驗。",
+    "features_title": "我們能為您做什麼？",
+    "features_desc": "從策略規劃到實施，我們提供全方位的專業服務，助您的業務騰飛。",
+    "features": {
+      "f1": { "title": "數位轉型", "desc": "協助企業擁抱最新技術，提升營運效率。" },
+      "f2": { "title": "市場拓展", "desc": "透過精準策略，將您的產品推向更廣闊的市場。" },
+      "f3": { "title": "品牌建設", "desc": "塑造獨特品牌形象，增強市場競爭力。" }
+    },
+    "about_desc1": "我們是一群充滿熱情與經驗的專業團隊，致力於為客戶提供創新且高效的解決方案。",
+    "about_desc2": "秉持著客戶至上的理念，我們不斷追求卓越，協助企業在數位時代中取得成功。",
+    "meet_team": "了解團隊",
+    "contact_desc": "有任何疑問或合作意向？請填寫以下表格，我們將盡快與您聯繫。",
+    "message_label": "您的訊息",
+    "success_msg": "感謝您的訊息，我們會盡快回覆。",
+    "send_another": "送出另一則訊息"
   }
 }
