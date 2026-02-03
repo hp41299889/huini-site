@@ -156,17 +156,17 @@ export default function EcommercePlatformDemo() {
 
       {/* Main Content */}
       <main className="flex-1 flex flex-col">
-        <header className="h-16 border-b flex items-center justify-between px-8 bg-background/50 backdrop-blur-md sticky top-0 z-20">
+        <header className="h-16 border-b flex items-center justify-between px-4 md:px-8 bg-background/50 backdrop-blur-md sticky top-0 z-20">
           <div className="flex-1 max-w-xl relative">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
             <Input 
               placeholder={t("ecommerce.search_placeholder")} 
-              className="pl-10 bg-muted/50 border-none rounded-full h-10"
+              className="pl-10 bg-muted/50 border-none rounded-full h-10 w-full"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
           </div>
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-2 md:gap-4 ml-2">
             <Button variant="ghost" size="icon" className="relative text-foreground" onClick={() => setCartOpen(true)}>
               <ShoppingCart className="h-5 w-5" />
               {cart.length > 0 && (
@@ -175,11 +175,11 @@ export default function EcommercePlatformDemo() {
                 </span>
               )}
             </Button>
-            <div className="h-8 w-8 rounded-full bg-purple-100 dark:bg-purple-900/20 border border-purple-200 dark:border-purple-800" />
+            <div className="h-8 w-8 rounded-full bg-purple-100 dark:bg-purple-900/20 border border-purple-200 dark:border-purple-800 hidden sm:block" />
           </div>
         </header>
 
-        <div className="p-8 space-y-8">
+        <div className="p-4 md:p-8 space-y-8">
           <AnimatePresence mode="wait">
             {selectedProduct ? (
               <motion.div

@@ -70,7 +70,7 @@ export default function EcommerceOnePageDemo() {
       </header>
 
       {/* Hero Section */}
-      <section className="pt-32 pb-20 px-4">
+      <section className="pt-24 md:pt-32 pb-12 md:pb-20 px-4">
         <div className="container mx-auto grid lg:grid-cols-2 gap-12 items-center">
           <motion.div 
             initial={{ opacity: 0, x: -30 }}
@@ -146,9 +146,9 @@ export default function EcommerceOnePageDemo() {
       {/* Buy Section */}
       <section ref={buySectionRef} className="py-24 px-4">
         <div className="container mx-auto max-w-5xl">
-          <div className="grid lg:grid-cols-2 gap-12 bg-background rounded-[3rem] shadow-2xl overflow-hidden border">
-            <div className="bg-muted/30 p-12 flex flex-col justify-center">
-              <h2 className="text-4xl font-black mb-6">{t("ecommerce.onepage.cta_title")}</h2>
+          <div className="grid lg:grid-cols-2 gap-12 bg-background rounded-[2rem] md:rounded-[3rem] shadow-2xl overflow-hidden border">
+            <div className="bg-muted/30 p-6 md:p-12 flex flex-col justify-center">
+              <h2 className="text-3xl md:text-4xl font-black mb-6">{t("ecommerce.onepage.cta_title")}</h2>
               <div className="space-y-4 mb-8">
                 {product.specs.map((s, i) => (
                   <div key={i} className="flex items-center gap-3 font-medium">
@@ -172,7 +172,7 @@ export default function EcommerceOnePageDemo() {
               </div>
             </div>
 
-            <div className="p-12 relative">
+            <div className="p-6 md:p-12 relative">
               <AnimatePresence mode="wait">
                 {isSuccess ? (
                   <motion.div 

@@ -192,19 +192,19 @@ export default function BlogDemo() {
     <div className="bg-background min-h-screen relative">
       <div className="container mx-auto p-4 md:p-6 lg:p-8 space-y-12">
         {/* Hero Section */}
-        <section className="relative h-[500px] rounded-[2rem] overflow-hidden group cursor-pointer" onClick={() => setSelectedPost(blogPostsData[0])}>
+        <section className="relative h-[300px] md:h-[500px] rounded-[2rem] overflow-hidden group cursor-pointer" onClick={() => setSelectedPost(blogPostsData[0])}>
           <img 
             src={blogPostsData[0].imageUrl} 
             className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" 
             alt="Hero"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
-          <div className="absolute bottom-0 left-0 p-8 md:p-12 w-full max-w-3xl space-y-4">
+          <div className="absolute bottom-0 left-0 p-6 md:p-12 w-full max-w-3xl space-y-2 md:space-y-4">
             <Badge className="bg-primary text-white border-none px-4 py-1">{t("blog.featured_article")}</Badge>
-            <h2 className="text-4xl md:text-5xl font-black text-white leading-tight">
+            <h2 className="text-2xl md:text-5xl font-black text-white leading-tight">
               {blogPostsData[0].title}
             </h2>
-            <p className="text-gray-200 text-lg line-clamp-2">
+            <p className="text-gray-200 text-sm md:text-lg line-clamp-2">
               {blogPostsData[0].summary}
             </p>
             <div className="flex items-center gap-4 text-white/80 text-sm font-medium">

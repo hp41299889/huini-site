@@ -72,7 +72,7 @@ export default function PortfolioDemo() {
   return (
     <div className="bg-muted/30 min-h-screen relative text-foreground">
       {/* Hero Section */}
-      <section className="relative overflow-hidden bg-background border-b py-24 lg:py-32">
+      <section className="relative overflow-hidden bg-background border-b py-16 md:py-24 lg:py-32">
         <div className="container mx-auto px-6 grid lg:grid-cols-2 gap-12 items-center">
           <motion.div 
             initial={{ opacity: 0, x: -30 }}
@@ -86,7 +86,7 @@ export default function PortfolioDemo() {
               </span>
               {t("portfolio.accepting_projects")}
             </div>
-            <h1 className="text-6xl lg:text-8xl font-black tracking-tighter leading-none text-foreground">
+            <h1 className="text-5xl md:text-6xl lg:text-8xl font-black tracking-tighter leading-none text-foreground">
               {t("portfolio.hero_intro")} <br />
               <span className="text-blue-600">John Doe</span>
             </h1>

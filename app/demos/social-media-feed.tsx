@@ -120,9 +120,9 @@ export default function SocialMediaFeedDemo() {
   };
 
   return (
-    <div className="flex bg-background min-h-screen relative">
+    <div className="flex bg-background min-h-screen relative pb-20 md:pb-0">
       {/* Left Sidebar */}
-      <aside className="w-20 lg:w-64 border-r flex flex-col items-center lg:items-start px-4 py-6 sticky top-0 h-screen">
+      <aside className="hidden md:flex w-20 lg:w-64 border-r flex flex-col items-center lg:items-start px-4 py-6 sticky top-0 h-screen">
         <div className="mb-8 px-2">
           <Zap className="h-8 w-8 text-rose-500 fill-rose-500" />
         </div>

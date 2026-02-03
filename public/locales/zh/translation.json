@@ -3,9 +3,10 @@
     "site_title": "惠尼網站",
     "home": "首頁",
     "demos": "演示",
-    "about": "關於我們",
+    "cooperate": "我要合作",
     "toggle_theme": "切換主題",
-    "toggle_language": "切換語言"
+    "toggle_language": "切換語言",
+    "theme": "主題"
   },
   "home": {
     "hero_title": "以智慧構建",
@@ -15,7 +16,43 @@
     "quick_access_title": "探索我的演示",
     "demo_saas_desc": "結合 AI 洞察的數據分析與互動圖表。",
     "demo_cms_desc": "支援 AI 草稿的所見即所得內容管理。",
-    "demo_land_desc": "具備個性化推薦的高轉換電商頁面。"
+    "demo_land_desc": "具備個性化推薦的高轉換電商頁面。",
+    "about_huini_title": "關於惠尼",
+    "about_huini_desc": "惠尼專注於打造優雅且高效能的客製化系統解決方案。我們致力於透過深度 AI 整合、流暢的動畫與直觀的 UI/UX 設計，為您的企業創造競爭優勢。"
+  },
+  "cooperate": {
+    "title": "我要合作",
+    "hero_desc": "惠尼致力於打造高品質的客製化系統，並深度整合強大的 AI 技術，為您的企業賦能。",
+    "why_title": "為什麼選擇惠尼？",
+    "features": {
+      "f1": { "title": "極致客製化", "desc": "根據您的業務需求，從零打造最符合工作流程的系統解決方案。" },
+      "f2": { "title": "強大 AI 整合", "desc": "導入最新大語言模型與自動化技術，讓系統具備思考與智慧化處理能力。" },
+      "f3": { "title": "穩定與安全", "desc": "惠尼採用的架構經過嚴謹測試，確保數據安全與系統在高併發下的穩定性。" },
+      "f4": { "title": "快速交付", "desc": "敏捷開發流程，縮短從構想到上線的時間，搶佔市場先機。" }
+    },
+    "contact_title": "聯絡惠尼",
+    "form_title": "諮詢報價",
+    "form_desc": "填寫下表，惠尼將於 24 小時內與您聯繫。",
+    "fields": {
+      "name": "您的姓名 / 單位",
+      "name_placeholder": "王小明",
+      "phone": "聯絡電話",
+      "phone_placeholder": "0912345678",
+      "email": "電子郵件",
+      "email_placeholder": "example@gmail.com",
+      "subject": "合作類型",
+      "subject_placeholder": "例如：AI 客服系統、企業 ERP 客製化...",
+      "message": "需求詳述",
+      "message_placeholder": "請簡述您的需求，幫助惠尼為您提供更精確的報價與建議。"
+    },
+    "submit": "提交諮詢",
+    "submitting": "送出中...",
+    "terms_note": "提交即表示您同意惠尼處理您的個人資料以進行後續聯絡。",
+    "success_title": "訊息已成功送出",
+    "success_desc": "感謝您的諮詢，惠尼將儘速回覆您。",
+    "refill": "再次填寫",
+    "error_fail": "傳送失敗：",
+    "error_network": "網路連線錯誤，請檢查您的網路狀態。"
   },
   "about": {
     "title": "關於惠尼",
@@ -581,7 +618,7 @@
       }
     },
     "replies_content": {
-      "r1": "我認為 Svelte 的 Runes 真的改變了遊戲規則，開發效率提升非常明顯。",
+      "r1": "我認為 Svelte 的 Runes真的改變了遊戲規則，開發效率提升非常明顯。",
       "r2": "React 的生態系依然是無法忽視的優勢，特別是在大型企業環境下。"
     }
   },

@@ -19,24 +19,26 @@ export default function Topbar() {
   return (
     <header
       className={cn(
-        "bg-background text-foreground border-b border-border flex justify-between items-center font-sans px-4 py-3", // Increased vertical padding
+        "bg-background/80 backdrop-blur-md text-foreground border-b border-border flex justify-between items-center font-sans px-4 py-3 sticky top-0 z-[100]",
       )}
     >
-      <div className="flex items-center space-x-8"> {/* Branding area */}
+      <div className="flex items-center space-x-8">
         <Link
           to="/"
-          className="text-2xl font-bold tracking-tight text-primary hover:text-primary-foreground transition-colors duration-200"
+          className="text-xl md:text-2xl font-bold tracking-tight text-primary hover:opacity-80 transition-opacity duration-200"
         >
           {t("navbar.site_title")}
         </Link>
       </div>
 
-      <Navbar /> {/* The purely navigational part (categorized demos) */}
+      <div className="hidden md:block">
+        <Navbar />
+      </div>
 
-      <div className="flex items-center space-x-6"> {/* Increased spacing for About, Theme, Language */}
+      <div className="hidden md:flex items-center space-x-6">
         <Link
           to="/cooperate"
-          className="text-foreground hover:text-primary transition-colors duration-200" // Consistent hover with primary
+          className="text-foreground hover:text-primary transition-colors duration-200 text-sm font-medium"
         >
           我要合作
         </Link>
@@ -59,7 +61,7 @@ export default function Topbar() {
           data-testid="language-toggle"
         >
           <Languages size={20} className="text-foreground" />
-          <span className="ml-1 uppercase text-foreground">{language}</span>
+          <span className="ml-1 uppercase text-foreground text-xs">{language}</span>
         </Button>
       </div>
     </header>

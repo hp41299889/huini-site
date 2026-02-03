@@ -286,8 +286,8 @@ export function AiAssistant({ context, className, variant = "floating" }: AiAssi
 
   return (
     <div 
-      className={cn("fixed bottom-6 right-6 flex flex-col items-end", className)} 
-      style={{ zIndex: 99999 }}
+      className={cn("fixed bottom-20 md:bottom-6 right-4 md:right-6 flex flex-col items-end", className)} 
+      style={{ zIndex: 9999 }}
     >
       <AnimatePresence>
         {isOpen && (
@@ -295,7 +295,7 @@ export function AiAssistant({ context, className, variant = "floating" }: AiAssi
             initial={{ opacity: 0, scale: 0.9, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.9, y: 20 }}
-            className="mb-4 w-80 shadow-[0_20px_50px_rgba(0,0,0,0.3)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.5)] overflow-hidden rounded-[2.5rem] border-4 border-white dark:border-slate-800 bg-white dark:bg-slate-900 backdrop-blur-xl"
+            className="mb-4 w-[calc(100vw-2rem)] md:w-80 shadow-[0_20px_50px_rgba(0,0,0,0.3)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.5)] overflow-hidden rounded-[2.5rem] border-4 border-white dark:border-slate-800 bg-white dark:bg-slate-900 backdrop-blur-xl"
           >
             <div className={cn("p-6 flex items-center justify-between text-white relative overflow-hidden bg-gradient-to-br", config.gradient)}>
               <motion.div 

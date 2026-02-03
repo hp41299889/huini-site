@@ -95,15 +95,15 @@ export default function CorporateWebsiteDemo() {
   return (
     <div className="bg-background text-foreground relative">
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-r from-blue-600 to-indigo-700 text-white py-20 md:py-32 text-center overflow-hidden">
+      <section className="relative bg-gradient-to-r from-blue-600 to-indigo-700 text-white py-16 md:py-32 text-center overflow-hidden">
         <div className="absolute inset-0 z-0">
           <img src="/images/corporate-hero.jpg" className="w-full h-full object-cover opacity-20" alt="Corporate Office" />
         </div>
         <div className="container mx-auto px-4 relative z-10">
-          <h1 className="text-4xl md:text-6xl font-extrabold mb-4 animate-fade-in">
+          <h1 className="text-3xl md:text-6xl font-extrabold mb-4 animate-fade-in">
             {t("corporate.hero_title")}
           </h1>
-          <p className="text-lg md:text-xl mb-8 animate-fade-in-up">
+          <p className="text-base md:text-xl mb-8 animate-fade-in-up">
             {t("corporate.hero_desc")}
           </p>
           <Button

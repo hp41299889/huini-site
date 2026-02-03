@@ -136,17 +136,17 @@ export default function ProjectManagementDemo() {
           <h1 className="text-3xl font-bold tracking-tight">{t("project.title")}</h1>
           <p className="text-muted-foreground">{t("project.subtitle")}</p>
         </div>
-        <div className="flex items-center gap-3">
-          <div className="relative">
+        <div className="flex flex-col sm:flex-row items-center gap-3 w-full md:w-auto">
+          <div className="relative w-full sm:w-[200px] md:w-[300px]">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
             <Input 
               placeholder={t("common.search")} 
-              className="pl-9 w-[200px] md:w-[300px]"
+              className="pl-9 w-full"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
           </div>
-          <Button onClick={() => setIsAddingTask(true)}>
+          <Button onClick={() => setIsAddingTask(true)} className="w-full sm:w-auto">
             <PlusCircleIcon className="mr-2 h-4 w-4" /> {t("project.add_task")}
           </Button>
         </div>
@@ -159,7 +159,7 @@ export default function ProjectManagementDemo() {
             key={status}
             onDragOver={handleDragOver}
             onDrop={(e) => handleDrop(e, status)}
-            className="flex flex-col rounded-xl border bg-muted/30 p-4 min-h-[600px]"
+            className="flex flex-col rounded-xl border bg-muted/30 p-4 min-h-[300px] md:min-h-[600px]"
           >
             <div className="flex items-center justify-between mb-4 px-2">
               <h2 className="font-bold flex items-center gap-2">

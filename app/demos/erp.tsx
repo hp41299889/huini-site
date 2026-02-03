@@ -100,7 +100,7 @@ export default function ErpDemo() {
 
         <TabsContent value="dashboard" className="space-y-6">
           <motion.div 
-            className="grid gap-4 md:grid-cols-2 lg:grid-cols-4"
+            className="grid gap-4 grid-cols-2 lg:grid-cols-4"
             initial="hidden"
             animate="visible"
             variants={containerVariants}
@@ -186,8 +186,9 @@ export default function ErpDemo() {
               </Button>
             </CardHeader>
             <CardContent>
-              <Table>
-                <TableHeader>
+              <div className="overflow-x-auto">
+                <Table>
+                  <TableHeader>
                   <TableRow>
                     <TableHead>{t("common.id")}</TableHead>
                     <TableHead>{t("common.name")}</TableHead>

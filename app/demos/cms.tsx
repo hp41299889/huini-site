@@ -156,19 +156,19 @@ export default function CmsDemo() {
 
       {/* Main Content */}
       <main className="flex-1 flex flex-col overflow-hidden text-foreground">
-        <header className="h-16 border-b flex items-center justify-between px-8 bg-background/50 backdrop-blur-md">
-          <div className="flex items-center gap-4 flex-1">
+        <header className="h-auto py-4 border-b flex flex-col md:flex-row items-center justify-between px-4 md:px-8 bg-background/50 backdrop-blur-md gap-4">
+          <div className="flex items-center gap-4 w-full md:flex-1">
             <div className="relative w-full max-w-md">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
               <Input 
                 placeholder={t("common.search")} 
-                className="pl-9 bg-muted/50 border-none"
+                className="pl-9 bg-muted/50 border-none w-full"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
               />
             </div>
           </div>
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-3 w-full md:w-auto justify-between">
             <div className="flex border rounded-lg overflow-hidden bg-background">
               <Button 
                 variant={viewMode === "list" ? "secondary" : "ghost"} 
@@ -187,29 +187,30 @@ export default function CmsDemo() {
                 <LayoutGrid className="h-4 w-4" />
               </Button>
             </div>
-            <Button onClick={() => setIsAdding(true)}>
+            <Button onClick={() => setIsAdding(true)} className="flex-1 md:flex-none">
               <PlusCircle className="mr-2 h-4 w-4" /> {t("common.add")}
             </Button>
           </div>
         </header>
 
-        <div className="flex-1 overflow-y-auto p-8">
-          <div className="mb-8 flex items-center justify-between">
+        <div className="flex-1 overflow-y-auto p-4 md:p-8">
+          <div className="mb-8 flex flex-col md:flex-row md:items-center justify-between gap-4">
             <div>
-              <h1 className="text-3xl font-bold tracking-tight">{t("cms.content_library")}</h1>
-              <p className="text-muted-foreground">{t("common.total")} {articles.length} {t("cms.sidebar.content_management")}</p>
+              <h1 className="text-2xl md:text-3xl font-bold tracking-tight">{t("cms.content_library")}</h1>
+              <p className="text-muted-foreground text-sm">{t("common.total")} {articles.length} {t("cms.sidebar.content_management")}</p>
             </div>
             <div className="flex items-center gap-2">
-              <Button variant="outline" size="sm">
+              <Button variant="outline" size="sm" className="w-full md:w-auto">
                 <Filter className="mr-2 h-4 w-4" /> {t("cms.filter")}
               </Button>
             </div>
           </div>
 
           {viewMode === "list" ? (
-            <Card className="bg-background">
-              <Table>
-                <TableHeader>
+            <Card className="bg-background overflow-hidden">
+              <div className="overflow-x-auto">
+                <Table>
+                  <TableHeader>
                   <TableRow>
                     <TableHead>{t("cms.article_title")}</TableHead>
                     <TableHead>{t("cms.category")}</TableHead>

@@ -11,72 +11,95 @@ import {
   Sparkles, 
   Settings, 
   Send,
-  ArrowRight,
   ShieldCheck,
   Zap
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { AiAssistant } from "~/components/ai-assistant";
+import { useTranslation } from "react-i18next";
 
-export default function CooperatePage() {  const [submitted, setSubmitted] = useState(false);
+export default function CooperatePage() {
+  const { t } = useTranslation();
+  const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
     
-    // 這裡模擬寄信邏輯。在實際生產環境中，可以串接 EmailJS, Formspree 或後端 API。
-    // 使用 mailto 也可以作為一個快速的備選方案，但為了更好的 UX，我們這裡模擬成功狀態。
-    setTimeout(() => {
+    const formData = new FormData(e.currentTarget);
+    const data = Object.fromEntries(formData.entries());
+
+    try {
+      const response = await fetch("https://formsubmit.co/ajax/hp4129889@gmail.com", {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        }
+      });
+
+      const result = await response.json();
+
+      if (result.success === "true" || response.ok) {
+        setSubmitted(true);
+      } else {
+        alert(t("cooperate.error_fail") + (result.message || t("cooperate.error_retry")));
+      }
+    } catch (error) {
+      alert(t("cooperate.error_network"));
+    } finally {
       setLoading(false);
-      setSubmitted(true);
-    }, 1500);
+    }
   };
+
+  const features = [
+    { icon: Settings, title: t("cooperate.features.f1.title"), desc: t("cooperate.features.f1.desc") },
+    { icon: Sparkles, title: t("cooperate.features.f2.title"), desc: t("cooperate.features.f2.desc") },
+    { icon: ShieldCheck, title: t("cooperate.features.f3.title"), desc: t("cooperate.features.f3.desc") },
+    { icon: Zap, title: t("cooperate.features.f4.title"), desc: t("cooperate.features.f4.desc") }
+  ];
 
   return (
     <div className="bg-background min-h-screen pb-20">
       {/* Hero Section */}
-      <section className="bg-primary text-primary-foreground py-20">
+      <section className="bg-primary text-primary-foreground py-12 md:py-20">
         <div className="container mx-auto px-6 text-center space-y-6">
           <motion.h1 
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-4xl md:text-6xl font-black tracking-tight"
+            className="text-3xl md:text-6xl font-black tracking-tight"
           >
-            我要合作
+            {t("cooperate.title")}
           </motion.h1>
           <motion.p 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
-            className="text-xl opacity-90 max-w-2xl mx-auto"
+            className="text-lg md:text-xl opacity-90 max-w-2xl mx-auto"
           >
-            惠尼致力於打造高品質的客製化系統，並深度整合強大的 AI 技術，為您的企業賦能。
+            {t("cooperate.hero_desc")}
           </motion.p>
         </div>
       </section>
 
-      <div className="container mx-auto px-6 mt-12 grid lg:grid-cols-2 gap-12">
+      <div className="container mx-auto px-4 md:px-6 mt-12 grid lg:grid-cols-2 gap-12">
         {/* Left Side: Info */}
         <div className="space-y-12">
           <div className="space-y-6">
             <h2 className="text-3xl font-bold flex items-center gap-2">
-              為什麼選擇惠尼？
+              {t("cooperate.why_title")}
             </h2>
             <div className="grid gap-6">
-              {[
-                { icon: Settings, title: "極致客製化", desc: "根據您的業務需求，從零打造最符合工作流程的系統解決方案。" },
-                { icon: Sparkles, title: "強大 AI 整合", desc: "導入最新大語言模型與自動化技術，讓系統具備思考與智慧化處理能力。" },
-                { icon: ShieldCheck, title: "穩定與安全", desc: "惠尼採用的架構經過嚴謹測試，確保數據安全與系統在高併發下的穩定性。" },
-                { icon: Zap, title: "快速交付", desc: "敏捷開發流程，縮短從構想到上線的時間，搶佔市場先機。" }
-              ].map((feature, i) => (
+              {features.map((feature, i) => (
                 <div key={i} className="flex gap-4 p-6 rounded-2xl bg-muted/30 border">
                   <div className="h-12 w-12 rounded-xl bg-primary/10 text-primary flex items-center justify-center shrink-0">
                     <feature.icon className="h-6 w-6" />
                   </div>
                   <div>
                     <h3 className="font-bold text-lg">{feature.title}</h3>
-                    <p className="text-muted-foreground">{feature.desc}</p>
+                    <p className="text-muted-foreground text-sm">{feature.desc}</p>
                   </div>
                 </div>
               ))}
@@ -84,7 +107,7 @@ export default function CooperatePage() {  const [submitted, setSubmitted] = use
           </div>
 
           <div className="space-y-4">
-            <h2 className="text-2xl font-bold">聯絡惠尼</h2>
+            <h2 className="text-2xl font-bold">{t("cooperate.contact_title")}</h2>
             <div className="space-y-3">
               <div className="flex items-center gap-3 text-lg">
                 <Phone className="h-5 w-5 text-primary" />
@@ -101,11 +124,11 @@ export default function CooperatePage() {  const [submitted, setSubmitted] = use
         {/* Right Side: Form */}
         <div id="contact-form">
           <Card className="shadow-2xl border-2">
-            <CardHeader className="bg-muted/30 pb-8">
-              <CardTitle className="text-2xl">諮詢報價</CardTitle>
-              <CardDescription>填寫下表，惠尼將於 24 小時內與您聯繫。</CardDescription>
+            <CardHeader className="bg-muted/30 pb-6 md:pb-8">
+              <CardTitle className="text-xl md:text-2xl">{t("cooperate.form_title")}</CardTitle>
+              <CardDescription>{t("cooperate.form_desc")}</CardDescription>
             </CardHeader>
-            <CardContent className="p-8">
+            <CardContent className="p-4 md:p-8">
               <AnimatePresence mode="wait">
                 {submitted ? (
                   <motion.div 
@@ -117,52 +140,57 @@ export default function CooperatePage() {  const [submitted, setSubmitted] = use
                       <CheckCircle2 className="h-10 w-10" />
                     </div>
                     <div className="space-y-2">
-                      <h3 className="text-2xl font-bold">訊息已成功送出</h3>
-                      <p className="text-muted-foreground">感謝您的諮詢，惠尼將儘速回覆您。</p>
+                      <h3 className="text-2xl font-bold">{t("cooperate.success_title")}</h3>
+                      <p className="text-muted-foreground">{t("cooperate.success_desc")}</p>
                     </div>
-                    <Button variant="outline" onClick={() => setSubmitted(false)}>再次填寫</Button>
+                    <Button variant="outline" onClick={() => setSubmitted(false)}>{t("cooperate.refill")}</Button>
                   </motion.div>
                 ) : (
                   <motion.form 
                     onSubmit={handleSubmit}
                     className="space-y-6"
                   >
+                    {/* FormSubmit Configuration */}
+                    <input type="hidden" name="_subject" value="惠尼官網：新合作諮詢需求" />
+                    <input type="hidden" name="_template" value="table" />
+                    
                     <div className="grid sm:grid-cols-2 gap-4">
                       <div className="space-y-2">
-                        <Label htmlFor="name">您的姓名 / 單位</Label>
-                        <Input id="name" placeholder="王小明" required />
+                        <Label htmlFor="name">{t("cooperate.fields.name")}</Label>
+                        <Input id="name" name="name" placeholder={t("cooperate.fields.name_placeholder")} required />
                       </div>
                       <div className="space-y-2">
-                        <Label htmlFor="phone">聯絡電話</Label>
-                        <Input id="phone" placeholder="0912345678" required />
+                        <Label htmlFor="phone">{t("cooperate.fields.phone")}</Label>
+                        <Input id="phone" name="phone" placeholder={t("cooperate.fields.phone_placeholder")} required />
                       </div>
                     </div>
                     <div className="space-y-2">
-                      <Label htmlFor="email">電子郵件</Label>
-                      <Input id="email" type="email" placeholder="example@gmail.com" required />
+                      <Label htmlFor="email">{t("cooperate.fields.email")}</Label>
+                      <Input id="email" name="email" type="email" placeholder={t("cooperate.fields.email_placeholder")} required />
                     </div>
                     <div className="space-y-2">
-                      <Label htmlFor="subject">合作類型</Label>
-                      <Input id="subject" placeholder="例如：AI 客服系統、企業 ERP 客製化..." required />
+                      <Label htmlFor="subject">{t("cooperate.fields.subject")}</Label>
+                      <Input id="subject" name="subject" placeholder={t("cooperate.fields.subject_placeholder")} required />
                     </div>
                     <div className="space-y-2">
-                      <Label htmlFor="message">需求詳述</Label>
+                      <Label htmlFor="message">{t("cooperate.fields.message")}</Label>
                       <Textarea 
                         id="message" 
-                        placeholder="請簡述您的需求，幫助惠尼為您提供更精確的報價與建議。" 
+                        name="message"
+                        placeholder={t("cooperate.fields.message_placeholder")} 
                         className="min-h-[150px]"
                         required 
                       />
                     </div>
                     <Button type="submit" className="w-full h-14 text-lg font-bold gap-2" disabled={loading}>
-                      {loading ? "送出中..." : (
+                      {loading ? t("cooperate.submitting") : (
                         <>
-                          提交諮詢 <Send className="h-5 w-5" />
+                          {t("cooperate.submit")} <Send className="h-5 w-5" />
                         </>
                       )}
                     </Button>
                     <p className="text-[10px] text-center text-muted-foreground">
-                      提交即表示您同意惠尼處理您的個人資料以進行後續聯絡。
+                      {t("cooperate.terms_note")}
                     </p>
                   </motion.form>
                 )}

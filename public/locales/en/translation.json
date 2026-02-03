@@ -3,9 +3,10 @@
     "site_title": "Huini Site",
     "home": "Home",
     "demos": "Demos",
-    "about": "About Us",
+    "cooperate": "Cooperate",
     "toggle_theme": "Toggle Theme",
-    "toggle_language": "Toggle Language"
+    "toggle_language": "Toggle Language",
+    "theme": "Theme"
   },
   "home": {
     "hero_title": "Build with Intelligence",
@@ -15,7 +16,43 @@
     "quick_access_title": "Explore My Demos",
     "demo_saas_desc": "Data analysis and interactive charts with AI insights.",
     "demo_cms_desc": "WYSIWYG content management with AI draft support.",
-    "demo_land_desc": "High-conversion e-commerce pages with personalized recommendations."
+    "demo_land_desc": "High-conversion e-commerce pages with personalized recommendations.",
+    "about_huini_title": "About Huini",
+    "about_huini_desc": "Huini specializes in creating elegant and high-performance custom system solutions. We are committed to creating competitive advantages for your business through deep AI integration, smooth animations, and intuitive UI/UX design."
+  },
+  "cooperate": {
+    "title": "Cooperate with Us",
+    "hero_desc": "Huini is committed to building high-quality custom systems and deeply integrating powerful AI technology to empower your business.",
+    "why_title": "Why Choose Huini?",
+    "features": {
+      "f1": { "title": "Extreme Customization", "desc": "Build the most suitable system solution from scratch according to your business needs." },
+      "f2": { "title": "Strong AI Integration", "desc": "Import the latest LLM and automation technologies to give systems thinking and intelligent processing capabilities." },
+      "f3": { "title": "Stability & Security", "desc": "The architecture used by Huini is rigorously tested to ensure data security and system stability under high concurrency." },
+      "f4": { "title": "Fast Delivery", "desc": "Agile development process, shortening the time from idea to launch to seize market opportunities." }
+    },
+    "contact_title": "Contact Huini",
+    "form_title": "Request Quote",
+    "form_desc": "Fill out the form below, and Huini will contact you within 24 hours.",
+    "fields": {
+      "name": "Your Name / Organization",
+      "name_placeholder": "John Doe",
+      "phone": "Phone Number",
+      "phone_placeholder": "0912345678",
+      "email": "Email Address",
+      "email_placeholder": "example@gmail.com",
+      "subject": "Cooperation Type",
+      "subject_placeholder": "e.g., AI Customer Service, Enterprise ERP Customization...",
+      "message": "Requirement Details",
+      "message_placeholder": "Please briefly describe your requirements to help Huini provide a more accurate quote and suggestions."
+    },
+    "submit": "Submit Consultation",
+    "submitting": "Submitting...",
+    "terms_note": "Submitting indicates your agreement to Huini processing your personal data for follow-up contact.",
+    "success_title": "Message Sent Successfully",
+    "success_desc": "Thank you for your consultation, Huini will reply to you as soon as possible.",
+    "refill": "Fill Again",
+    "error_fail": "Transmission Failed: ",
+    "error_network": "Network error, please check your network status."
   },
   "about": {
     "title": "About Huini",

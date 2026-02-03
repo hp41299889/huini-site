@@ -94,7 +94,7 @@ export default function ContentPromotionDemo() {
 
       {/* Features Section */}
       <motion.section
-        className="py-16 md:py-24 bg-card"
+        className="py-12 md:py-24 bg-card"
         variants={sectionVariants}
         initial="hidden"
         whileInView="visible"
@@ -178,7 +178,7 @@ export default function ContentPromotionDemo() {
           </p>
           <motion.form
             onSubmit={handleSubmit}
-            className="space-y-6 bg-background p-8 rounded-lg shadow-lg"
+            className="space-y-6 bg-background p-6 md:p-8 rounded-lg shadow-lg"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2, duration: 0.6 }}

@@ -15,8 +15,8 @@ export default function Home() {
       {/* Content Sections */}
       <main className="flex flex-col items-center justify-center flex-1 z-10 p-4 w-full max-w-6xl mx-auto">
         {/* Hero Section */}
-        <section className="text-center mb-24 mt-16 px-4 relative isolate">
-          <h1 className="text-6xl md:text-8xl font-heading font-bold text-primary mb-6 leading-tight animate-fade-in-up drop-shadow-md">
+        <section className="text-center mb-16 md:mb-24 mt-8 md:mt-16 px-4 relative isolate">
+          <h1 className="text-5xl md:text-8xl font-heading font-bold text-primary mb-6 leading-tight animate-fade-in-up drop-shadow-md">
             {t("home.hero_title", "以智慧構建")}
           </h1>
           <p className="text-xl md:text-2xl font-sans text-foreground max-w-3xl mx-auto opacity-0 animate-fade-in delay-200 drop-shadow-sm">
@@ -27,26 +27,26 @@ export default function Home() {
               {t("home.explore_demos", "探索所有演示")} <ArrowRight className="ml-2 w-5 h-5" />
             </a>
             <a href="/cooperate" className="inline-flex items-center justify-center px-8 py-3 border-2 border-primary text-base font-medium rounded-md text-primary hover:bg-primary/10 transition-colors duration-300">
-              我要合作 <ArrowRight className="ml-2 w-5 h-5" />
+              {t("navbar.cooperate")} <ArrowRight className="ml-2 w-5 h-5" />
             </a>
           </div>
         </section>
 
         {/* Introduction - Card with Glassmorphism */}
-        <section className="max-w-4xl mx-auto text-center mb-24 px-4 relative z-10">
-          <div className="bg-card/30 backdrop-blur-md border border-border/50 rounded-2xl p-8 shadow-xl animate-fade-in delay-1000">
-            <h2 className="text-4xl font-heading font-semibold text-primary mb-6 drop-shadow-sm">關於惠尼</h2>
-            <p className="text-lg md:text-xl font-sans text-foreground leading-relaxed drop-shadow-sm">
-              惠尼專注於打造優雅且高效能的客製化系統解決方案。我們致力於透過深度 AI 整合、流暢的動畫與直觀的 UI/UX 設計，為您的企業創造競爭優勢。
+        <section className="max-w-4xl mx-auto text-center mb-16 md:mb-24 px-4 relative z-10">
+          <div className="bg-card/30 backdrop-blur-md border border-border/50 rounded-2xl p-6 md:p-8 shadow-xl animate-fade-in delay-1000">
+            <h2 className="text-3xl md:text-4xl font-heading font-semibold text-primary mb-6 drop-shadow-sm">{t("home.about_huini_title")}</h2>
+            <p className="text-base md:text-xl font-sans text-foreground leading-relaxed drop-shadow-sm">
+              {t("home.about_huini_desc")}
             </p>
           </div>
         </section>
 
         {/* Demo Quick Access - Cards with Glassmorphism */}
-        <section className="text-center w-full max-w-6xl mx-auto px-4 mb-24 relative z-10">
-          <h2 className="text-4xl font-heading font-semibold text-primary mb-12 drop-shadow-sm animate-fade-in delay-1200">{t("home.quick_access_title", "探索我的演示")}</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="bg-card/30 backdrop-blur-md border border-border/50 rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 animate-fade-in delay-1300">
+        <section className="text-center w-full max-w-6xl mx-auto px-4 mb-16 md:mb-24 relative z-10">
+          <h2 className="text-3xl md:text-4xl font-heading font-semibold text-primary mb-8 md:mb-12 drop-shadow-sm animate-fade-in delay-1200">{t("home.quick_access_title", "探索我的演示")}</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:grid-cols-3 md:gap-8">
+            <div className="bg-card/30 backdrop-blur-md border border-border/50 rounded-2xl p-6 md:p-8 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 animate-fade-in delay-1300">
               <h3 className="text-2xl font-heading font-bold text-primary mb-3 drop-shadow-sm">{t("demos_list.dashboard_title")}</h3>
               <p className="text-base font-sans text-foreground mb-4 drop-shadow-sm">{t("home.demo_saas_desc", "結合 AI 洞察的數據分析與互動圖表。")}</p>
               <a href="/demos/dashboard" className="text-accent hover:underline font-sans font-medium inline-flex items-center group">

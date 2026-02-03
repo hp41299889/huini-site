@@ -109,7 +109,7 @@ export default function LmsDemo() {
 
   const renderDashboard = () => (
     <div className="space-y-6">
-      <div className="grid gap-4 md:grid-cols-3">
+      <div className="grid gap-4 grid-cols-1 sm:grid-cols-3">
         <Card className="bg-primary text-primary-foreground">
           <CardHeader className="pb-2">
             <CardTitle className="text-sm font-medium">{t("lms.stats.learning_time")}</CardTitle>

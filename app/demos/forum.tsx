@@ -325,14 +325,14 @@ export default function ForumDemo() {
       </aside>
 
       {/* Main Content */}
-      <main className="flex-1 max-w-4xl mx-auto px-6 py-10">
-        <header className="mb-10 space-y-6">
-          <div className="flex items-center justify-between">
-            <div className="relative flex-1 max-w-md">
+      <main className="flex-1 max-w-4xl mx-auto px-4 md:px-6 py-6 md:py-10">
+        <header className="mb-6 md:mb-10 space-y-6">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div className="relative flex-1 w-full sm:max-w-md">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-              <Input placeholder={t("common.search")} className="pl-10 rounded-full border-none shadow-sm h-12 bg-background" />
+              <Input placeholder={t("common.search")} className="pl-10 rounded-full border-none shadow-sm h-12 bg-background w-full" />
             </div>
-            <Button className="rounded-full h-12 px-6 font-bold shadow-lg shadow-primary/20 bg-primary text-white">
+            <Button className="rounded-full h-12 px-6 font-bold shadow-lg shadow-primary/20 bg-primary text-white w-full sm:w-auto">
               <Plus className="mr-2 h-5 w-5" /> {t("forum.start_discussion")}
             </Button>
           </div>

@@ -262,7 +262,7 @@ export default function BookingSystemDemo() {
             <div 
               key={i} 
               className={cn(
-                "h-1.5 w-8 rounded-full transition-colors",
+                "h-1.5 w-6 md:w-8 rounded-full transition-colors",
                 step >= i ? "bg-primary" : "bg-muted"
               )}
             />
