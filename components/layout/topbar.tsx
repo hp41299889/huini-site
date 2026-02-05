@@ -19,54 +19,76 @@ export default function Topbar() {
   return (
     <header
       className={cn(
-        "bg-background/80 backdrop-blur-md text-foreground border-b border-border flex justify-between items-center font-sans px-4 py-3 sticky top-0 z-[100]",
+        "sticky top-0 z-[100] w-full transition-all duration-300",
+        "bg-background/60 backdrop-blur-xl border-b border-border/40 shadow-sm",
+        "h-[var(--nav-height-mobile)] md:h-[var(--nav-height)]"
       )}
     >
-      <div className="flex items-center space-x-8">
-        <Link
-          to="/"
-          className="hover:opacity-80 transition-opacity duration-200"
-        >
-          <img 
-            src="/images/huini-logo.png" 
-            alt={t("navbar.site_title")} 
-            className="h-10 w-auto md:h-12"
-          />
-        </Link>
-      </div>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full">
+        <div className="flex justify-between items-center h-full">
+          {/* Logo Section */}
+          <div className="flex items-center">
+            <Link
+              to="/"
+              className="flex items-center gap-2 hover:opacity-90 transition-all duration-200 group"
+            >
+              <div className="relative h-10 w-auto md:h-12 overflow-hidden">
+                <img 
+                  src="/images/huini-logo.png" 
+                  alt={t("navbar.site_title")} 
+                  className="h-full w-auto object-contain transform group-hover:scale-105 transition-transform duration-300"
+                />
+              </div>
+            </Link>
+          </div>
 
-      <div className="hidden md:block">
-        <Navbar />
-      </div>
+          {/* Center Navigation - Hidden on Mobile */}
+          <div className="hidden md:flex flex-1 justify-center px-8">
+            <Navbar />
+          </div>
 
-      <div className="hidden md:flex items-center space-x-6">
-        <Link
-          to="/cooperate"
-          className="text-foreground hover:text-primary transition-colors duration-200 text-sm font-medium"
-        >
-          我要合作
-        </Link>
-        <Button
-          variant="ghost"
-          size="icon"
-          onClick={toggleTheme}
-          aria-label={t("navbar.toggle_theme")}
-        >
-          {theme === "dark" ? (
-            <Sun size={20} className="text-foreground" />
-          ) : (
-            <Moon size={20} className="text-foreground" />
-          )}
-        </Button>
-        <Button
-          variant="ghost"
-          onClick={handleLanguageToggle}
-          className="flex items-center"
-          data-testid="language-toggle"
-        >
-          <Languages size={20} className="text-foreground" />
-          <span className="ml-1 uppercase text-foreground text-xs">{language}</span>
-        </Button>
+          {/* Right Action Section */}
+          <div className="hidden md:flex items-center space-x-2 lg:space-x-4">
+            <Link to="/cooperate">
+              <Button
+                variant="default"
+                size="sm"
+                className="bg-primary text-primary-foreground hover:bg-primary/90 shadow-md hover:shadow-lg transition-all duration-300 font-semibold px-6 rounded-full cursor-pointer"
+              >
+                {t("navbar.cooperate")}
+              </Button>
+            </Link>
+
+            <div className="flex items-center bg-muted/30 rounded-full p-1 border border-border/20">
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={toggleTheme}
+                className="rounded-full w-9 h-9 hover:bg-background/80 transition-colors cursor-pointer"
+                aria-label={t("navbar.toggle_theme")}
+              >
+                {theme === "dark" ? (
+                  <Sun size={18} className="text-yellow-500 animate-in fade-in zoom-in duration-300" />
+                ) : (
+                  <Moon size={18} className="text-slate-700 animate-in fade-in zoom-in duration-300" />
+                )}
+              </Button>
+
+              <div className="w-[1px] h-4 bg-border/40 mx-1" />
+
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={handleLanguageToggle}
+                className="rounded-full px-3 h-9 hover:bg-background/80 transition-colors cursor-pointer flex items-center gap-1.5"
+                data-testid="language-toggle"
+              >
+                <Languages size={16} className="text-foreground/70" />
+                <span className="uppercase text-[11px] font-bold tracking-wider">{language}</span>
+              </Button>
+            </div>
+          </div>
+        </div>
       </div>
     </header>
   );

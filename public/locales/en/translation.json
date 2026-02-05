@@ -81,7 +81,21 @@
     "blog_title": "Blog/Article Platform",
     "forum_title": "Forum/Community Site",
     "portfolio_title": "Personal Portfolio/Website",
-    "todo_list_title": "To-Do List/Task Manager"
+    "todo_list_title": "To-Do List/Task Manager",
+    "erp_description_short": "Comprehensive enterprise management integrating supply chain, finance, and HR.",
+    "dashboard_description_short": "Visualize core business metrics with real-time monitoring and AI insights.",
+    "booking_system_description_short": "Seamless booking experience for hair salons, clinics, and service industries.",
+    "project_management_description_short": "Kanban-style task management for efficient team collaboration and tracking.",
+    "lms_description_short": "Modern online learning platform with course management and achievement systems.",
+    "cms_description_short": "Powerful content editing and media management with AI-assisted drafting.",
+    "content_promotion_description_short": "High-conversion marketing pages with dynamic effects and brand showcase.",
+    "blog_description_short": "Responsive blogging platform providing premium reading experience and tagging.",
+    "social_media_feed_description_short": "Dynamic social media interface with profiles, live feeds, and interactions.",
+    "corporate_website_description_short": "Professional corporate site showcasing services, team, and latest news.",
+    "ecommerce_onepage_description_short": "Beautiful one-page shopping experience tailored for single products or events.",
+    "ecommerce_platform_description_short": "Full-featured e-commerce platform supporting categories, search, and cart.",
+    "forum_description_short": "Highly interactive community forum with nested replies and user badges.",
+    "portfolio_description_short": "Dynamic portfolio showcasing personal works and technical skills in multi-language."
   },
   "demos_categories": {
     "business_applications": "Business Applications",

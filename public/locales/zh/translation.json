@@ -81,7 +81,21 @@
     "blog_title": "部落格/文章平台",
     "forum_title": "論壇/社群網站",
     "portfolio_title": "個人作品集/網站",
-    "todo_list_title": "待辦事項/任務管理器"
+    "todo_list_title": "待辦事項/任務管理器",
+    "erp_description_short": "整合供應鏈、財務與人力資源的全方位企業管理系統。",
+    "dashboard_description_short": "視覺化呈現核心業務指標，支援即時數據監控與 AI 分析建議。",
+    "booking_system_description_short": "流暢的預約流程設計，適用於美髮、診所與各類服務業。",
+    "project_management_description_short": "看板式任務管理工具，助力團隊高效協作與進度追蹤。",
+    "lms_description_short": "現代化在線學習平台，包含課程管理、成就系統與學習進度追蹤。",
+    "cms_description_short": "強大的內容編輯與媒體管理系統，支援 AI 輔助撰稿與預覽。",
+    "content_promotion_description_short": "高轉換率的行銷宣傳頁面，結合動態特效與品牌展示。",
+    "blog_description_short": "響應式部落格平台，提供優質的閱讀體驗與標籤分類。",
+    "social_media_feed_description_short": "動態社交媒體界面，包含個人檔案、實時動態與互動功能。",
+    "corporate_website_title_description_short": "專業的企業形象網站，展示服務內容、團隊與最新動態。",
+    "ecommerce_onepage_description_short": "精美的一頁式購物體驗，專為單一產品或活動打造。",
+    "ecommerce_platform_description_short": "功能齊全的電子商務平台，支援分類、搜尋與購物車。",
+    "forum_description_short": "互動性強的社群討論區，支持多級回覆與用戶頭銜。",
+    "portfolio_description_short": "展示個人作品與技術能力的動態作品集，支援多語系切換。"
   },
   "demos_categories": {
     "business_applications": "商業應用",

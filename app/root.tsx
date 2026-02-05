@@ -41,7 +41,14 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
   return (
     <I18nextProvider i18n={i18n}> {/* Wrap with I18nextProvider */}
-      <html lang={language} className={theme}>
+      <html 
+        lang={language} 
+        className={theme}
+        style={{ 
+          "--nav-height": "80px",
+          "--nav-height-mobile": "64px"
+        } as React.CSSProperties}
+      >
         <head>
           <meta charSet="utf-8" />
           <meta name="viewport" content="width=device-width, initial-scale=1" />

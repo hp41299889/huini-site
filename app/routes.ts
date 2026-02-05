@@ -13,6 +13,7 @@ export default [
     route("cooperate", "cooperate.tsx"), // Cooperate page
     ...prefix("demos", [
       layout("./demos/layout.tsx", [
+        index("./demos/index.tsx"),
         route("cms", "./demos/cms.tsx"),
         route("ecommerce-onepage", "./demos/ecommerce-onepage.tsx"),
         route("content-promotion", "./demos/content-promotion.tsx"),
