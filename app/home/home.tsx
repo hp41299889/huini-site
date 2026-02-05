@@ -15,7 +15,7 @@ export default function Home() {
       {/* Content Sections */}
       <main className="flex flex-col items-center justify-center flex-1 z-10 p-4 w-full max-w-6xl mx-auto">
         {/* Hero Section */}
-        <section className="text-center mb-16 md:mb-24 mt-8 md:mt-16 px-4 relative isolate">
+        <section id="hero" className="text-center mb-16 md:mb-24 mt-8 md:mt-16 px-4 relative isolate">
           <h1 className="text-5xl md:text-8xl font-heading font-bold text-primary mb-6 leading-tight animate-fade-in-up drop-shadow-md">
             {t("home.hero_title", "以智慧構建")}
           </h1>

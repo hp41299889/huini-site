@@ -4,13 +4,11 @@ import { MobileMenu } from "~/layout/mobile-menu";
 
 export default function Layout() {
   return (
-    <div className="flex flex-col h-screen bg-background text-foreground overflow-hidden">
+    <div className="flex flex-col min-h-screen bg-background text-foreground relative">
       <Topbar /> {/* Use the Topbar component here */}
-      <div className="flex flex-1 overflow-hidden relative">
-        <main className="flex-1 overflow-auto p-4 md:p-8 w-full pb-20 md:pb-8">
-          <Outlet />
-        </main>
-      </div>
+      <main className="flex-1 p-4 md:p-8 w-full pb-20 md:pb-8">
+        <Outlet />
+      </main>
       <MobileMenu />
     </div>
   );
